@@ -1,0 +1,38 @@
+---
+title: 깃허브 블로그 글 작성 테스트 복사본 3
+date: 2022-01-05 21:00:00 +0900
+categories: [Github-blog]
+tags: [blog] # TAG는 반드시 소문자로 이루어져야함!
+---
+
+## h2 큰 제목2
+
+깃허브 블로그 포스팅 테스트 깃허브 블로그 포스팅 테스트 깃허브 블로그 포스팅 테스트 깃허브 블로그 포스팅 테스트 깃허브 블로그 포스팅 테스트 깃허브 블로그 포스팅 테스트
+
+## Prompt 테스트
+
+{: .prompt-info }
+
+> Prompt 테스트1
+
+{: .prompt-tip }
+
+> Prompt 테스트2
+
+{: .prompt-danger }
+
+> Prompt 테스트3
+
+{: .prompt-warning }
+
+> Prompt 테스트4
+
+
+
+## Table 테스트
+
+| Company                      | Contact          | Country |
+| :--------------------------- | :--------------- | ------: |
+| Alfreds Futterkiste          | Maria Anders     | Germany |
+| Island Trading               | Helen Bennett    |      UK |
+| Magazzini Alimentari Riuniti | Giovanni Rovelli |   Italy |
