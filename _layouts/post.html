@@ -122,7 +122,7 @@ tail_includes:
       pb-2
     "
   >
-    <div class="license-wrapper">
+    <!-- <div class="license-wrapper">
       {% if site.data.locales[site.lang].copyright.license.template %} {%
       capture _replacement %}
       <a href="{{ site.data.locales[site.lang].copyright.license.link }}">
@@ -131,7 +131,7 @@ tail_includes:
       {% endcapture %} {{
       site.data.locales[site.lang].copyright.license.template | replace:
       ':LICENSE_NAME', _replacement }} {% endif %}
-    </div>
+    </div> -->
 
     {% include post-sharing.html %}
   </div>
