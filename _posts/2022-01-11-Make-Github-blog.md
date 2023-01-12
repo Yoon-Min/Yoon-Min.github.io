@@ -57,12 +57,14 @@ gem install jekyll bundler
 
 ## 테마 파일들 가져오기
 
-방법은 크게 두 가지가 있습니다. 저는 두 번째 방법으로 설명드리겠습니다.
+포크 방식과 압축파일을 다운하는 방법이 있는데 저는 두 번째 방법인 압축파일 다운 방식을 기준으로 설명하겠습니다.
 
 ### 두 가지 방법
 
-1. [**테마 저장소**](https://github.com/cotes2020/jekyll-theme-chirpy)  `frok`를 해서 `fork`한 저장소 이름을 `{본인의 깃허브 네임}.github.io`로 변경해서 사용
-2. [**테마 저장소**](https://github.com/cotes2020/jekyll-theme-chirpy) `Download zip`을 통해서 가져오기
+1. [**테마 저장소**](https://github.com/cotes2020/jekyll-theme-chirpy) **를  `fork` 해서 `fork`한 저장소 이름을 `{본인의 깃허브 네임}.github.io`로 변경해서 사용**
+   - 포크한 저장소를 `git clone`을 통해서 연결한다.
+2. [**테마 저장소**](https://github.com/cotes2020/jekyll-theme-chirpy) **`Download zip`을 통해서 가져오기**
+   - 저장소를 직접 만들고 `git clone`으로 연결한 후에 다운받은 폴더를 저장소와 연결된 로컬 폴더에 넣는다.
 
 ### zip 다운로드
 
@@ -72,7 +74,7 @@ gem install jekyll bundler
 
 ### 테마 파일 초기화
 
-현재 다운받은 테마 파일들은 완전히 초기의 상태가 아니라 제작자가 데모 사이트를 위해서 몇 가지 작업이 추가된 상태이므로 초기 상태로 만들어줘야 합니다. 초기화 코드는 다음과 같습니다. 해당 코드는 제작자의 시작 가이드에서 가져왔습니다.
+현재 다운받은 테마 파일들은 완전히 초기의 상태가 아니라 제작자에 의해서 계속해서 업데이트가 된 상태입니다. 따라서 본인만의 블로그를 세팅하려면 초기 상태로 만들어줘야 합니다. 초기화 코드는 다음과 같습니다. 해당 코드는 제작자의 시작 가이드에서 가져왔습니다.
 
 ```bash
 bash tools/init
@@ -82,4 +84,70 @@ bash tools/init
 
 테마 파일을 다운받으면 그 중에 `tools` 라는 이름의 폴더가 있는데 그 안에 `init` 이 존재합니다. 이 `init` 을 이용해서 초기화를 진행시키는 것입니다. 그런데 저는 아무리 시도해봐도 `tools` 디렉토리가 인식이 안되는 건지 초기화가 안됐습니다. 폴더가 존재하는데 디렉토리가 없다고 계속 오류가 발생해서 결국 터미널을 통한 초기화를 할 수 없었습니다.
 
-다행히도 **특정 파일이나 폴더를 직접 지우는 것으로 초기화를 대신할 수 있어서 저는 수작업으로 초기화를 진행**했습니다. 테마 파일 원본(숨겨진 파일이나 폴더도 모두 표시)은 다음과 같습니다. 
+{: .prompt-tip }
+
+> bash 사용이 제한이 되거나 저처럼 초기화가 안되는 경우에는 **직접 테마 폴더를 건드려서 초기화**를 하면 됩니다.
+
+### 직접 초기화?
+
+직접 초기화는 다운받은 테마 폴더 내의 파일 혹은 폴더들을 수정하거나 삭제하는 방식입니다. 다른 블로그들의 글에서 삭제하라는 파일 혹은 폴더가 현재 다운받은 폴더 내에 없을 수 있습니다. 아마 이 부분도 제작자가 업데이트 하면서 일부는 없앤 것 같습니다. 그래서 있는 것들만 수정하거나 삭제하시면 됩니다.
+
+### 수정 및 삭제 목록
+
+{: .prompt-warning }
+
+> 숨긴 파일들 표시를 꼭 해주세요.
+
+​    
+
+- `.github` 폴더 내에 `workflows` 폴더를 제외하고 모두 삭제
+- `github/workflows` 내에 `commitlint.yml` 과 `page-deploy.yml.hook` 제외하고 모두 삭제
+- `page-deploy.yml.hook` 파일의 `.hook` 부분을 없애서 `page-deploy.yml` 로 수정
+- `_config.yml` 에서 `url: ''` 부분에 본인의 깃허브 블로그 주소 넣기
+
+​    
+
+---
+
+​    
+
+- `.github/workflows/page-deploy.yml` 에서 루비 버전을 로컬 버전이랑 맞춰주세요. `jobs:`  내의  `build:` 부분을 찾아보면 밑의 코드처럼 루비 설정에 관한 부분을 찾을 수 있습니다. 제가 사용하는 루비 버전은 `3.1.3` 이므로 `ruby-version: "" ` 에 `3.1.3`  를 적었습니다. 
+
+```yaml
+jobs:
+  build:
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1.3" # reads from a '.ruby-version' or '.tools-version' file if 'ruby-version' is omitted
+          bundler-cache: true
+```
+
+
+
+- `.github/workflows/page-deploy.yml` 에서 설정된 브랜치를 확인해주세요. 2번 라인에 밑의 코드를 확인할 수 있습니다. 연결된 저장소에 저 둘 중에 해당되는 브랜치가 있으면 됩니다. 제 저장소는 `main` 브랜치를 사용했습니다.
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+```
+
+{: .prompt-tip }
+
+> `page-deploy.yml` 에 등록된 브랜치와 루비 정보를 토대로 build가 진행됩니다.
+
+
+
+## 깃허브 저장소에 PUSH
+
+
+
+
+

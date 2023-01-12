@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-01-12T00:49:49+09:00</updated>
+  <updated>2023-01-12T16:46:58+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -55,58 +55,6 @@ jekyll의 Chirpy 테마를 기준으로 진행합니다. 현재 이 블로그의
 저는 Chirpy테마를 적용하기 위해서 해당 테마에 대한 여러 블로그 글과 제작자의 가이드를 참고해서 하라는 대로 따라했는데 중간 과정들의 결과가 블로그의 글과 달라서 당황했던 기억이 있습니다. 아무래도 제작자 분이 해당 테마의 적용 방식에 대한 업데이트를 여러 번 진행해서 적용 방법이 이전과 약간 달라진 것 같습니다.
 
 그래서 앞으로 Chirpy테마를 적용하려는 분들에게 적용 방법과  제가 겪었던 문제점들을 공유하고자 합니다. 아마 이 글을...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Typography 타이포그래피</title>
-    <link href="http://localhost:4000/posts/text-and-typography/" rel="alternate" type="text/html" title="Typography 타이포그래피" />
-    <published>2019-08-08T12:33:00+09:00</published>
-  
-    <updated>2019-08-08T12:33:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/text-and-typography/</id>
-    <content src="http://localhost:4000/posts/text-and-typography/" />
-    <author>
-      <name>cotes</name>
-    </author>
-
-  
-    
-    <category term="Blogging" />
-    
-    <category term="Demo" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.
-
-Titles 제목
-
-H1 - heading 헤딩
-
-H2 - heading 헤딩
-
-H3 - heading 헤딩
-
-H4 - heading 헤딩
-
-
-
-Paragraph 파라그래프
-
-Quisque egestas convallis ipsum, ut sollicitudin risus tincidunt a. Maecenas interdum malesuada egestas. Duis consectetur porta risus, sit amet v...
     </summary>
   
 
