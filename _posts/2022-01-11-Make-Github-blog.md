@@ -147,7 +147,37 @@ on:
 
 ## 깃허브 저장소에 PUSH
 
+### 그 전에 로컬 주소로 테스트 해보기
 
+```bash
+bundle exec jekyll serve
+```
 
+```bash
+Server address: http://127.0.0.1:4000/
+```
 
+깃허브에 올리기 전에 위의 첫 번째 명령을 실행했다면 두 번째의 로컬 주소를 얻을 수 있습니다.  해당 주소로 이동해서 블로그 상태를 체크해보세요. 아마 `_posts` 폴더에 있던 가이드 파일들을 그대로 뒀다면 블로그 글 목록에 가이드 글들이 나타날 것이고, 전부 삭제를 했다면 블로그 글이 하나도 없는 깨끗한 상태일 것입니다.
+
+저는 나중에 글 쓰면서 가이드를 참고하기 위해서 완전히 삭제하지 않고 따로 바탕화면에 옮겼습니다. 가이드 글은 제작자의 데모 사이트에도 있으니 그냥 삭제하셔도 됩니다.
+
+### Github Actions
+
+이제 커밋을하고 푸시를 하면 저장소 상단 탭에 있는 `Actions` 에서 블로그 빌드가 진행됩니다. 빌드는 완료되는데 약간 시간이 걸립니다. 빌드가 정상적으로 끝났다면 이제 본인의 깃허브 블로그 주소에 접속해보세요. 테마가 적용된 모습을 볼 수 있습니다.
+
+하지만 저는 여기서 오류가 발생했었는데 루비와 관련된 에러였습니다. `.github/workflows/page-deploy.yml` 에서 분명 루비 버전도  `3.1.3` 으로 맞췄는데 이런 오류가 뜨니 당황스러웠습니다.
+
+```
+Error: The process '/opt/hostedtoolcache/Ruby/3.1.3/x64/bin/bundle' failed with exit code 16
+```
+
+해당 문제에 대해서 구글링을 한 결과, 다음 코드를 통해 해결할 수 있었습니다.
+
+```bash
+bundle lock --add-platform x86_64-linux
+```
+
+참고한 글의 링크입니다.
+
+https://stackoverflow.com/questions/72331753/ruby-and-rails-github-action-exit-code-16
 
