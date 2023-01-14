@@ -1,7 +1,7 @@
 ---
 title: Chirpy 테마를 이용한 Github 블로그 만들기
 author: yoonmin
-date: 2022-01-14 00:00:00 +0900
+date: 2023-01-14 00:00:00 +0900
 categories: [블로그, Github 블로그 만들기]
 tags: [Github 블로그]
 render_with_liquid: false
@@ -65,11 +65,13 @@ gem install jekyll bundler
 2. [**테마 저장소**](https://github.com/cotes2020/jekyll-theme-chirpy) **`Download zip`을 통해서 가져오기**
    - 저장소를 직접 만들고 `git clone`으로 연결한 후에 다운로드한 폴더를 저장소와 연결된 로컬 폴더에 넣는다.
 
+​    
+
 ### zip 다운로드
 
 ![image](https://user-images.githubusercontent.com/80873132/211842094-6d9046ed-0bad-4588-905a-3e50e6bdaddf.png)
 
-
+​    
 
 ### 테마 파일 초기화
 
@@ -78,6 +80,8 @@ gem install jekyll bundler
 ```bash
 bash tools/init
 ```
+
+​    
 
 ### 그런데 문제가....
 
