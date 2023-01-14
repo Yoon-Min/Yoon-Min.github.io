@@ -20,7 +20,7 @@ timezone: Asia/Seoul
 
 title: Yoon-Min # the main title
 
-tagline: 모르는게 참 많아요. # it will display as the sub-title
+tagline: 모르는 게 참 많아요. # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.
@@ -53,7 +53,7 @@ google_site_verification: DtdtL8q6UjIspU6eT9hV-syrKwp-Uk3OsKKDlH3p0nE
 # The end of `jekyll-seo-tag` settings
 
 google_analytics:
-  id: # fill in your Google Analytics ID
+  id: G-MJ112G9ZVQ
   # Google Analytics pageviews report settings
   pv:
     proxy_endpoint: # fill in the Google Analytics superProxy endpoint of Google App Engine
