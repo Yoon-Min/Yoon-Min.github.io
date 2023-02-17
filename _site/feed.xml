@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-02-14T23:23:09+09:00</updated>
+  <updated>2023-02-17T16:43:46+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,51 @@
 
   
   <entry>
+    <title>Union-Find 유니온 파인드</title>
+    <link href="http://localhost:4000/posts/Uinon-Find/" rel="alternate" type="text/html" title="Union-Find 유니온 파인드" />
+    <published>2023-02-17T12:00:00+09:00</published>
+  
+    <updated>2023-02-17T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Uinon-Find/</id>
+    <content src="http://localhost:4000/posts/Uinon-Find/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="알고리즘" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      서로소 집합(disjoint-set)을 관리하는 자료 구조
+
+다양한 원소들이 서로소 집합을 이루는 경우가 있습니다. 필요에 따라서 이 집합들을 이용하여 서로 합치거나 특정 원소를 통해 특정 집합을 탐색할 수도 있습니다. 유니온 파인드(union-find)는 그래프 알고리즘으로 서로소 집합을 관리하며 서로 다른 두 노드가 동일한 집합에 있는지 판별합니다.
+
+유니온 파인드는 서로 다른 두 노드가 같은 집합에 있는지 판별하기 위해서 각 집합의 대표 원소를 참고합니다. 여기서 대표 원소라 함은 연결 리스트에서는 헤드가 되며 트리에서는 루트 노드가 해당됩니다. 두 노드가 속한 집합의 대표 원소를 찾아서 대표 원소가 서로 동일하면 같은 집합에 있는 걸로 판단하게 됩니다. 이러한 판단 과정에서 여러 집합들이 합쳐지...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Android 액티비티 생명주기</title>
     <link href="http://localhost:4000/posts/android-lifecycle/" rel="alternate" type="text/html" title="Android 액티비티 생명주기" />
     <published>2023-02-14T00:00:00+09:00</published>
   
-    <updated>2023-02-11T01:00:15+09:00</updated>
+    <updated>2023-02-14T23:23:48+09:00</updated>
   
     <id>http://localhost:4000/posts/android-lifecycle/</id>
     <content src="http://localhost:4000/posts/android-lifecycle/" />
