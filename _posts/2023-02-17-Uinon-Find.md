@@ -17,11 +17,11 @@ render_with_liquid: false
 
 ## 연산의 종류
 
-| 연산                                            | 특징                                            |
-| :---------------------------------------------- | :---------------------------------------------- |
-| <span style="color: #30aaa0">**MakeSet**</span> | 특정 한 원소만 존재하는 집합을 만든다.          |
-| <span style="color: #30aaa0">**Union**</span>   | 두 개의 집합을 하나의 집합으로 합친다.          |
-| <span style="color: #30aaa0">**Find**</span>    | 특정 원소에가 속한 집합의 대표 원소를 반환한다. |
+| 연산                                            | 특징                                          |
+| :---------------------------------------------- | :-------------------------------------------- |
+| <span style="color: #30aaa0">**MakeSet**</span> | 특정 한 원소만 존재하는 집합을 만든다.        |
+| <span style="color: #30aaa0">**Union**</span>   | 두 개의 집합을 하나의 집합으로 합친다.        |
+| <span style="color: #30aaa0">**Find**</span>    | 특정 원소가 속한 집합의 대표 원소를 반환한다. |
 
 ​			
 
@@ -45,7 +45,7 @@ render_with_liquid: false
 
 두 리스트를 붙이는 연산을 수행합니다. 한 리스트의 헤드 부분이 다른 리스트의 꼬리(Tail) 부분을 가리키는 방식으로 연결합니다.   예시에서는 Y에 해당되는 리스트의 헤드가 X 리스트의 꼬리에 연결됩니다.
 
-![Component 4](https://user-images.githubusercontent.com/80873132/219955535-06d14f8e-7bfe-4cdf-94aa-cd0b2da8f681.png){: .normal}
+![Component 5](https://user-images.githubusercontent.com/80873132/220040318-f78ca869-950e-4288-8596-3d03ed0f22f9.png){: .normal}
 
 ​		
 
@@ -54,3 +54,87 @@ render_with_liquid: false
 만약 원소 4가 속한 집합의 대표 원소를 찾고자 한다면 해당 리스트의 헤드까지 쭉 탐색을 합니다. 해당 예시처럼 특정 집합의 대표 원소를 찾을 때 운 안 좋게 꼬리 부분의 원소를 지목하게 되면 연결 리스트의 모든 원소를 탐색하게 됩니다.
 
 ![Component 3](https://user-images.githubusercontent.com/80873132/219956460-f67ccd5d-a9fc-4418-be61-497c13981f7d.png){: .normal}
+
+​		
+
+## 트리 구조를 이용한 관리
+
+### MakeSet
+
+연결 리스트 예시와 마찬가지로 원소는 1부터 8까지 8개가 있다고 가정하겠습니다. 트리에서는 루트 노드가 해당 집합의 대표 원소가 됩니다.
+
+![Component 4](https://user-images.githubusercontent.com/80873132/220027222-16a7a7f2-44df-4343-834c-fd19270cdfc6.png){: .normal}
+
+​		
+
+### Union
+
+두 개의 집합을 합칠 때 하나의 집합이 다른 집합의 자식 노드로 들어가게 됩니다. 유니온을 진행함에 따라서 트리의 깊이가 더 커질 수 있습니다.
+
+![Component 6](https://user-images.githubusercontent.com/80873132/220040777-2e25970a-0596-4624-b23f-5d6996190e7f.png){: .normal}
+
+
+
+​		
+
+---
+
+​		
+
+
+
+![Component 7](https://user-images.githubusercontent.com/80873132/220042073-09112d5c-ddae-4b6c-9e3d-33548618a99e.png){: .normal}
+
+​		
+
+### Find
+
+지목한 원소의 지점부터 루트 노드까지 이동합니다. 루트 노드에 도착하면 루트 노드의 원소를 리턴합니다. 원소 2를 지목하여 2가 위치한 집합의 대표 원소를 찾아보겠습니다.
+
+![Component 11](https://user-images.githubusercontent.com/80873132/220044423-a7be895c-7cf0-4628-a9ae-09a22508c76f.png){:.normal}
+
+​		
+
+## 코드로 구현
+
+연결 리스트와 트리 구조를 코드로 구현해보겠습니다. 연결 리스트와 트리 구조의 노드는 구조체나 클래스 등을 통해서 만들 수 있지만 배열 하나만 있어도 노드 관리가 가능합니다.
+
+배열의 인덱스가 각 원소의 번호이며 인덱스에 해당하는 값은 해당 인덱스(원소 번호) 가 가리키고 있는 노드의 원소 번호입니다. 따라서 집합 내에서 대표 원소는 최상위에 위치하므로 가리킬 대상이 없고 자기자신을 가리키게 됩니다. 여기서는 배열의 이름를 `parent` 라고 하겠습니다.
+
+
+
+### MakeSet
+
+``` c++
+void MakeSet(int X) {
+  parent[x] = x;
+}
+```
+
+
+
+### Union
+
+```c++
+void Union(int x, int y) {
+    x = Find(parent[x]);
+    y = Find(parent[y]);
+    parent[x] = y;
+}
+```
+
+
+
+### Find
+
+```c++
+int Find(int x) {
+    if(parent[x] == x) return x;
+    return Find(parent[x]);
+}
+```
+
+​		
+
+## 하지만 문제점이 존재한다.
+
