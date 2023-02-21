@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-02-21T02:15:55+09:00</updated>
+  <updated>2023-02-21T16:44:05+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Union-Find 유니온 파인드</title>
     <link href="http://localhost:4000/posts/Uinon-Find/" rel="alternate" type="text/html" title="Union-Find 유니온 파인드" />
-    <published>2023-02-17T12:00:00+09:00</published>
+    <published>2023-02-21T12:00:00+09:00</published>
   
-    <updated>2023-02-20T17:23:52+09:00</updated>
+    <updated>2023-02-21T02:16:10+09:00</updated>
   
     <id>http://localhost:4000/posts/Uinon-Find/</id>
     <content src="http://localhost:4000/posts/Uinon-Find/" />

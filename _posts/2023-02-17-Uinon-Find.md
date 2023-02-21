@@ -1,9 +1,9 @@
 ---
 title: Union-Find 유니온 파인드
 author: yoonmin
-date: 2023-02-17 12:00:00 +0900
+date: 2023-02-21 12:00:00 +0900
 categories: [CS, 알고리즘]
-tags: [자료구조, 유니온 파인드]
+tags: [알고리즘, 자료구조, 유니온 파인드]
 render_with_liquid: false
 ---
 
@@ -103,9 +103,9 @@ render_with_liquid: false
 
 ## 코드로 구현
 
-연결 리스트와 트리 구조를 코드로 구현해보겠습니다. 연결 리스트와 트리 구조의 노드는 구조체나 클래스 등을 통해서 만들 수 있지만 배열로도 구현이 가능합니다.
+연결 리스트와 트리 구조를 코드로 구현해 보겠습니다. 연결 리스트와 트리 구조의 노드는 구조체나 클래스 등을 통해서 만들 수 있지만 배열로도 구현이 가능합니다.
 
-배열의 인덱스가 각 원소의 번호이며 인덱스에 해당하는 값은 해당 인덱스(원소 번호) 가 가리키고 있는 노드의 원소 번호입니다. 따라서 집합 내에서 대표 원소는 최상위에 위치하므로 가리킬 대상이 없고 자기자신을 가리키게 됩니다. 여기서는 배열의 이름를 `parent` 라고 하겠습니다.
+배열의 인덱스가 각 원소의 번호이며 인덱스에 해당하는 값은 해당 인덱스(원소 번호) 가 가리키고 있는 노드의 원소 번호입니다. 따라서 집합 내에서 대표 원소는 최상위에 위치하므로 가리킬 대상이 없고 자기 자신을 가리키게 됩니다. 여기서는 배열의 이름을 `parent` 라고 하겠습니다. <span style="color: #30aaa0">( 예시로 원소는 8개, 1번 ~ 8번까지 있다고 가정하겠습니다. )</span>
 
 
 
@@ -116,6 +116,12 @@ void MakeSet(int X) {
   parent[x] = x;
 }
 ```
+
+|   index    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    |
+| :--------: | :--- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| **parent** | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    |
+
+​		
 
 
 
@@ -129,7 +135,19 @@ void Union(int x, int y) {
 }
 ```
 
+#### ex) Union(1, 2)
 
+|   index    | 1                                         | 2    | 3    | 4    | 5    | 6    | 7    | 8    |
+| :--------: | :---------------------------------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| **parent** | <span style="color: #30aaa0">**2**</span> | 2    | 3    | 4    | 5    | 6    | 7    | 8    |
+
+#### ex) Union(2, 3)
+
+|   index    | 1    | 2                                         | 3    | 4    | 5    | 6    | 7    | 8    |
+| :--------: | :--- | ----------------------------------------- | ---- | ---- | ---- | ---- | ---- | ---- |
+| **parent** | 2    | <span style="color: #30aaa0">**3**</span> | 3    | 4    | 5    | 6    | 7    | 8    |
+
+​		
 
 ### Find
 
@@ -146,15 +164,133 @@ int Find(int x) {
 
 ​		
 
-## 하지만 문제점이 존재한다.
+## 문제점과 해결 방안 : 연결 리스트 방식
 
-지금까지 설명드린 방법은 가장 간단한 방법입니다.  여기서 문제점이 존재합니다. 바로 `Find` 연산입니다. 연결 리스트와 트리 구조 둘 다 깊이가 커지면 대표 원소를 찾는 시간이 그만큼 오래 걸리게 됩니다. 원소가 `n`개라면 최악의 경우에는 `Find`연산이 `O(n)` 이 됩니다. 연산 시간을 단축시키기 위해서는 어떻게 해야 할까요?
-
-
-
-### 연결 리스트는 각 노드에 헤드를 가리키는 포인터를 추가시킨다.
+지금까지 설명드린 방법은 가장 간단한 방법입니다.  여기서 문제점이 존재합니다. 바로 `Find` 연산입니다.  <span style="color: #30aaa0">**연결 리스트와 트리 구조 둘 다 깊이가 커지면 대표 원소를 찾는 시간이 그만큼 오래 걸리게 됩니다.**</span> 원소가 `n`개라면 최악의 경우에는 `Find`연산이 `O(n)` 이 됩니다. 연산 시간을 단축시키기 위해서는 어떻게 해야 할까요?
 
 
 
+### 각 노드에 헤드를 가리키는 포인터를 추가시킨다.
+
+이전에 설명드린 것처럼 연결 리스트는 꼬리(Tail) 부분에서 헤드를 찾게 되면 해당 집합의 모든 원소들을 거치게 됩니다. 운 좋게 원소 2를 지목하면 한 번 이동하고 바로 헤드를 찾게 되지만 그림처럼 꼬리 부분의 원소를 지목하게 될 경우에는 전체를 거쳐서 탐색 시간이 오래 걸리게 됩니다.
+
+![Component 12](https://user-images.githubusercontent.com/80873132/220244759-82a6d8e4-08cc-4c24-8827-cc61d6c7a747.png){:.normal}
+
+​		
+
+그래서 나온 해결책이  <span style="color: #30aaa0">**모든 노드에 헤드를 가리키는 포인터를 추가하는 것**</span>입니다. 그렇게 되면 어느 원소를 지목해도 상수 시간에 바로 헤드에 위치한 원소를 알 수 있습니다.
+
+​	![Component 15](https://user-images.githubusercontent.com/80873132/220248338-ae76d241-4ff6-4a10-ad89-1f9a0284f579.png){:.normal}
 
 
+
+​		
+
+{: .prompt-danger}
+
+> 하지만 만약 Union을 진행하면 합쳐지는 집합의 모든 원소들이 가리키는 헤드 업데이트가 필요하다.
+
+​		
+
+![Component 19](https://user-images.githubusercontent.com/80873132/220250740-47709344-08c3-4b37-8104-3fa0fcddb974.png){:.normal}
+
+​		
+
+![Component 20](https://user-images.githubusercontent.com/80873132/220251260-c688b676-1597-4ff7-a1c5-76b29375edff.png)
+
+​		
+
+​	![Component 18](https://user-images.githubusercontent.com/80873132/220250361-f9f9febf-7db2-4add-97d6-517ac0a76d05.png){:.normal}
+
+​		
+
+## 문제점과 해결 방안 : 트리 구조 방식
+
+### 유니온 바이 랭크(Union by rank)
+
+<span style="color: #30aaa0">**두 집합을 Union 할 때 트리의 깊이가 작은 집합을 트리의 깊이가 큰 집합의 루트 노드에 붙이는 방식입니다.**</span> 이러한 방식으로 유니온을 하면 두 트리의 깊이가 동일한 경우에만 깊이가 증가하게 됩니다. 따라서 깊이가 증가하는 것을 최대한 방지해서 `Find` 연산 시간을 단축시킵니다.
+
+​		
+
+![Component 22](https://user-images.githubusercontent.com/80873132/220267345-3aad9ce0-0d41-43f2-92dd-28f440e7f986.png){:.normal}
+
+​		
+
+{:.prompt-danger}
+
+> 만약 유니온 바이 랭크를 적용하지 않는다면 유니온 했을 때 깊이가 증가할 수 있습니다.
+
+​		
+
+![Component 7](https://user-images.githubusercontent.com/80873132/220266872-3e92fb2b-71c8-438b-9a24-e9f50c7eac2c.png){:.normal}
+
+​			
+
+### 유니온 바이 랭크 구현
+
+```
+ function MakeSet(x)
+     x.parent := x
+     x.rank   := 0
+```
+
+```
+ function Union(x, y)
+     xRoot := Find(x)
+     yRoot := Find(y)
+     // if x and y are already in the same set (i.e., have the same root or representative)
+     if xRoot == yRoot
+         return
+```
+
+```
+     // x and y are not in same set, so we merge them
+     if xRoot.rank < yRoot.rank
+         xRoot.parent := yRoot
+     else if xRoot.rank > yRoot.rank
+         yRoot.parent := xRoot
+     else
+         yRoot.parent := xRoot
+         xRoot.rank := xRoot.rank + 1
+```
+
+{:.prompt-info}
+
+> 해당 코드는 **wekipedia 서로소 집합 자료 구조**에서 참조했음을 알려드립니다.
+>
+> [**wekipedia 서로소 집합 자료 구조**](https://ko.wikipedia.org/wiki/%EC%84%9C%EB%A1%9C%EC%86%8C_%EC%A7%91%ED%95%A9_%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)
+
+​		
+
+### 경로 압축(path compression)
+
+ `Find(x)` 연산은 원소 `x` 가 속한 집합의 대표 원소를 찾아줍니다. 가장 간단한 방법은 대표 원소를 찾아 반환하고 끝내는 방식이지만 경로 압축에서는 <span style="color: #30aaa0">**대표 원소를 반환하기 전에 `x` 를 루트 노드(대표 원소)에 연결**</span>하고 대표 원소를 반환합니다. 이렇게 하면 모든 원소들이 대표 원소를 의미하는 루트 노드를 가리키게 됩니다. 이런 방식으로 모든 원소들을 루트 노드(대표 원소)로 연결시키면 연산 시간을 단축시킬 수 있습니다.
+
+​				
+
+![Component 23](https://user-images.githubusercontent.com/80873132/220275279-9033baba-f8ec-41fe-95b6-cda76afca752.png){:.normal}
+
+​		
+
+### 경로 압축 구현
+
+```
+ function Find(x)
+     if x.parent != x
+        x.parent := Find(x.parent)
+     return x.parent
+```
+
+{:.prompt-info}
+
+> 해당 코드는 **wekipedia 서로소 집합 자료 구조**에서 참조했음을 알려드립니다.
+>
+> [**wekipedia 서로소 집합 자료 구조**](https://ko.wikipedia.org/wiki/%EC%84%9C%EB%A1%9C%EC%86%8C_%EC%A7%91%ED%95%A9_%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)
+
+​		
+
+## 참조
+
+[**wekipedia 서로소 집합 자료 구조**](https://ko.wikipedia.org/wiki/%EC%84%9C%EB%A1%9C%EC%86%8C_%EC%A7%91%ED%95%A9_%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)
+
+[**신찬수 교수님 : 자료구조 - union-find 자료구조 1/2**](https://www.youtube.com/watch?v=GaET9oHzC3Q)
