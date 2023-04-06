@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-02-21T16:44:05+09:00</updated>
+  <updated>2023-04-07T02:59:53+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,61 @@
 
   
   <entry>
+    <title>Android의 UI, 뷰(View) 그리고 레이아웃(ViewGroup)</title>
+    <link href="http://localhost:4000/posts/Android-UI/" rel="alternate" type="text/html" title="Android의 UI, 뷰(View) 그리고 레이아웃(ViewGroup)" />
+    <published>2023-04-06T12:00:00+09:00</published>
+  
+    <updated>2023-04-06T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Android-UI/</id>
+    <content src="http://localhost:4000/posts/Android-UI/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="기본" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      모바일 UI는 어떻게 구성되어 있는가?
+
+예시로 우리가 스마트폰을 이용해서 배달의 민족 앱을 이용할 때를 생각해 봅시다. 해당 앱에 접속을 해보면 여러 카테고리 버튼이 있고 밑으로 스크롤을 하면 여러 음식점들의 간략한 정보가 리스트 형식, 혹은 카드 형태로 제공됩니다.
+
+특정 음식점을 클릭하면 해당 음식점에 대한 상세 페이지로 이동하게 되고 여기서는 가게에 대한 텍스트 정보, 음식 사진에 대한 이미지 정보, 메뉴들을 선택할 수 있는 체크박스, 해당 가게 정보를 저장할 수 있는 찜 버튼과 같은 다양한 상호작용 요소들을 볼 수 있습니다.
+
+
+  이렇듯 모바일 UI는 하나의 화면 안에 사용자와 상호작용이 가능한 다양한 요소들이 존재합니다.
+
+
+​
+
+Android는 UI를 어떻게 제작하는가?
+
+그렇다면 And...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Union-Find 유니온 파인드</title>
     <link href="http://localhost:4000/posts/Uinon-Find/" rel="alternate" type="text/html" title="Union-Find 유니온 파인드" />
     <published>2023-02-21T12:00:00+09:00</published>
   
-    <updated>2023-02-21T02:16:10+09:00</updated>
+    <updated>2023-02-21T16:45:22+09:00</updated>
   
     <id>http://localhost:4000/posts/Uinon-Find/</id>
     <content src="http://localhost:4000/posts/Uinon-Find/" />
