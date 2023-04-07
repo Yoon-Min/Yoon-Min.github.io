@@ -209,3 +209,13 @@ render_with_liquid: false
 결국에는 여러 뷰와 뷰그룹을 통해서 UI를 구상하고 완성된 레이아웃 XML 파일은 `Activity` 에 연결되어 사용자에게 제공됩니다. 그래서 액티비티에서 뷰를 참조하여 특정한 UI 처리를 할 수 있습니다. 요즘에는 XML 방식이 아닌 최신 UI 제작 도구인 Jetpack compose를 도입하려는 움직임이 많습니다. 저도 나중에 기회가 되면 꼭 배워보려고 합니다.
 
 마지막으로 혹시나 틀린 부분이 있다면 댓글로 남겨주세요. 바로 수정하도록 하겠습니다. 긴 글 읽어주셔서 감사하고 이 글을 읽는 여러분 모두 좋은 하루 보내시길 바랍니다!
+
+​		
+
+## 참조
+
+[<span style="color: #30aaa0">**안드로이드 공식문서 - 레이아웃**</span>](https://developer.android.com/guide/topics/ui/declaring-layout?hl=ko)
+
+[<span style="color: #30aaa0">**안드로이드 공식문서 - 성능 및 뷰 계층 구조**</span>](https://developer.android.com/topic/performance/rendering/optimizing-view-hierarchies?hl=ko)
+
+[<span style="color: #30aaa0">**찰스의 안드로이드**</span>](https://www.charlezz.com/?p=792)
