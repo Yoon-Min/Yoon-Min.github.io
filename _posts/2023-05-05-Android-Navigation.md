@@ -1,7 +1,7 @@
 ---
 title: Android Navigation에 대해서 알아보자
 author: yoonmin
-date: 2023-05-05 12:00:00 +0900
+date: 2023-05-05 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, UI, 레이아웃, 네비게이션, JetPack]
 render_with_liquid: false

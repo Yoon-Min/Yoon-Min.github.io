@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-05-05T04:14:05+09:00</updated>
+  <updated>2023-05-05T04:19:23+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,50 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android Navigation에 대해서 알아보자</title>
+    <link href="http://localhost:4000/posts/Android-Navigation/" rel="alternate" type="text/html" title="Android Navigation에 대해서 알아보자" />
+    <published>2023-05-05T00:00:00+09:00</published>
+  
+    <updated>2023-05-05T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Android-Navigation/</id>
+    <content src="http://localhost:4000/posts/Android-Navigation/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Jetpack에서 제공하는 Navigation
+
+내비게이션(Navigation)은 안드로이드 Jetpack에서 제공하는 라이브러리 중 하나입니다. 내비게이션은 말 그대로 탐색을 지원하는 라이브러리며 기존의 방식보다 화면 전환을 쉽고 빠르고 유연하게 도와줍니다. 아마 안드로이드 앱 개발을 시작한 지 얼마 안 됐다면 꼭 알아야 하는 라이브러리 중 하나이지 않을까 싶습니다. 그래서 이번 포스팅은 내비게이션 라이브러리가 무엇이고 왜 사용하며 어떻게 사용하는지 알아보겠습니다.
+
+​
+
+기존의 화면 전환 방식
+
+안드로이드에서 UI를 제공할 수 있는 창은 Activity 와 이에 종속되어서 부분 UI를 나타내는 Fragment 입니다. 그래서 안드로이드 앱 내에서 화면 전환이라 하면 보통 다음과 같이 세 가지가 있습...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
