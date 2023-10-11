@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-10-10T16:44:01+09:00</updated>
+  <updated>2023-10-11T20:17:11+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,48 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>(프로그래머스 | Kotlin) - 이모티콘 할인행사</title>
+    <link href="http://localhost:4000/posts/KotlinAlgorithm3/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 이모티콘 할인행사" />
+    <published>2023-10-11T20:00:00+09:00</published>
+  
+    <updated>2023-10-11T20:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/KotlinAlgorithm3/</id>
+    <content src="http://localhost:4000/posts/KotlinAlgorithm3/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="알고리즘 문제" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      해결방법
+
+이 문제의 핵심은 emoticons 배열에 담겨 있는 이모티콘들의 할인율을 배정하는 것이다. 각 이모티콘은 각각 10, 20, 30, 40 퍼센트로 네 가지 할인율을 가질 수 있다. 따라서 각 이모티콘은 네 가지 중에서 하나의 할인율을 가진다. emoticons 의 최대 길이가 7 이므로 나올 수 있는 이모티콘들의 할인율의 경우의 수는 최대 4^7 개다.
+
+나올 수 있는 최대 경우의 수가 4의 7승이라면 모든 경우를 탐색해도 지장이 없는 크기다. 따라서 완전 탐색을 통해 문제에서 요구하는 최대 효율을 가진 경우의 수(최대 효율을 내는 할인율 조합)를 찾을 수 있다. 완전 탐색을 위해서 모든 경우의 수를 구해야 하므로 백트래킹을 이용하여 나올 수 있는 모든 할인율 조합을 배열에 저장한다.
+
+모...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -198,46 +240,6 @@
 Android는 UI를 어떻게 제작하는가?
 
 그렇다면 Andr...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Union-Find 유니온 파인드</title>
-    <link href="http://localhost:4000/posts/Uinon-Find/" rel="alternate" type="text/html" title="Union-Find 유니온 파인드" />
-    <published>2023-02-21T12:00:00+09:00</published>
-  
-    <updated>2023-02-21T16:45:22+09:00</updated>
-  
-    <id>http://localhost:4000/posts/Uinon-Find/</id>
-    <content src="http://localhost:4000/posts/Uinon-Find/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      서로소 집합(disjoint-set)을 관리하는 자료 구조
-
-다양한 원소들이 서로소 집합을 이루는 경우가 있습니다. 필요에 따라서 이 집합들을 이용하여 서로 합치거나 특정 원소를 통해 특정 집합을 탐색할 수도 있습니다. 유니온 파인드(union-find)는 그래프 알고리즘으로 서로소 집합을 관리하며 서로 다른 두 노드가 동일한 집합에 있는지 판별합니다.
-
-유니온 파인드는 서로 다른 두 노드가 같은 집합에 있는지 판별하기 위해서 각 집합의 대표 원소를 참고합니다. 여기서 대표 원소라 함은 연결 리스트에서는 헤드가 되며 트리에서는 루트 노드가 해당됩니다. 두 노드가 속한 집합의 대표 원소를 찾아서 대표 원소가 서로 동일하면 같은 집합에 있는 걸로 판단하게 됩니다. 이러한 판단 과정에서 여러 집합들이 합쳐지...
     </summary>
   
 
