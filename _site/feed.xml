@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-10-11T20:17:11+09:00</updated>
+  <updated>2023-10-23T23:33:12+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,46 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>(프로그래머스 | C++) - 숫자 블록</title>
+    <link href="http://localhost:4000/posts/KotlinAlgorithm4/" rel="alternate" type="text/html" title="(프로그래머스 | C++) - 숫자 블록" />
+    <published>2023-10-16T20:00:00+09:00</published>
+  
+    <updated>2023-10-16T20:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/KotlinAlgorithm4/</id>
+    <content src="http://localhost:4000/posts/KotlinAlgorithm4/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="알고리즘 문제" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      해결 방법
+
+이 문제의 핵심은 가장 큰 약수를 구하는 데 있다.  문제에서 블록의 번호가 n 이고 해당 블록은 n*2 n*3 … 이렇게 설치를 한다. 이것은 곧 약수가 됨을 의미한다. 예를 들어서 구간 10 에 설치될 블록의 번호 무엇일까? 바로  5 다. 왜 이렇게 나오는 것일까? 구간이 가지고 있는 약수들 중에서 본인을 제외한 가장 큰 숫자가 설치될 블록 번호이기 때문이다.
+
+10 의 약수는 1, 2, 5, 10 인데 약수 1 부터 살펴보면 1*10 = 10 인 것을 알 수 있고 n=1 로 표현이 가능하다. 그래서 처음에는 구간 10 에 1 블록이 설치된다.  그 다음 블록 번호는 2 다. 마찬가지로 2*5=10 인 것을 알 수 있고 n=2 로 표현이 가능하다. 따라서 이미 설치된 1 블록에 2 블...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -66,7 +106,7 @@
     <link href="http://localhost:4000/posts/KotlinAlgorithm2/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 억억단을 외우자" />
     <published>2023-10-10T16:00:00+09:00</published>
   
-    <updated>2023-10-10T16:00:00+09:00</updated>
+    <updated>2023-10-11T20:18:32+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinAlgorithm2/</id>
     <content src="http://localhost:4000/posts/KotlinAlgorithm2/" />
@@ -106,7 +146,7 @@
     <link href="http://localhost:4000/posts/KotlinAlgorithm1/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 요격 시스템" />
     <published>2023-10-09T22:00:00+09:00</published>
   
-    <updated>2023-10-09T22:00:00+09:00</updated>
+    <updated>2023-10-11T20:18:32+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinAlgorithm1/</id>
     <content src="http://localhost:4000/posts/KotlinAlgorithm1/" />
@@ -190,56 +230,6 @@
 기존의 화면 전환 방식
 
 안드로이드에서 UI를 제공할 수 있는 창은 Activity 와 이에 종속되어서 부분 UI를 나타내는 Fragment 입니다. 그래서 안드로이드 앱 내에서 화면 전환이라 하면 보통 다음과 같이 세 가지가 있습...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android의 UI, 뷰(View) 그리고 레이아웃(ViewGroup)</title>
-    <link href="http://localhost:4000/posts/Android-UI/" rel="alternate" type="text/html" title="Android의 UI, 뷰(View) 그리고 레이아웃(ViewGroup)" />
-    <published>2023-04-06T12:00:00+09:00</published>
-  
-    <updated>2023-04-08T01:20:43+09:00</updated>
-  
-    <id>http://localhost:4000/posts/Android-UI/</id>
-    <content src="http://localhost:4000/posts/Android-UI/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="기본" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      모바일 UI는 어떻게 구성되어 있는가?
-
-예시로 우리가 스마트폰을 이용해서 배달의민족 앱을 이용할 때를 생각해 봅시다. 해당 앱에 접속을 해보면 여러 카테고리 버튼이 있고 밑으로 스크롤을 하면 여러 음식점들의 간략한 정보가 리스트 형식, 혹은 카드 형태로 제공됩니다.
-
-특정 음식점을 클릭하면 해당 음식점에 대한 상세 페이지로 이동하게 되고 여기서는 가게에 대한 텍스트 정보, 음식 사진에 대한 이미지 정보, 메뉴들을 선택할 수 있는 체크박스, 해당 가게 정보를 저장할 수 있는 찜 버튼과 같은 다양한 상호작용 요소들을 볼 수 있습니다.
-
-
-  이렇듯 모바일 UI는 하나의 화면 안에 사용자와 상호작용이 가능한 다양한 요소들이 존재합니다.
-
-
-​
-
-Android는 UI를 어떻게 제작하는가?
-
-그렇다면 Andr...
     </summary>
   
 
