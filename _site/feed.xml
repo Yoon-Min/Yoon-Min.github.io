@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-10-29T21:23:38+09:00</updated>
+  <updated>2023-10-30T22:38:42+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,64 @@
 
   
   <entry>
+    <title>Android 구글 로그인 구현하기</title>
+    <link href="http://localhost:4000/posts/Android-Google-Login/" rel="alternate" type="text/html" title="Android 구글 로그인 구현하기" />
+    <published>2023-10-30T20:00:00+09:00</published>
+  
+    <updated>2023-10-30T20:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Android-Google-Login/</id>
+    <content src="http://localhost:4000/posts/Android-Google-Login/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사전 준비
+
+안드로이드에서 구글 로그인을 구현하기 위해서는 준비해야 될 게 몇 가지가 있습니다. 구글 클라우드에 들어가서 OAuth 클라이언트 아이디를 만들고 그 과정에서 본인의 앱을 등록해야 합니다. 그러므로 구체적으로 무엇을 먼저 준비해야 하는지 알아보겠습니다.
+
+구글 클라우드에서 클라이언트 아이디 생성
+
+
+  
+    구글 클라우드에 들어가서 오른쪽 상단의 콘솔 을 클릭합니다.
+  
+  
+    API 및 서비스로 들어갑니다. (만약 프로젝트가 없다면 새 프로젝트부터 만들고 시작)
+  
+  
+    왼쪽에 메뉴가 다섯 가지가 존재하는데 거기서 사용자 인증 정보를 클릭합니다.
+  
+  
+    + 사용자 인증 정보 만들기 를 눌러서 OAuth 클라이언트 ID 를 클릭해서 아이디를 생성합니다. 여기서...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>(프로그래머스 | Kotlin) - 카드 짝 맞추기</title>
     <link href="http://localhost:4000/posts/KotlinAlgorithm5/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 카드 짝 맞추기" />
     <published>2023-10-28T22:00:00+09:00</published>
   
-    <updated>2023-10-28T22:00:00+09:00</updated>
+    <updated>2023-10-29T21:23:47+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinAlgorithm5/</id>
     <content src="http://localhost:4000/posts/KotlinAlgorithm5/" />
@@ -180,57 +233,6 @@
 이 문제의 핵심은 약수의 개수를 구하는 데 있다.  특정 숫자의 약수 개수를 알아야 등장 빈도를 알 수 있기 때문이다. 예를 들어서 숫자 4 를 예시로 들어보겠다. 억억단 예시 사진을 보면 해당 숫자가 세 번 등장하는데 그 이유가 구구단, 1단부터 e 단까지를 행렬로 표현해서 1X4 4X1 2X2 이렇게 나오기 때문이다.
 
 그럼 여기서 대충 약수와 관련이 있다는 것을 눈치챌 수 있다. 4 의 약수는 총 세 개, 1, 2, 4 이다. 가운데를 기준으로 특정 위치에 있는 숫자는 자신의 반대쪽에 있는 숫자와 곱을 하면 4 가 된다. 그래서 원래는 4 가 두 개가 나오는 것이 맞지만 억억단은 행과 열 둘 다 구구단이 존재하기 때문에 동일 숫자 곱(2X2)을 제외하고 각각 2배를 해줘야 한다. 따라...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>(프로그래머스 | Kotlin) - 요격 시스템</title>
-    <link href="http://localhost:4000/posts/KotlinAlgorithm1/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 요격 시스템" />
-    <published>2023-10-09T22:00:00+09:00</published>
-  
-    <updated>2023-10-11T20:18:32+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinAlgorithm1/</id>
-    <content src="http://localhost:4000/posts/KotlinAlgorithm1/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘 문제" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      해결 방법
-
-문제를 해석하면 특정 구간이 여러 개 주어지고 그 구간들을 전부 관통할 수 있는 최소의 폭격 미사일 수를 구해야 한다. 문제에서 그리디 알고리즘 문제를 좀 풀어봤다면 예시로 던져준 사진을 보자마자 그리디 문제임을 알아챘을 것이다. 따라서 이 문제는 그리디 알고리즘을 이용해서 해결하면 된다. 해결 순서는 다음과 같다.
-
-
-  
-    targets 내 특정 구간 i 에 대해서 targets[i][1] 을 기준으로 정렬한다.
-  
-  
-    첫 폭격 미사일 설치 위치를 targets[0][1] 로 설정한다.
-
-    var lastSpot = targets[0][1]
-    
-  
-  
-    반복문을 통해 정렬된 targets 내의 모든 원소들을 차례로 돌면서 현재 원소의 시작 위치가 la...
     </summary>
   
 
