@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-10-30T22:38:42+09:00</updated>
+  <updated>2023-10-31T23:20:51+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Android 구글 로그인 구현하기</title>
     <link href="http://localhost:4000/posts/Android-Google-Login/" rel="alternate" type="text/html" title="Android 구글 로그인 구현하기" />
-    <published>2023-10-30T20:00:00+09:00</published>
+    <published>2023-10-31T22:00:00+09:00</published>
   
-    <updated>2023-10-30T20:00:00+09:00</updated>
+    <updated>2023-10-31T22:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/Android-Google-Login/</id>
     <content src="http://localhost:4000/posts/Android-Google-Login/" />
@@ -52,7 +52,13 @@
 
 안드로이드에서 구글 로그인을 구현하기 위해서는 준비해야 될 게 몇 가지가 있습니다. 구글 클라우드에 들어가서 OAuth 클라이언트 아이디를 만들고 그 과정에서 본인의 앱을 등록해야 합니다. 그러므로 구체적으로 무엇을 먼저 준비해야 하는지 알아보겠습니다.
 
-구글 클라우드에서 클라이언트 아이디 생성
+
+  파이어베이스에 앱을 등록해서 관리하는 것까지 할 예정이니 파이어베이스 과정이 필요없다면 해당 부분은 스킵하세요!
+
+
+​
+
+1. 구글 클라우드에서 클라이언트 아이디 생성
 
 
   
@@ -62,10 +68,7 @@
     API 및 서비스로 들어갑니다. (만약 프로젝트가 없다면 새 프로젝트부터 만들고 시작)
   
   
-    왼쪽에 메뉴가 다섯 가지가 존재하는데 거기서 사용자 인증 정보를 클릭합니다.
-  
-  
-    + 사용자 인증 정보 만들기 를 눌러서 OAuth 클라이언트 ID 를 클릭해서 아이디를 생성합니다. 여기서...
+    왼쪽에 메뉴가 다섯 가지가 존재하는데 거기서 사용자 인증 정보를 클릭...
     </summary>
   
 
