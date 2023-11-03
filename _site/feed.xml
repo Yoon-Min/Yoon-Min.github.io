@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-01T14:31:09+09:00</updated>
+  <updated>2023-11-03T16:40:55+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,54 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Kotlin Generic 제네릭</title>
+    <link href="http://localhost:4000/posts/Kotlin-Generic/" rel="alternate" type="text/html" title="Kotlin Generic 제네릭" />
+    <published>2023-11-01T12:00:00+09:00</published>
+  
+    <updated>2023-11-01T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Kotlin-Generic/</id>
+    <content src="http://localhost:4000/posts/Kotlin-Generic/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="프로그래밍 언어" />
+    
+    <category term="Kotlin" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Kotlin도 Java의 제네릭 기능을 제공한다.
+
+
+  “Classes in Kotlin can have type parameters, just like in Java:” - Kotlin 공식 문서 발췌
+
+
+코틀린의 클래스는 자바와 마찬가지로 타입 파라미터를 가질 수 있습니다. 제네릭을 사용함으로써 컴파일 타임에 타입 안전성을 관리할 수 있고 여러 타입에 대응하여 코드를 재사용하는 이점을 얻을 수 있습니다. 그렇다면 코틀린에서의 제네릭은 어떤 특징을 가지고 있는지 알아보겠습니다.
+
+타입 안전성
+
+
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -201,48 +249,6 @@ Android 공식문서 내용 발췌
 이 문제의 핵심은 가장 큰 약수를 구하는 데 있다.  문제에서 블록의 번호가 n 이고 해당 블록은 n*2 n*3 … 이렇게 설치를 한다. 이것은 곧 약수가 됨을 의미한다. 예를 들어서 구간 10 에 설치될 블록의 번호 무엇일까? 바로  5 다. 왜 이렇게 나오는 것일까? 구간이 가지고 있는 약수들 중에서 본인을 제외한 가장 큰 숫자가 설치될 블록 번호이기 때문이다.
 
 10 의 약수는 1, 2, 5, 10 인데 약수 1 부터 살펴보면 1*10 = 10 인 것을 알 수 있고 n=1 로 표현이 가능하다. 그래서 처음에는 구간 10 에 1 블록이 설치된다.  그 다음 블록 번호는 2 다. 마찬가지로 2*5=10 인 것을 알 수 있고 n=2 로 표현이 가능하다. 따라서 이미 설치된 1 블록에 2 블...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>(프로그래머스 | Kotlin) - 이모티콘 할인행사</title>
-    <link href="http://localhost:4000/posts/KotlinAlgorithm3/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 이모티콘 할인행사" />
-    <published>2023-10-11T20:00:00+09:00</published>
-  
-    <updated>2023-10-11T20:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinAlgorithm3/</id>
-    <content src="http://localhost:4000/posts/KotlinAlgorithm3/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘 문제" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      해결방법
-
-이 문제의 핵심은 emoticons 배열에 담겨 있는 이모티콘들의 할인율을 배정하는 것이다. 각 이모티콘은 각각 10, 20, 30, 40 퍼센트로 네 가지 할인율을 가질 수 있다. 따라서 각 이모티콘은 네 가지 중에서 하나의 할인율을 가진다. emoticons 의 최대 길이가 7 이므로 나올 수 있는 이모티콘들의 할인율의 경우의 수는 최대 4^7 개다.
-
-나올 수 있는 최대 경우의 수가 4의 7승이라면 모든 경우를 탐색해도 지장이 없는 크기다. 따라서 완전 탐색을 통해 문제에서 요구하는 최대 효율을 가진 경우의 수(최대 효율을 내는 할인율 조합)를 찾을 수 있다. 완전 탐색을 위해서 모든 경우의 수를 구해야 하므로 백트래킹을 이용하여 나올 수 있는 모든 할인율 조합을 배열에 저장한다.
-
-모...
     </summary>
   
 
