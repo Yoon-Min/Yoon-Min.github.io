@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-03T16:40:55+09:00</updated>
+  <updated>2023-11-06T20:09:56+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Kotlin-Generic/" rel="alternate" type="text/html" title="Kotlin Generic 제네릭" />
     <published>2023-11-01T12:00:00+09:00</published>
   
-    <updated>2023-11-01T12:00:00+09:00</updated>
+    <updated>2023-11-03T16:41:09+09:00</updated>
   
     <id>http://localhost:4000/posts/Kotlin-Generic/</id>
     <content src="http://localhost:4000/posts/Kotlin-Generic/" />
@@ -53,14 +53,19 @@
       Kotlin도 Java의 제네릭 기능을 제공한다.
 
 
-  “Classes in Kotlin can have type parameters, just like in Java:” - Kotlin 공식 문서 발췌
+  “Classes in Kotlin can have type parameters, just like in Java:” - Kotlin 공식 문서
 
 
-코틀린의 클래스는 자바와 마찬가지로 타입 파라미터를 가질 수 있습니다. 제네릭을 사용함으로써 컴파일 타임에 타입 안전성을 관리할 수 있고 여러 타입에 대응하여 코드를 재사용하는 이점을 얻을 수 있습니다. 그렇다면 코틀린에서의 제네릭은 어떤 특징을 가지고 있는지 알아보겠습니다.
+코틀린의 클래스는 자바와 마찬가지로 타입 파라미터를 가질 수 있습니다. 제네릭을 사용함으로써 컴파일 타임에 타입 안전성을 관리할 수 있고 여러 타입에 대응하여 코드를 재사용하는 이점을 얻을 수 있습니다.
 
-타입 안전성
+코틀린 역시  &amp;lt;&amp;gt; 기호를 이용한 제네릭 기능을 제공합니다. 다음 Box 클래스는 제네릭을 사용하여 만들어졌기 때문에  Int , String, Float 등의 다양한 타입을 가질 수 있습니다.
+
+class Box&amp;lt;T&amp;gt;(t: T) {
+    var value = t
+}
 
 
+val...
     </summary>
   
 
