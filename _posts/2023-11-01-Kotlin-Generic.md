@@ -1,7 +1,7 @@
 ---
 title: Kotlin Generic 제네릭
 author: yoonmin
-date: 2023-11-01 12:00:00 +0900
+date: 2023-11-07 12:00:00 +0900
 categories: [CS, 프로그래밍 언어, Kotlin]
 tags: [Kotlin, Java, Generic, 제네릭]
 render_with_liquid: false
@@ -41,7 +41,9 @@ val boxFloat: Box<Float> = Box<Float>(2.0F)
 
 ​		
 
-## 타입 안전성의 증가
+## 특징1. 타입 안전성
+
+### 제네릭을 사용하지 않은 클래스의 경우는?
 
 `Animal` 추상 클래스가 있고, 해당 추상 클래스의 구현체인 `Tiger`,  `Lion` 이렇게 두 개의 클래스가 존재하는 상황이라고 가정하겠습니다. 동물의 정보와 관련된 클래스를 정의했으므로 이제 동물들을 관리하는 동물원, `Zoo` 클래스를 정의합니다.
 
@@ -80,9 +82,13 @@ val tiger: Tiger = zoo.getLast() as Tiger
 
 그런데 동물 리스트에서 데이터를 꺼내올 때 해당 데이터가 무조건 `Tiger` 라는 보장이 없습니다. 데이터를 삽입할 때 `Tiger` 가 아닌 `Lion` 을 넣을수도 있기 때문입니다. 그래서 `as?` 를 이용하거나 엘비스 연산자 `?:` 를 이용해서 예외에 대응하는 방법이 있습니다만...
 
+​		
+
 ### 제네릭 클래스로 수정하자
 
 제네릭을 이용한다면 타입 미스매치 발생을 방지하고 코드 가독성도 좋게 만들 수 있습니다. 동물들을 관리하는 `Zoo` 클래스에 타입 파라미터 `T` 를 정의하여 수정하면 클래스 생성부터  `Tiger` 타입 지정이 가능합니다.
+
+이렇게 제네릭 클래스로 만들면 컴파일 타임에 타입 오류를 찾아낼 수 있고 `Tiger` 를 관리하는 동물원 `Zoo` 로 관리가 가능합니다. 그래서 `as` 를 사용해서 캐스팅할 타입을 명시하지 않아도 깔끔하고 안전하게 데이터를 가져올 수 있습니다.
 
 ```kotlin
 class Zoo<T> {
@@ -108,4 +114,62 @@ zoo.add(Tiger())
 val tiger: Tiger = zoo.getLast()
 ```
 
-이렇게 제네릭 클래스로 만들면 컴파일 타임에 타입 오류를 찾아낼 수 있고 `Tiger` 를 관리하는 동물원 `Zoo` 로 관리가 가능합니다.
+​		
+
+## 특징2. 변성
+
+### 변성(Variance)
+
+<span style="color: #30aaa0">**변성(Variance)은 제네릭 클래스끼리의 상속 관계를 나타내는 개념입니다.**</span> 변성은 크게 공변, 반공변, 무공변 이렇게 세 가지로 나눌 수 있는데 해당 세 가지의 정의는 다음과 같습니다.
+
+|            유형            |                             의미                             |
+| :------------------------: | :----------------------------------------------------------: |
+|    **공변(Covariance)**    | `Tiger` 가 `Mammalia` 의 서브타입이라면 `Zoo<Tiger>` 는 `Zoo<Mammalia>` 의 서브타입이다. |
+| **반공변(Contravariance)** | `Tiger` 가 `Mammalia` 의 서브타입이라면 `Zoo<Mammalia>` 는 `Zoo<Tiger>` 의 서브타입이다. |
+|   **무공변(Invariance)**   |               공변도 아니고 반공변도 아닌 상태               |
+
+​		
+
+### 제네릭 클래스는 기본적으로 무공변
+
+동물원 예시 코드를 조금 수정하겠습니다. 다음과 같이 `Tiger` `Lion` 의 상위타입인 `Mammalia` 를 타입 파라미터로 가지는 제네릭 클래스를 생성해서 거기에 `Tiger` `Lion` 클래스를 `add` 해보겠습니다.
+
+```kotlin
+val zooWithMammalia = Zoo<Mammalia>()
+zooWithMammalia.add(Tiger())
+zooWithMammalia.add(Lion())
+```
+
+ `Mammalia` 를 타입 파라미터로 가지는 `Zoo<Mammalia` 의 `add` 메서드는 파라미터가 `animal: Mammalia` 로 설정이 되고 여기에 인자로 `Tiger` , `Lion` 이 온다면 서로 상속 관계이기 때문에 컴파일 및 실행에 문제가 없습니다.
+
+```kotlin
+fun add(animal: T) { // animal: Mammalia
+    animals.add(animal)
+}
+```
+
+이렇게 단일 동물을 다른 동물원에 추가하는 데 문제가 발생하지 않지만 동물원 자체를 다른 동물원에 합치는 경우는 어떨까요? 다음과 같이 동물원 자체를 합치는 메서드를 추가로 작성해보겠습니다.
+
+```kotlin
+fun mergeOtherZoo(zoo: Zoo<T>) {
+    this.animals.addAll(zoo.animals)
+}
+```
+
+그리고 `Zoo<Mammalia>` 에 `Zoo<Tiger>` 를 병합시켜보겠습니다. 결과는 단일 동물을 추가할 때와 달리 타입 미스매치가 발생합니다.
+
+```kotlin
+val zooWithTigers = Zoo<Tiger>()
+val zooWithMammalia = Zoo<Mammalia>()
+zooWithTigers.add(Tiger())
+zooWithMammalia.mergeOtherZoo(zooWithTigers) // Type mismatch 발생
+```
+
+분명 `Zoo<Mammalia>` 에 `Tiger()` 를 추가하는 것은 문제가 없었는데 `Zoo<Tiger>` 를 추가하는 것에는 문제가 발생합니다. 이는 제네릭 클래스는 기본적으로 무공변 상태이기 때문에 아무런 관계가 없는  `Zoo<Mammalia>` 와 `Zoo<Tiger>` 는 병합 시도시 오류가 발생할 수밖에 없는 겁니다.
+
+​		
+
+### 무공변에서 공변으로
+
+이를 해결하기 위해서는 무공변인 상태를 공변으로 전환해야 합니다. 전환하는 방법은 간단합니다. 타입 파라미터 왼쪽에 `out` 이라는 키워드를 추가하면 됩니다.
+
