@@ -169,7 +169,7 @@ zooWithMammalia.mergeOtherZoo(zooWithTigers) // Type mismatch 발생
 
 ​		
 
-### 무공변에서 공변으로
+### 공변으로 전환
 
 이를 해결하기 위해서는 무공변인 상태를 공변으로 전환해야 합니다. 전환하는 방법은 간단합니다. 병합하는 메서드의 타입 파라미터 왼쪽에 `out` 이라는 키워드를 추가하면 됩니다. 이 결과로 본인의 하위타입을 수용할 수 있고 타입 미스매치 오류가 사라지면서 정상 실행이 됩니다.
 
@@ -185,7 +185,7 @@ fun mergeOtherZoo(zoo: Zoo<out T>) {
 
 무공변 상태에서 공변으로 전환을 하면 제네릭 클래스 간 상속 관계가 생겨서 인자로 넘길 수 있게 되지만 주의할 점이 있습니다. 만약에 `mergeOtherZoo` 메서드 내부 코드가 반대로 인자로 받은 동물원에 기존 동물원을 합치는 경우면 어떻게 될까요?
 
-타입 미스매치가 발생하게 됩니다. `out` 을 사용한 시점에서 인자로 받는 `zoo` 는 자신을 인자로 필요로 한 클래스의 서브 타입일 수 있기 때문에 하위타입에 상위타입의 데이터를 넣는 동작은 지양해야 합니다.
+타입 미스매치가 발생하게 됩니다. `out` 을 사용한 시점에서 인자로 받는 `zoo` 는 자신을 인자로 필요로 한 클래스의 서브 타입일 수 있기 때문에 하위타입에 상위타입의 데이터를 넣는 동작은 타입 안전성을 해칠 수 있습니다.
 
 ```kotlin
 fun mergeOtherZoo(zoo: Zoo<out T>) {
@@ -196,3 +196,111 @@ fun mergeOtherZoo(zoo: Zoo<out T>) {
 {:.prompt-tip}
 
 > `out` 키워드를 이용해서 공변 상태로 전환할 때는 파라미터인  `zoo`  가 본인의 데이터를 넘겨주는 쪽으로 동작을 처리하면 됩니다. 
+
+​		
+
+### 반공변으로 전환
+
+`out` 을 이용해서 공변 상태로 만들었을 때는 `zoo` 가 `this` 의 하위 타입이 되는 것이 가능하므로 `zoo` 에 `this` 데이터를 가져가는 동작은 타입 안전성을 해칠 수 있습니다. 이러한 동작을 처리하려면 공변이 아닌 반공변으로 설정하는 것이 좋습니다.
+
+반공변은 말 그대로 공변의 반대입니다. 여기서는 서브타입이었던 클래스가 반대로 상위타입이 됩니다. 그래서 공변이었을 때 불가능했던 파라미터 `zoo` 에 `this` 의 데이터를 가져가는 동작이 반공변에선 가능합니다.
+
+```kotlin
+fun mergeOtherZoo(zoo: Zoo<in T>) {
+    zoo.animals.addAll(this.animals)
+}
+```
+
+{:.prompt-tip}
+
+> `in` 키워드를 이용해서 반공변 상태로 전환할 때는 파라미터인 `zoo` 가 `this` 의 데이터를 소비하는 쪽으로 동작을 처리하면 됩니다.
+
+​		
+
+### 변성 선언 위치
+
+변성 선언은 파라미터에서 설정하는 것 이외에도 클래스 전체를 설정하는 것도 가능합니다. 만약에 클래스 전체를 공변하게 만들고 싶거나 반공변하게 만들고 싶다면 다음과 같이 클래스 헤더에 설정하면 됩니다. 이렇게 하면 예시로 사용했던 `mergeOtherZoo` 메서드 파라미터로 `Zoo` 클래스를 받을 필요가 없어집니다.
+
+``` kotlin
+class Zoo<out T> {}
+class Zoo<in T> {}
+```
+
+```kotlin
+// 클래스 자체를 공변 설정하지 않았을 때
+fun mergeOtherZoo(zoo: Zoo<T>) {
+    this.animals.addAll(zoo.animals)
+}
+// 파라미터로 클래스가 아닌 리스트로 수정
+fun mergeOtherZoo(zoo: List<T>) {
+    this.animals.addAll(zoo)
+}
+```
+
+#### 공변 설정
+
+만약 클래스를 `out` (공변) 설정했다면 다음 두 메서드에서 오류가 발생합니다. 
+
+```kotlin
+fun add(animal: T) {
+    animals.add(animal)
+}
+
+fun mergeOtherZoo(zoo: List<T>) {
+    this.animals.addAll(zoo)
+}
+
+// Type parameter T is declared as 'out' but occurs in 'in' position in type T
+```
+
+다음과 같이 메서드 파라미터에 공변을 설정했을 때를 보면 `zoo` 가 데이터를 넘겨주는 역할을 해야 한다고 언급했습니다. 그래서 클래스 자체를 공변으로 설정했다면 내부 메서드도 전부 데이터를 넘기는(`getter`) 동작으로 설정해야 합니다. 그래서 `getLast()` `getFirst()` 는 별다른 오류가 없는 겁니다.
+
+```kotlin
+fun mergeOtherZoo(zoo: Zoo<out T>) {
+    zoo.animals.addAll(this.animals)		
+}
+```
+
+#### 반공변 설정
+
+이번엔 클래스를 `in` (반공변) 설정했다면 다음 두 메서드에서 오류가 발생합니다.
+
+```kotlin
+fun getLast(): T {
+    return animals.last()
+}
+
+fun getFirst(): T {
+    return animals.first()
+}
+// Type parameter T is declared as 'in' but occurs in 'out' position in type T
+```
+
+이번엔 공변으로 설정했을 때와 달리 `getter` 역할을 수행하는 메서드에서 오류가 발생했습니다. 메서드 파라미터에 `in` 반공변을 설정했을 때를 보면 `zoo` 가 데이터를 넘기는 것이 아닌 오히려 데이터를 받는 입장인 것을 알 수 있습니다. 그래서 이때는 클래스 내 메서드는 데이터를 받는 쪽으로 처리하면 됩니다.
+
+```kotlin
+fun mergeOtherZoo(zoo: Zoo<in T>) {
+    zoo.animals.addAll(this.animals)
+}
+```
+
+​		
+
+### 강제 변성
+
+위의 예시를 보면 알 수 있듯이, 제네릭은 타입 안전성을 굉장히 신경을 씁니다. 그래서 `in` 혹은 `out` 으로 했을 때 안전성을 해칠 수 있는 타입 파라미터를 오류 메세지를 보여주는 것으로 막습니다. 그런데 이를 무시하고 강제로 설정을 해야 하는 경우가 있을 수 있습니다.
+
+그래서 코틀린은 `@UnsafeVariance` 라는 어노테이션을 제공합니다. 타입 파라미터에 붙여서 사용하면 변성 설정으로 인해 발생할 수 있는 위험성을 감수하고 강제로 실행시킬 수 있습니다.
+
+만약에 클래스 자체를 `out` 으로 설정했다면 `add` `mergeOtherZoo` 메서드의 타입 파라미터에서 오류가 발생합니다. 이때 이 어노테이션을 사용하면 강제로 실행할 수 있습니다. 물론 런타임에 발생된 오류에 대한 처리는 어노테이션을 설정한 개발자의 몫입니다.
+
+```kotlin
+fun add(animal: @UnsafeVariance T) {
+    animals.add(animal)
+}
+
+fun mergeOtherZoo(zoo: List<@UnsafeVariance T>) {
+    this.animals.addAll(zoo)
+}
+```
+
