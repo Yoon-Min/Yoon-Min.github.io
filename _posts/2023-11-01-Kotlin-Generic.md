@@ -41,7 +41,7 @@ val boxFloat: Box<Float> = Box<Float>(2.0F)
 
 ​		
 
-## 특징1. 타입 안전성
+## 타입 안전성
 
 ### 제네릭을 사용하지 않은 클래스의 경우는?
 
@@ -116,7 +116,7 @@ val tiger: Tiger = zoo.getLast()
 
 ​		
 
-## 특징2. 변성
+## 변성
 
 ### 변성(Variance)
 
@@ -304,3 +304,28 @@ fun mergeOtherZoo(zoo: List<@UnsafeVariance T>) {
 }
 ```
 
+​		
+
+## 범위 지정
+
+### 타입으로 받을 수 있는 범위 제한
+
+지금까지 동물원을 예시로 설명을 드렸습니다. 그런데 다음과 같이 동물이랑 전혀 상관없는 `Int` 를 타입으로 넘겨도 객체 생성에 문제가 없습니다. 그래서 넘기는 타입 파라미터의 범위를 지정해줘야 합니다.  
+
+`<T: Animal>` 이런 식으로 범위를 지정하면 됩니다. 설정하면 `Animal`  범위 내의 타입들만 넘길 수 있습니다.
+
+```kotlin
+fun main() {
+    val zooWithNotAnimal = Zoo<Int>() // 오류 없음
+}
+
+class Zoo<T> {}
+```
+
+```kotlin
+fun main() {
+    val zooWithNotAnimal = Zoo<Int>() // Type argument is not within its bounds.
+}
+
+class Zoo<T: Animal> {}
+```
