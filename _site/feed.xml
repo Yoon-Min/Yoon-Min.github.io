@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-09T16:14:09+09:00</updated>
+  <updated>2023-11-09T16:20:35+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>Kotlin Generic <1> 제네릭 클래스와 함수, 그리고 변성</title>
-    <link href="http://localhost:4000/posts/Kotlin-Generic/" rel="alternate" type="text/html" title="Kotlin Generic <1> 제네릭 클래스와 함수, 그리고 변성" />
-    <published>2023-11-07T12:00:00+09:00</published>
+    <title>Kotlin Generic (1) 제네릭 클래스와 함수, 그리고 변성</title>
+    <link href="http://localhost:4000/posts/Kotlin-Generic/" rel="alternate" type="text/html" title="Kotlin Generic (1) 제네릭 클래스와 함수, 그리고 변성" />
+    <published>2023-11-09T12:00:00+09:00</published>
   
-    <updated>2023-11-09T15:25:39+09:00</updated>
+    <updated>2023-11-09T16:18:22+09:00</updated>
   
     <id>http://localhost:4000/posts/Kotlin-Generic/</id>
     <content src="http://localhost:4000/posts/Kotlin-Generic/" />
@@ -37,8 +37,6 @@
     <category term="CS" />
     
     <category term="프로그래밍 언어" />
-    
-    <category term="Kotlin" />
     
   
 
