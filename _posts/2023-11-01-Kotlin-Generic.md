@@ -1,8 +1,8 @@
 ---
-title: Kotlin Generic <1> 제네릭 클래스와 함수, 그리고 변성
+title: Kotlin Generic (1) 제네릭 클래스와 함수, 그리고 변성
 author: yoonmin
-date: 2023-11-07 12:00:00 +0900
-categories: [CS, 프로그래밍 언어, Kotlin]
+date: 2023-11-09 12:00:00 +0900
+categories: [CS, 프로그래밍 언어]
 tags: [Kotlin, Java, Generic, 제네릭]
 render_with_liquid: false
 ---
