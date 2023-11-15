@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-15T17:30:49+09:00</updated>
+  <updated>2023-11-15T17:49:22+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>(프로그래머스 | Kotlin) - 수식 최대화</title>
     <link href="http://localhost:4000/posts/KotlinAlgorithm6/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 수식 최대화" />
-    <published>2023-11-14T21:00:00+09:00</published>
+    <published>2023-11-15T12:00:00+09:00</published>
   
-    <updated>2023-11-14T23:58:15+09:00</updated>
+    <updated>2023-11-15T12:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinAlgorithm6/</id>
     <content src="http://localhost:4000/posts/KotlinAlgorithm6/" />
@@ -54,9 +54,11 @@
 
 이런 식으로 만들 수 있는 연산 우선순위를 모두 만들고 모든 경우에 대해 식을 계산하고 결과값을 비교해서 가장 큰 값을 리턴하면 문제 해결이 가능하다. 그런데 문제는 식을 계산하는 방법이다. 여기서 풀이 방법이 다양하게 갈릴 것 같은데 내가 푼 방법은 다음과 같다.
 
+​
+
 1. 나올 수 있는 연산 우선순위 조합 모두 구하기
 
-"100-200*30...
+"100-200...
     </summary>
   
 
