@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-11T21:27:54+09:00</updated>
+  <updated>2023-11-15T17:30:49+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>(프로그래머스 | Kotlin) - 수식 최대화</title>
     <link href="http://localhost:4000/posts/KotlinAlgorithm6/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 수식 최대화" />
-    <published>2023-11-10T21:00:00+09:00</published>
+    <published>2023-11-14T21:00:00+09:00</published>
   
-    <updated>2023-11-10T21:00:00+09:00</updated>
+    <updated>2023-11-14T23:58:15+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinAlgorithm6/</id>
     <content src="http://localhost:4000/posts/KotlinAlgorithm6/" />
