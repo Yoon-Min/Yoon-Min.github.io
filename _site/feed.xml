@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-15T17:49:22+09:00</updated>
+  <updated>2023-11-19T23:45:47+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,53 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>(프로그래머스 | Kotlin) - 매칭 점수</title>
+    <link href="http://localhost:4000/posts/KotlinAlgorithm7/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 매칭 점수" />
+    <published>2023-11-19T21:00:00+09:00</published>
+  
+    <updated>2023-11-19T21:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/KotlinAlgorithm7/</id>
+    <content src="http://localhost:4000/posts/KotlinAlgorithm7/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="알고리즘 문제" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      해결 방법
+
+정말 보자마자 머리가 지끈거리는 문제였다. 카카오 코테 문제를 풀어보면서 문자열 처리 로직을 많이 작성했었는데 설마 html 형식을 통째로 주는 건 상상도 못했다. 필요한 건 크게 url, 키워드, 외부 링크, 이렇게 세 가지다.
+
+여기서 문제는 해당 세 가지를 구하기 위해서 정규식을 사용해야 하는데 나는 정규식을 사용할 때 항상 검색해서 복붙한 게 전부여서 식을 어떻게 작성해야 하는지 몰랐다. 그래서 검색을 해서 몇몇 정규식을 참고했다.
+
+1. 현재 페이지의 URL
+
+"(&amp;lt;meta property=\"og:url\" content=\"(\\S*)//(\\S*)\"/&amp;gt;)"
+
+
+페이지의 url 을 구할 때 중요한 점은 문제에서 준 양식과 정확히 일치해야 한다는 것이다. 보니까 ur...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -213,51 +260,6 @@ Android 공식문서 내용 발췌
   
   
     왼쪽에 메뉴가 다섯 가지가 존재하는데 거기서 사용자 인증 정보를 클릭...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>(프로그래머스 | Kotlin) - 카드 짝 맞추기</title>
-    <link href="http://localhost:4000/posts/KotlinAlgorithm5/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 카드 짝 맞추기" />
-    <published>2023-10-28T22:00:00+09:00</published>
-  
-    <updated>2023-10-29T21:23:47+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinAlgorithm5/</id>
-    <content src="http://localhost:4000/posts/KotlinAlgorithm5/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘 문제" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      해결 방법
-
-이 문제의 핵심은 그냥 구현, 또 구현, 그리고 또 구현이다. 막 엄청 수준이 높은 알고리즘을 요구하는 것이 아닌 기본적인 알고리즘 여러 개를 가지고 복잡한 구현을 요구한다. 그래서 이 문제를 풀면서 굉장한 피로감을 느꼈다… 나같은 경우에는 백트래킹, 너비 우선 탐색, 그리디 이 세 가지를 중심으로 구현을 진행했다. 해당 알고리즘을 사용한 이유는 다음과 같다.
-
-1. 최소 탐색을 위해서는 가능한 뒤집는 순서 조합을 모두 구해서 계산해야 한다.
-
-만약 보드판 위에 1 2 3 이렇게 세 종류의 카드가 존재한다면 가능한 뒤집는 순서의 갯수는 6가지다. 이 6가지 순서쌍에서 최소 탐색을 할 수 있는 순서쌍이 존재하기 때문에 모든 순서쌍을 계산해서 최소값을 찾는 방식으로 진행한다.
-
-
-  1 -&amp;g...
     </summary>
   
 
