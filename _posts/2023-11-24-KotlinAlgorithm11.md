@@ -65,6 +65,12 @@ for( i in 0 until (1 shl col+row))
 
 첫 번째 행의 인덱스는 `0`, 두 번째 행의 인덱스는 `1` 이다. 첫 번째 행의 상태값을 의미하는 비트 위치는 `2^0` , 두 번째 행은 `2^1` 이다. 따라서 두 번째 행을 뒤집으면 된다. 이 개념을 코드로 옮기면 다음과 같다.
 
+{:.prompt-tip}
+
+> `XOR` 비트 연산을 사용하면 뒤집는 동작을 쉽게 처리할 수 있다.
+
+​		
+
 #### 행을 처리하는 코드
 
 ```kotlin
@@ -84,6 +90,55 @@ for(r in 0 until row) {
         flipCounter++
         for(i in 0..tmp.lastIndex) { tmp[i][r] = tmp[i][r] xor 1 }
     }
+}
+```
+
+{:.prompt-warning}
+
+> 열의 경우에는 `2^2` 부터 검사를 해야 하기 때문에 `(1 shl r+col)` 로 `AND` 처리를 해줘야 한다.
+
+​		
+
+### 마지막은 `target` 과 비교하여 동일한지 검사한다.
+
+```kotlin
+if(tmp.contentDeepEquals(target)) { answer = min(answer, flipCounter) }
+```
+
+​		
+
+## 전체 코드
+
+```kotlin
+import kotlin.math.*
+
+class Solution {
+    fun solution(beginning: Array<IntArray>, target: Array<IntArray>): Int {
+        val col = beginning.size
+        val row = beginning[0].size
+        var answer = Int.MAX_VALUE
+
+        for(b in 0 until (1 shl col+row)) {
+            val tmp = Array(col) { i -> IntArray(row) { j -> beginning[i][j] } }
+            var flipCounter = 0
+
+            for(c in 0 until col) {
+                if(b and (1 shl c) != 0) {
+                    flipCounter++
+                    tmp[c] = tmp[c].map { it xor 1 }.toIntArray()
+                }
+            }
+            for(r in 0 until row) {
+                if(b and (1 shl r + col) != 0) {
+                    flipCounter++
+                    for(i in 0..tmp.lastIndex) { tmp[i][r] = tmp[i][r] xor 1 }
+                }
+            }
+            if(tmp.contentDeepEquals(target)) { answer = min(answer, flipCounter) }
+        }
+        return if(answer == Int.MAX_VALUE) -1 else answer
+    }
+    
 }
 ```
 

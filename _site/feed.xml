@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-11-23T15:27:36+09:00</updated>
+  <updated>2023-12-05T00:04:27+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,52 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>(프로그래머스 | Kotlin) - 2차원 동전 뒤집기</title>
+    <link href="http://localhost:4000/posts/KotlinAlgorithm11/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 2차원 동전 뒤집기" />
+    <published>2023-11-23T12:00:00+09:00</published>
+  
+    <updated>2023-12-04T23:58:16+09:00</updated>
+  
+    <id>http://localhost:4000/posts/KotlinAlgorithm11/</id>
+    <content src="http://localhost:4000/posts/KotlinAlgorithm11/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="알고리즘 문제" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      해결 방법
+
+이 문제는 특정 행, 혹은 열을 뒤집어서 원하는 형태를 만드는 게 핵심이다. 어떤 행, 혹은 열을 뒤집는 순서가 중요한 것이 아니다. 어떤 행, 혹은 열의 상태를 어떻게 할 것인지(뒤집거나 그대로 두거나)가 중요하다.  M X N  형태에서 특정 열과 행의 상태를 결정하는 방식으로 로직을 짜면 된다.
+
+​
+
+뒷면, 앞면의 상태값을 비트로 표현해보자
+
+문제 마지막에 보면 0 은 동전의 앞면, 1 은 동전의 뒷면을 의미한다. 그렇다면  0 1 을 비트 연산으로 처리해보자. 예를 들어서 2 X 2 형태라고 가정해보자. 행과 열은 각각 2개고 다음과 같이 표현할 수 있다.
+
+두 개면 모두 앞면인 경우와 모두 뒷면 경우, 한쪽은 앞면 한쪽은 뒷면인 경우가 존재한다. 이를 비트 형식으로 표현하면 다음...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -192,52 +238,6 @@
 
 
 페이지의 url 을 구할 때 중요한 점은 문제에서 준 양식과 정확히 일치해야 한다는 것이다. 보니까 ur...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>(프로그래머스 | Kotlin) - 수식 최대화</title>
-    <link href="http://localhost:4000/posts/KotlinAlgorithm6/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 수식 최대화" />
-    <published>2023-11-15T12:00:00+09:00</published>
-  
-    <updated>2023-11-15T12:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinAlgorithm6/</id>
-    <content src="http://localhost:4000/posts/KotlinAlgorithm6/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘 문제" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      해결 방법
-
-뭔가 풀이 방법이 다양할 것 같은 문제인데 나는 재귀를 이용해서 해결했다. 연산 기호가 최대 세 개인데 연산 우선순위를 리스트로 표현했다. 예를 들어서 표현식에서 사용된 연산 기호가 * - , 2개라면 만들 수 있는 우선순위 조합은 2개, [[*, -], [-, *]]  이렇게 리스트로 표현이 가능하다. 인덱스가 클수록 연산 우선순위가 높다는 뜻이다.
-
-이런 식으로 만들 수 있는 연산 우선순위를 모두 만들고 모든 경우에 대해 식을 계산하고 결과값을 비교해서 가장 큰 값을 리턴하면 문제 해결이 가능하다. 그런데 문제는 식을 계산하는 방법이다. 여기서 풀이 방법이 다양하게 갈릴 것 같은데 내가 푼 방법은 다음과 같다.
-
-​
-
-1. 나올 수 있는 연산 우선순위 조합 모두 구하기
-
-"100-200...
     </summary>
   
 
