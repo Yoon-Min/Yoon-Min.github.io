@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2023-12-07T21:27:00+09:00</updated>
+  <updated>2024-01-25T01:37:24+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -13,10 +13,56 @@
   <link rel="alternate" type="text/html" hreflang="en"
     href="http://localhost:4000/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator>
-  <rights> © 2023 SeungMinYoon </rights>
+  <rights> © 2024 SeungMinYoon </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Goodbye, 2023! Welcome, 2024!</title>
+    <link href="http://localhost:4000/posts/Review2023/" rel="alternate" type="text/html" title="Goodbye, 2023! Welcome, 2024!" />
+    <published>2024-01-24T12:00:00+09:00</published>
+  
+    <updated>2024-01-24T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Review2023/</id>
+    <content src="http://localhost:4000/posts/Review2023/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      2024년을 맞이하며
+
+눈 깜짝할 사이에 2023년이 끝났다. 2023년은 여러 이벤트가 겹치면서 다양한 경험을 할 수 있었다. 사용하는 기술 스택에 대한 이해가 이전보다 나아졌고 무엇보다도 확실한 협업 경험을 통해 협업 능력이 높아진 부분에 대해서 상당히 만족하는 한 해였던 것 같다.
+
+이런 소중한 경험들을 머릿속에 두었다간 금방 잊혀질 게 눈에 보여서 블로그 글로 23년의 경험들을 정리하고자 한다. 그리고 이왕 회고글 작성을 시작한 김에 2023년을 시작으로 계속해서 1년 단위 회고를 작성하고자 한다. 매년마다 계속해서 쌓이는 회고들을 보면서 내 성장과정을 확인한다면 뭐라도 느끼는 게 있지 않을까 싶어서다.
+
+이 글이 나중에 뭐 어떤 식으로든 도움이 되길 바라며 이야기를 시작하겠다.
+
+​
+
+팀 리더...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -198,48 +244,6 @@ class Solution {
     istringstream iss(str);
     string buffer;
     while(getline(iss, buffer, split...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>(프로그래머스 | Kotlin) - 전력망을 둘로 나누기</title>
-    <link href="http://localhost:4000/posts/KotlinAlgorithm9/" rel="alternate" type="text/html" title="(프로그래머스 | Kotlin) - 전력망을 둘로 나누기" />
-    <published>2023-11-21T12:00:00+09:00</published>
-  
-    <updated>2023-11-21T12:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinAlgorithm9/</id>
-    <content src="http://localhost:4000/posts/KotlinAlgorithm9/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="알고리즘 문제" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      해결 방법
-
-특정 전선이 끊어지면 하나의 트리는 두 개의 그룹으로 나뉘게 된다. 따라서 두 개의 그룹 각각, DFS 혹은 BFS 를 이용해서 그룹 내 노드의 개수를 카운트한다. 나는 BFS 를 이용해서 노드의 개수를 구했다.
-
-그리고 탐색 시작점은 제거한 전선과 연결된 노드로 지정했다. 첫 번째 입출력 예제 그림에서 4 와  7 이 연결된 전선을 끊은 경우를 보여주는데 이때 생긴 두 개의 그룹에서 탐색 시작점은 4,  7 이 된다. 4 에서 탐색을 시작하면 6개, 7 에서 탐색을 시작하면 3개가 카운드된다.
-
-따라서 모든 전선에 대해서 위 방법을 적용시켜 비교해야 한다. 예제에서 전선 정보가 담긴 wires 을 줬기 때문에 이 배열의 각 원소(전선)에 대해서 트리를 두 개로 나누고 각 트리마다 송전탑 ...
     </summary>
   
 
