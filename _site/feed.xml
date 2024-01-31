@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2024-01-28T22:53:55+09:00</updated>
+  <updated>2024-01-31T23:55:36+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Review2023/" rel="alternate" type="text/html" title="Goodbye, 2023! Welcome, 2024! - [2023년 회고]" />
     <published>2024-01-24T12:00:00+09:00</published>
   
-    <updated>2024-01-28T02:10:51+09:00</updated>
+    <updated>2024-01-28T22:54:13+09:00</updated>
   
     <id>http://localhost:4000/posts/Review2023/</id>
     <content src="http://localhost:4000/posts/Review2023/" />
