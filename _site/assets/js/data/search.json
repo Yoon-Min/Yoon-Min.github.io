@@ -1,6 +1,40 @@
 [
   
   {
+    "title": "Kotlin - ArrayList와 MutableList, 무슨 차이?",
+    "url": "/posts/Kotlin-ArrayList-MutableList-Difference/",
+    "categories": "CS, 프로그래밍 언어",
+    "tags": "Kotlin, Algorithm, 알고리즘, 메서드",
+    "date": "2024-02-20 12:00:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "",
+    "content": ""
+  },
+  
+  {
+    "title": "Kotlin 알고리즘 풀이에 유용한 문법 정리",
+    "url": "/posts/Kotlin-Algorithm-UsefulMethod/",
+    "categories": "CS, 프로그래밍 언어",
+    "tags": "Kotlin, Algorithm, 알고리즘, 메서드",
+    "date": "2024-02-20 12:00:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "",
+    "content": ""
+  },
+  
+  {
     "title": "Goodbye, 2023! Welcome, 2024! - [2023년 개발 회고]",
     "url": "/posts/Review2023/",
     "categories": "블로그, 회고록",
