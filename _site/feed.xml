@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2024-02-21T01:22:24+09:00</updated>
+  <updated>2024-02-22T04:35:06+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>Kotlin - ArrayList와 MutableList, 무슨 차이?</title>
-    <link href="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" rel="alternate" type="text/html" title="Kotlin - ArrayList와 MutableList, 무슨 차이?" />
+    <title>Kotlin - ArrayList와 MutableList 무슨 차이일까?</title>
+    <link href="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" rel="alternate" type="text/html" title="Kotlin - ArrayList와 MutableList 무슨 차이일까?" />
     <published>2024-02-20T12:00:00+09:00</published>
   
     <updated>2024-02-20T12:00:00+09:00</updated>
@@ -50,7 +50,17 @@
 
       
 
+Collection
 
+Kotlin Collection
+
+
+  “The Kotlin Standard Library provides a comprehensive set of tools for managing collections – groups of a variable number of items (possibly zero) that are significant to the problem being solved and are commonly operated on.”
+
+  Kotlin docs -
+
+
+다양한 프로그래밍 언어에서 문제 해결을 위해 동일하거나 비슷한 의미를 가진 item 들이 하나의 그룹으로 제어된 방식으로 함께 동작하는 Collection 을 사용합니다. 코틀린에서 컬렉션은 4개의 메서드와...
     </summary>
   
 
@@ -62,7 +72,7 @@
     <link href="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" rel="alternate" type="text/html" title="Kotlin 알고리즘 풀이에 유용한 문법 정리" />
     <published>2024-02-20T12:00:00+09:00</published>
   
-    <updated>2024-02-20T12:00:00+09:00</updated>
+    <updated>2024-02-21T01:22:58+09:00</updated>
   
     <id>http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/</id>
     <content src="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" />
