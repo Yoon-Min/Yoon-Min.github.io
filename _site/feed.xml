@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2024-02-22T04:35:06+09:00</updated>
+  <updated>2024-02-22T12:18:53+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>Kotlin - ArrayList와 MutableList 무슨 차이일까?</title>
-    <link href="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" rel="alternate" type="text/html" title="Kotlin - ArrayList와 MutableList 무슨 차이일까?" />
+    <title>Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?</title>
+    <link href="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" rel="alternate" type="text/html" title="Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?" />
     <published>2024-02-20T12:00:00+09:00</published>
   
-    <updated>2024-02-20T12:00:00+09:00</updated>
+    <updated>2024-02-22T04:35:33+09:00</updated>
   
     <id>http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/</id>
     <content src="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" />

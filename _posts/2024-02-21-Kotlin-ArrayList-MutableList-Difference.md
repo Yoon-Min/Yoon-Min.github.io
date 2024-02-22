@@ -1,9 +1,9 @@
 ---
-title: Kotlin - ArrayList와 MutableList 무슨 차이일까?
+title: Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?
 author: yoonmin
 date: 2024-02-20 12:00:00 +0900
 categories: [CS, 프로그래밍 언어]
-tags: [Kotlin, Algorithm, 알고리즘, 메서드]
+tags: [Kotlin, Collection, ArrayList, MutableList]
 render_with_liquid: false
 ---
 
@@ -385,7 +385,7 @@ private fun insertAtInternal(i: Int, n: Int) {
 
 코틀린에서 `ArrayList` 와 `MutableList` 둘 다 객체를 생성하는 방식은 `ArrayList` 클래스를 이용합니다. 생성 방식에 대한 코드는 코틀린 `Collections.kt` 에서 확인할 수 있습니다.
 
-`MutableList` 생성시, 내부에서 `ArrayList` 객체를 생성하여 반환하는 것을 알 수 있습니다. `ArrayList` 생성은 당연히 `ArrayList` 객체를 이용합니다.
+`MutableList` 을 생성할 때, 내부에서 `ArrayList` 객체를 생성하여 반환하는 것을 알 수 있습니다. `ArrayList` 생성은 당연히 `ArrayList` 객체를 이용합니다.
 
 ```kotlin
 @SinceKotlin("1.1")
@@ -405,15 +405,15 @@ public inline fun <T> MutableList(size: Int, init: (index: Int) -> T): MutableLi
 public inline fun <T> arrayListOf(): ArrayList<T> = ArrayList()
 ```
 
-이를 통해 알 수 있는 것은 결국 `ArrayList` 와 `MutableList` 는 이름만 다를 뿐이지 내부에서는 둘 다 `ArrayList` 를 이용한다는 것입니다. 그래서 이 부분만 봐서는 둘의 차이를 느끼기 힘들기 때문에 다른 부분을 봐야 합니다.
+이를 통해 알 수 있는 것은 결국 `ArrayList` 와 `MutableList` 는 이름만 다를 뿐이지 내부에서는 둘 다 `ArrayList` 을 이용한다는 것입니다. 그래서 이 부분만 봐서는 둘의 차이를 느끼기 힘들기 때문에 다른 부분을 봐야 합니다.
 
 ### 사용 목적에 따른 분류
 
-객체 생성은 둘 다 `ArrayLIst` 인스턴스를 생성하므로 동작은 동일합니다. 그렇다면 개발 철학적인 관점에서 사용 이유를 생각해봐야 합니다. `ArrayList` 를 왜 사용해야 하는가?  `ArrayList` 가 아닌 `MutableLIst` 를 왜 사용해야 하는가?
+객체 생성은 둘 다 `ArrayLIst` 인스턴스를 생성하므로 동작은 동일합니다. 그렇다면 개발 철학적인 관점에서 사용 이유를 생각해 봐야 합니다.
 
-인터페이스인 `MutableList` 는 객체의 동작만 보면 됩니다. 어떻게 동작하는지는 알 필요가 없습니다. 그냥 인터페이스를 통해 원하는 리스트 동작만 처리해주면 그만입니다. 
+인터페이스인 `MutableList` 는 객체의 <span style="color: #30aaa0">**동작**</span>만 보면 됩니다. 어떻게 동작하는지는 알 필요가 없습니다. <span style="color: #30aaa0">**그냥 인터페이스를 통해 원하는 리스트 동작만 처리해주면 그만**</span>입니다. 
 
-반면에 `ArrayList` 는 `MutableList` 를 구현한 클래스입니다. 여기서는 각 동작에 대한 설계 구조를 파악할 수 있고 직접적인 컨트롤이 가능합니다. 따라서 인터페이스처럼 단순 동작에 집중하는 것이 아닌 동작의 원리(구조)에 집중을 하게 됩니다. `ArrayList` 의 독자적인 메서드 두 개만 봐도 객체의 메모리 관리에 직접 관여가 가능한 것을 알 수 있습니다.
+반면에 `ArrayList` 는 `MutableList` 를 구현한 클래스입니다. 여기서는 각 동작에 대한 설계 <span style="color: #30aaa0">**구조**</span>를 파악할 수 있고 직접적인 컨트롤이 가능합니다. 따라서 인터페이스처럼 <span style="color: #30aaa0">**단순 동작에 집중하는 것이 아닌 동작의 원리(구조)에 집중**</span>하게 됩니다. `ArrayList` 의 독자적인 메서드 두 개만 봐도 객체의 메모리 관리에 직접 관여가 가능한 것을 알 수 있습니다.
 
 ```kotlin
 /*
@@ -431,7 +431,7 @@ fun ensureCapacity(minCapacity: Int)
 
 정리하면 내부 동작에는 관심이 없고 단순히 리스트의 기능이 필요하다면 `MutableList` ,  `ArrayList` 의 동작 구조를 파악하여 문제 해결에 적합하다고 판단이 되면 `ArrayList` 의 사용을 추천하고 있습니다.
 
-그리고 `MutableList` 의 구현체가 지금은 `ArrayList` 이지만 미래에 이보다 더 나은 다른 구현 클래스가 제공될 수 있으므로 인터페이스 리스트를 이용하는 것이 미래 변동사항에 유연하게 대처할 수 있다는 의견도 있습니다. 결국 동작 수행은 똑같으니 본인의 개발 가치관에 따라서 자유롭게 선택하시면 될 것 같습니다.
+그리고 `MutableList` 의 구현체가 지금은 `ArrayList` 이지만 미래에 이보다 더 나은 다양한 구현 클래스가 제공될 수 있으므로 인터페이스 리스트를 이용하는 것이 미래 변동 사항에 유연하게 대처할 수 있다는 의견도 있습니다. 결국 동작 수행은 똑같으므로 본인의 개발 가치관에 따라서 자유롭게 선택하시면 될 것 같습니다.
 
 ​		
 
