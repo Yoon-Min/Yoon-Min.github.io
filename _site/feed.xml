@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>부족한 개발 실력을 키우고 다른 사람들에게 도움이 되고 싶습니다.</subtitle>
-  <updated>2024-02-22T12:18:53+09:00</updated>
+  <updated>2024-02-22T19:27:10+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,49 @@
 
   
   <entry>
+    <title>Kotlin 알고리즘 풀이에 유용한 문법 정리</title>
+    <link href="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" rel="alternate" type="text/html" title="Kotlin 알고리즘 풀이에 유용한 문법 정리" />
+    <published>2024-02-22T12:00:00+09:00</published>
+  
+    <updated>2024-02-21T01:22:58+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/</id>
+    <content src="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="CS" />
+    
+    <category term="프로그래밍 언어" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      ##
+
+
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?</title>
     <link href="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" rel="alternate" type="text/html" title="Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?" />
     <published>2024-02-20T12:00:00+09:00</published>
   
-    <updated>2024-02-22T04:35:33+09:00</updated>
+    <updated>2024-02-22T12:20:07+09:00</updated>
   
     <id>http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/</id>
     <content src="http://localhost:4000/posts/Kotlin-ArrayList-MutableList-Difference/" />
@@ -61,43 +99,6 @@ Kotlin Collection
 
 
 다양한 프로그래밍 언어에서 문제 해결을 위해 동일하거나 비슷한 의미를 가진 item 들이 하나의 그룹으로 제어된 방식으로 함께 동작하는 Collection 을 사용합니다. 코틀린에서 컬렉션은 4개의 메서드와...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Kotlin 알고리즘 풀이에 유용한 문법 정리</title>
-    <link href="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" rel="alternate" type="text/html" title="Kotlin 알고리즘 풀이에 유용한 문법 정리" />
-    <published>2024-02-20T12:00:00+09:00</published>
-  
-    <updated>2024-02-21T01:22:58+09:00</updated>
-  
-    <id>http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/</id>
-    <content src="http://localhost:4000/posts/Kotlin-Algorithm-UsefulMethod/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="프로그래밍 언어" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
     </summary>
   
 
