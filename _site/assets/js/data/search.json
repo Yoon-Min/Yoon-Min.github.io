@@ -1,23 +1,6 @@
 [
   
   {
-    "title": "Kotlin 알고리즘 풀이에 유용한 문법 정리",
-    "url": "/posts/Kotlin-Algorithm-UsefulMethod/",
-    "categories": "CS, 프로그래밍 언어",
-    "tags": "Kotlin, Algorithm, 알고리즘",
-    "date": "2024-02-22 12:00:00 +0900",
-    
-
-
-
-
-
-    
-    "snippet": "##",
-    "content": "##"
-  },
-  
-  {
     "title": "Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?",
     "url": "/posts/Kotlin-ArrayList-MutableList-Difference/",
     "categories": "CS, 프로그래밍 언어",
