@@ -1,6 +1,23 @@
 [
   
   {
+    "title": "Android Retrofit - 1. Retrofit 객체 생성과 API Interface의 동작 과정",
+    "url": "/posts/Android-Retrofit-01/",
+    "categories": "CS, 프로그래밍 언어",
+    "tags": "Kotlin, Retrofit2, REST API, Android",
+    "date": "2024-02-26 00:00:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "Retrofit2",
+    "content": "Retrofit2"
+  },
+  
+  {
     "title": "Kotlin - ArrayList와 MutableList, 무엇을 써야 할까?",
     "url": "/posts/Kotlin-ArrayList-MutableList-Difference/",
     "categories": "CS, 프로그래밍 언어",
