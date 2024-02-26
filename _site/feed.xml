@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-02-26T01:16:34+09:00</updated>
+  <updated>2024-02-27T02:32:55+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -34,9 +34,9 @@
 
   
     
-    <category term="CS" />
+    <category term="Android" />
     
-    <category term="프로그래밍 언어" />
+    <category term="라이브러리" />
     
   
 
@@ -50,9 +50,15 @@
 
       
 
-Retrofit2
+Retrofit Intro
 
 
+  A type-safe HTTP client for Android and Java - Square -
+
+
+레트로핏은 Android, Java에서 사용되는 타입 세이프한 Http Client이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 OkHttpClient 가 무엇인지부터 알아야 할 필요가 있습니다.
+
+Square에서 레트로핏 이전에 OkHttpClient 라는 Http Client를 먼저 제공했습니다. 이후에 OkHttpClient의 네트워크 처리 기능 기반에 어노테이션을 이용한 API 인터페이스로 응답을 처리하는 좀 더 높은 수준의 추상화를 추가하게 ...
     </summary>
   
 
