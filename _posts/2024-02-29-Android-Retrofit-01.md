@@ -1,7 +1,7 @@
 ---
 title: Android Retrofit - 1. Retrofit 객체 생성과 API Interface의 동작 과정
 author: yoonmin
-date: 2024-02-26 00:00:00 +0900
+date: 2024-02-29 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Kotlin, Retrofit2, REST API, Android]
 render_with_liquid: true
@@ -76,7 +76,7 @@ Square에서 레트로핏 이전에 `OkHttpClient` 라는 `Http Client`를 먼�
 
 ## Retrofit 구성하는 클래스와 인터페이스
 
-`Retrofit` 객체 생성과 인터페이스 처리 과정을 알아보기 전에 레트로핏을 구성하는 클래스와 인터페이스가 무엇이고 어떤 역할을 하는지 알아야 할 필요가 있습니다. 그리고 각 클래스와 인터페이스를 구성하는 주요한 메서드가 무엇인지도 같이 알아보겠습니다.
+`Retrofit` 객체 생성과 인터페이스 처리 과정을 알아보기 전에 레트로핏을 구성하는 대표적인 클래스와 인터페이스가 무엇이고 어떤 역할을 하는지 알아야 할 필요가 있습니다. 그리고 각 클래스와 인터페이스를 구성하는 주요한 메서드가 무엇인지도 같이 알아보겠습니다.
 
 ### Call
 
@@ -132,7 +132,7 @@ interface Callback { /* ... */ }
 
 기본 실행기는 `Platform` 클래스에서 가져오는데 여기서 기본 실행기로 처리되는 콜백은 메인 스레드에서 처리되는 것을 알 수 있습니다. 즉, 기본적으로 `Android` 내에서  콜백 처리는 메인 스레드에서 처리하도록 설정되어 있습니다.
 
-```kotlin
+```java
 @Override
 public Executor defaultCallbackExecutor() {
   return new MainThreadExecutor();
@@ -174,11 +174,143 @@ fun onResponse(call: Call, response: Response)
 >
 > ***HTTP 응답이 원격 서버에 의해 성공적으로 반환됐을 때 호출됩니다.***
 
-`response` 를 통해서 응답 본문을 읽을 수 있습니다. 
+여기서 `Response`  타입의 파라미터를 볼 수 있는데 이것을 통해서 응답 본문을 읽을 수 있습니다. 콜백 인터페이스에 달린 라이브러리 자체 코멘트를 보면 `response` 는 응답 본문이 `close` 되기 전에는 유효한 것을 알 수 있습니다. 
+
+이 부분에 대해서 `close` 는 레트로핏이 알아서 처리해주므로 우리가 직접 처리해줄 필요는 없습니다. `close` 와 관련하여 [레트로핏 깃허브 이슈](https://github.com/square/retrofit/issues/2950)에 관련 내용들을 찾을 수 있는데 `@Streaming` 을 메서드에 사용하지 않는 이상, 내부에서 처리하므로 신경쓸 필요가 없다고 합니다.
+
+`close` 처리는 `OkHttpCall` 이라는 `Call` 구현체와 관련있는데 뒤에서 자세히 다뤄보도록 하겠습니다. 지금은 그냥 `response` 를 통해서 응답 본문을 얻을 수 있다는 것만 알고 넘어가면 됩니다.
+
+​		
+
+---
+
+​		
+
+### CallAdapter
+
+```java
+public interface CallAdapter<R, T> 
+```
+
+> *"Adapts a Call with response type R into the type of T. Instances are created by a factory which is installed into the Retrofit instance."*
+>
+> ***`Call<R>` 을 `T` 로 조정합니다. 콜 어댑터 인스턴스는 레트로핏 인스턴스 내에 설치된 어댑터 팩토리에 의해 생성됩니다.***
+
+​		
+
+```java
+Type responseType();
+```
+
+> *"Returns the value type that this adapter uses when converting the HTTP response body to a Java object. For example, the response type for Call<Repo> is Repo. This type is used to prepare the call passed to #adapt."*
+>
+> ***HTTP 응답 본체를 Java 개체로 변환할 때 이 어댑터가 사용하는 값 유형을 반환합니다. 예를 들어 `Call<Repo>` 에 대한 응답 유형은 `Repo` 입니다.***
+
+​		
+
+```java
+T adapt(Call<R> call);
+```
+
+> *"Returns an instance of T which delegates to call."* 
+>
+> ***`call`을 위임하는 T의 인스턴스를 반환합니다.***
+
+여러 종류의 응답을 핸들링하기 위해 만들어둔 관련 클래스에 `R` 을 씌우고 싶을 때 콜 어댑터를 사용할 수 있습니다. 예를 들어서 `Success` , `Failure` , 여러 네트워크 오류가 담긴 `sealed class Resul` 가 있다고 한다면 `Call<R>` 을 `Call<Result<R>>` 형식으로 리턴하도록 조정할 수 있습니다. 
+
+ `T` 가 `Call<Result<R>>` 으로 되는 것입니다. 그렇게 하면 응답을 받는 곳에서 `when` 을 사용하여 `Result.Success` , `Result.Failure`  이런 식으로 깔끔하게 구분할 수 있고 코드의 가독성 향상을 기대할 수 있습니다. 
+
+​		
+
+---
+
+​		
+
+### CallAdapter.Factory
+
+```java
+public interface CallAdapter<R, T> {
+  abstract class Factory { /* ... */ }
+}
+```
+
+> *"Creates CallAdapter instances based on the return type of the service interface methods."*
+>
+> ***서비스 인터페이스 메서드의 반환 유형에 기반하여 CallAdapter 인스턴스를 생성합니다.***
+
+​		
+
+```java
+public abstract @Nullable CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit);
+```
+
+> *"Returns a call adapter for interface methods that return returnType, or null if it cannot be handled by this factory."* 
+>
+> ***returnType을 반환하는 인터페이스 메서드에 대한 콜 어댑터를 반환합니다. 만약 팩토리에서 처리할 수 없는 경우 null을 반환합니다.***
+
+​		
+
+```java
+protected static Type getParameterUpperBound(int index, ParameterizedType type) {
+  return Utils.getParameterUpperBound(index, type);
+}
+```
+
+> *"Extract the upper bound of the generic parameter at index from type. For example, index 1 of Map<String, ? extends Runnable> returns Runnable."*
+>
+> ***`type` 에서 `index` 값 기준으로 제네릭 파라미터의 상한을 추출합니다. 예시로 `index` 가 `1` 인 경우, `Map<String, ? extends Runnable>` 은 `Runnable` 을 리턴합니다.***
+
+​		
+
+```java
+protected static Class<?> getRawType(Type type) {
+  return Utils.getRawType(type);
+}
+```
+
+> *"Extract the raw class type from type. For example, the type representing List<? extends Runnable> returns List.class."*
+>
+> ***`type` 에서 원시 클래스를 추출합니다. 예시로 `type` 이 `List<? extends Runnable>` 인 경우, 원시 클래스로 `List.class` 을 리턴합니다.***
+
+​		
+
+---
+
+​		
+
+### Converter
+
+```java
+public interface Converter<F, T>
+```
+
+> *"Convert objects to and from their representation in HTTP."*
+>
+> ***HTTP 응답 본문을 자바 객체로 변환하거나, 자바 객체를 HTTP 요청의 본문으로 변환하는 작업을 수행합니다. 즉, 서버와 클라이언트 간에 발생하는 데이터 형식의 변환을 담당합니다.***
+
+​		
+
+---
+
+​		
+
+### Converter.Factory
+
+```java
+public interface Converter<F, T> {
+  abstract class Factory { /* ... */ }
+}
+```
+
+> *"Creates {@link Converter} instances based on a type and target usage."*
+>
+> ***주어진 타입과 타겟 사용에 기반하여 컨버터 인스턴스를 생성합니다.***
 
 ​		
 
 ## Retrofit 인스턴스 생성 과정
+
+### Create Builder
 
 우선 레트로핏은 인스턴스를 생성하는 데 빌더 패턴을 사용합니다. 빌더 패턴의 특성상, 빌더 클래스 내에서 타겟 인스턴스를 생성하므로 빌더의 생성자부터 보겠습니다.
 
@@ -192,16 +324,41 @@ public Builder() {
 }
 ```
 
+​		
+
+### Get Platfrom()
+
 생성자로 `Platform.get()` 을 호출하게 되는데 플랫폼 클래스 내에 시스템의 가상 머신 이름으로 플랫폼을 구분하는 메서드가 존재합니다. 안드로이드는  `Dalvik VM` 이므로 `Android()` 가 반환됩니다.
 
-```kotlin
+```java
 /* Platform.java */
-private static Platform findPlatform() {
-  return "Dalvik".equals(System.getProperty("java.vm.name"))
-      ? new Android() //
-      : new Platform(true);
+
+class Platform {
+  private static final Platform PLATFORM = findPlatform();
+
+  static Platform get() {
+    return PLATFORM;
+  }
+
+  private static Platform findPlatform() {
+    return "Dalvik".equals(System.getProperty("java.vm.name"))
+        ? new Android() //
+        : new Platform(true);
+  }
+  
+  /* ... */
 }
 ```
+
+`System.getProperty("java.vm.name")` 의 반환값이 `Dalvik` 인 이유는 [Android Developer](https://developer.android.com/reference/java/lang/System#getProperty(java.lang.String)) 공식문서에 정리되어 있습니다. `System` 클래스의 `getProperty(String key)` 메서드에 대한 설명을 보면 `Dalvik` 가상머신에서 제공하는 프로퍼티 목록을 확인할 수 있습니다.
+
+| **Name**     | **Meaning**            | **Example** |
+| ------------ | ---------------------- | ----------- |
+| java.vm.name | VM implementation name | `Dalvik`    |
+
+​		
+
+### Builder().build()
 
 이제 빌더 객체의 생성이 완료되어 레트로핏 객체 생성에 필요한 준비물을 전달할 수 있습니다. 여기서 필수로 전달해야 할 정보와 전달하지 않아도 되는 정보가 있는데 이는 `build` 메서드 코드를 보면 알 수 있습니다.
 
@@ -260,11 +417,11 @@ public Retrofit build() {
 
 *`CallAdapter.Factory`*
 
-: `CallAdapter` 를 만드는 역할입니다.  `defaultCallAdapterFactories` 메서드를 호출해서 따로 커스텀을 추가하지 않아도 기본 팩토리를 리스트에 추가합니다.
+: `CallAdapter` 를 만드는 역할입니다.  `defaultCallAdapterFactories` 메서드를 호출해서 기존 리스트에 기본 팩토리를 추가합니다.
 
 *`Converter.Factory`*
 
-: `Converter` 를 만드는 역할입니다. 어답터 팩토리와 마찬가지로 `BuiltInConverters` 객체와 `defaultConverterFactories` 메서드 호출을 통해 리스트를 채웁니다.
+: `Converter` 를 만드는 역할입니다. 어답터 팩토리와 마찬가지로 `BuiltInConverters` 객체와 `defaultConverterFactories` 메서드 호출을 통해 기존 리스트에 추가합니다.
 
  *`Retrofit`*
 
@@ -274,7 +431,13 @@ public Retrofit build() {
 
 ## 인터페이스 내부 처리
 
-지금까지 레트로핏 인스턴스 생성과정을 알아봤습니다. 이제는 인스턴스로 요청이 담긴 인터페이스의 메서드 호출을 어떻게 내부에서 처리하는지 알아보겠습니다.
+```java
+GitHubService service = retrofit.create(GitHubService.class);
+```
+
+> *"Create an implementation of the API endpoints defined by the service interface."*
+>
+> ***서비스 인터페이스에서 정의한 API 엔드포인트의 구현체를 생성합니다.***
 
 
 
@@ -293,3 +456,5 @@ public Retrofit build() {
 [**Square Retrofit**](https://square.github.io/retrofit/)
 
 [**Retrofit Javadoc**](https://square.github.io/retrofit/2.x/retrofit/)
+
+[**Android Developer - System**](https://developer.android.com/reference/java/lang/System#getProperties())
