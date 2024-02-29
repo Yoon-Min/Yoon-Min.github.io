@@ -1,7 +1,7 @@
 ---
 title: Android Retrofit - 1. Retrofit 객체 생성과 API Interface의 동작 과정
 author: yoonmin
-date: 2024-02-29 00:00:00 +0900
+date: 2024-03-01 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Kotlin, Retrofit2, REST API, Android]
 render_with_liquid: true
@@ -130,7 +130,7 @@ interface Callback { /* ... */ }
 
 콜백 메서드는 레트로핏이 가지고 있는 콜백 실행기에 의해 실행됩니다. 만약 콜백 실행기를 따로 설정하지 않는다면 내부에서 지정한 기본 실행기를 사용합니다. 
 
-기본 실행기는 `Platform` 클래스에서 가져오는데 여기서 기본 실행기로 처리되는 콜백은 메인 스레드에서 처리되는 것을 알 수 있습니다. 즉, 기본적으로 `Android` 내에서  콜백 처리는 메인 스레드에서 처리하도록 설정되어 있습니다.
+기본 실행기는 `Platform` 클래스에서 가져오는데 여기서 기본 실행기로 처리되는 콜백은 메인 스레드에서 처리되는 것을 알 수 있습니다. 즉, 기본적으로 `Android` 내에서  콜백은 메인 스레드에서 처리됩니다.
 
 ```java
 @Override
@@ -310,7 +310,7 @@ public interface Converter<F, T> {
 
 ## Retrofit 인스턴스 생성 과정
 
-### Create Builder
+### Builder constructor
 
 우선 레트로핏은 인스턴스를 생성하는 데 빌더 패턴을 사용합니다. 빌더 패턴의 특성상, 빌더 클래스 내에서 타겟 인스턴스를 생성하므로 빌더의 생성자부터 보겠습니다.
 
@@ -358,7 +358,7 @@ class Platform {
 
 ​		
 
-### Builder().build()
+### build()
 
 이제 빌더 객체의 생성이 완료되어 레트로핏 객체 생성에 필요한 준비물을 전달할 수 있습니다. 여기서 필수로 전달해야 할 정보와 전달하지 않아도 되는 정보가 있는데 이는 `build` 메서드 코드를 보면 알 수 있습니다.
 
@@ -425,7 +425,7 @@ public Retrofit build() {
 
  *`Retrofit`*
 
-: 최종적으로 위의 정보들이 `Retrofit` 인스턴스 생성을 위한 인자로 전달되는데 마지막 인자인 `validateEagerly` 는 빌드 과정에서 건들지 않기 때문에 `false` 로 전달됩니다. 이런 과정을 통해 최종적으로 생성된 레트로핏 인스턴스가 반환됩니다.
+: 최종적으로 위의 정보들이 `Retrofit` 인스턴스 생성을 위한 인자로 전달되는데 마지막 인자인 `validateEagerly` 는 빌드 과정에서 `true` 로 설정하지 않는다면 `false` 로 전달됩니다. 이런 과정을 통해 최종적으로 생성된 레트로핏 인스턴스가 반환됩니다.
 
 ​		
 
@@ -435,15 +435,107 @@ public Retrofit build() {
 GitHubService service = retrofit.create(GitHubService.class);
 ```
 
+```java
+public <T> T create(final Class<T> service) {
+  validateServiceInterface(service);
+  return (T)
+      Proxy.newProxyInstance(
+          service.getClassLoader(),
+          new Class<?>[] {service},
+          new InvocationHandler() {
+            private final Platform platform = Platform.get();
+            private final Object[] emptyArgs = new Object[0];
+
+            @Override
+            public @Nullable Object invoke(Object proxy, Method method, @Nullable Object[] args)
+                throws Throwable {
+              // If the method is a method from Object then defer to normal invocation.
+              if (method.getDeclaringClass() == Object.class) {
+                return method.invoke(this, args);
+              }
+              args = args != null ? args : emptyArgs;
+              return platform.isDefaultMethod(method)
+                  ? platform.invokeDefaultMethod(method, service, proxy, args)
+                  : loadServiceMethod(method).invoke(args);
+            }
+          });
+}
+```
+
 > *"Create an implementation of the API endpoints defined by the service interface."*
 >
 > ***서비스 인터페이스에서 정의한 API 엔드포인트의 구현체를 생성합니다.***
 
+​		
 
+### validateServiceInterface(service)
 
+`create` 의 가장 첫 번째 작업은 구현할 인터페이스의 적합성 검사입니다. 해당 함수에서는 크게 세 가지를 검사합니다.
 
+#### 첫 번째 검사 - 인터페이스가 맞는가?
 
+```java
+if (!service.isInterface()) {
+  throw new IllegalArgumentException("API declarations must be interfaces.");
+}
+```
 
+#### 두 번째 검사 - 인터페이스 제네릭이 존재하는가?
+
+```java
+Deque<Class<?>> check = new ArrayDeque<>(1);
+check.add(service);
+while (!check.isEmpty()) {
+  Class<?> candidate = check.removeFirst();
+  if (candidate.getTypeParameters().length != 0) {
+    StringBuilder message =
+        new StringBuilder("Type parameters are unsupported on ").append(candidate.getName());
+    if (candidate != service) {
+      message.append(" which is an interface of ").append(service.getName());
+    }
+    throw new IllegalArgumentException(message.toString());
+  }
+  Collections.addAll(check, candidate.getInterfaces());
+}
+```
+
+클래스 정보가 담긴 `Class<T>` 의 클래스 제네릭을 전부 가져오는 `getTypeParameters` 을 통해서 제네릭을 배열의 사이즈가 `0` 인지 확인합니다. 제네릭이 하나라도 존재한다면 `length` 가 `0` 이 아니기 때문에 예외가 발생합니다. 여기서는 인터페이스에 제네릭이 존재하는 것을 허용하지 않기 때문에 제네릭 없는 인터페이스로 구현 요청을 해야 합니다.
+
+`getTypeParameters` 예시로  만약 `HashMap` 을 대상으로 호출하면 해시맵은 제네릭으로 `<K, V>` 두 개를 사용하기 때문에 `length` 값이 `2` 가 됩니다. 예시 인터페이스인 `GitHubService` 은 제네릭이 없기 때문에 위의 조건을 통과합니다.
+
+```java
+public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Cloneable, Serializable { /* ... */ }
+public interface GitHubService { /* ... */ }
+```
+
+####  세 번째 검사 - `validateEagerly` 가 `true` 인가?
+
+```java
+if (validateEagerly) {
+  Platform platform = Platform.get();
+  for (Method method : service.getDeclaredMethods()) {
+    if (!platform.isDefaultMethod(method) && !Modifier.isStatic(method.getModifiers())) {
+      loadServiceMethod(method);
+    }
+  }
+}
+```
+
+> *"I'd like an option to do all the reflection & annotation introspection eagerly. When I'm in development, eager validation is worth the cost."*
+>
+> [**validateEagerly 도입 배경**](https://github.com/square/retrofit/issues/1023)
+
+`validateEagerly` 은 변수명 그대로 좀 더 자세하게 검사할 것을 원하는지 물어보는 겁니다. 빌드 과정에서 `validateEagerly` 을 `true` 로 설정했다면 *"인터페이스 검사를 좀 더 확실하게 해주세요"* 이렇게 요청하는 거라고 이해하시면 좋을 것 같습니다.
+
+ `true` 로 설정하게 되면 모든 메서드에 대해서 디폴트 혹은 스태틱인지 검사를 해서 둘 다 해당되지 않으면  인터페이스 내 모든 메서드에 대한 분석을 진행하는 `loadServiceMethod` 을 호출합니다.
+
+이 방식은 API 인터페이스를 사용하기 전에 안전하게 모든 메서드 분석을 끝내기 때문에 초기에 에러를 찾아낼 수 있습니다. 만약 `validateEagerly` 가 `false` 일 경우, API 메서드를 호출할 때 해당 메서드에 대한 `loadServiceMethod` 가 실행됩니다. 즉, 레트로핏은 기본적으로 호출 메서드에 대한 분석을 `Lazy` 하게 처리합니다. 
+
+적극적인 API 인터페이스 검증을 원한다면 `true` 로 설정해서 사용하시면 될 것 같습니다.
+
+​		
+
+### Proxy
 
 
 
@@ -458,3 +550,7 @@ GitHubService service = retrofit.create(GitHubService.class);
 [**Retrofit Javadoc**](https://square.github.io/retrofit/2.x/retrofit/)
 
 [**Android Developer - System**](https://developer.android.com/reference/java/lang/System#getProperties())
+
+[**Cheat sheet part 1: Retrofit**](https://medium.com/@vishalnaikawadi/retrofit-cheatsheet-c5ddd5173233)
+
+[**Retrofit GitHub**](https://github.com/square/retrofit)
