@@ -1,7 +1,7 @@
 ---
-title: Android Retrofit - 1. Retrofit 객체 생성과 API Interface의 동작 과정
+title: Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정
 author: yoonmin
-date: 2024-03-01 00:00:00 +0900
+date: 2024-03-02 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Kotlin, Retrofit2, REST API, Android]
 render_with_liquid: true
@@ -527,17 +527,351 @@ if (validateEagerly) {
 
 `validateEagerly` 은 변수명 그대로 좀 더 자세하게 검사할 것을 원하는지 물어보는 겁니다. 빌드 과정에서 `validateEagerly` 을 `true` 로 설정했다면 *"인터페이스 검사를 좀 더 확실하게 해주세요"* 이렇게 요청하는 거라고 이해하시면 좋을 것 같습니다.
 
- `true` 로 설정하게 되면 모든 메서드에 대해서 디폴트 혹은 스태틱인지 검사를 해서 둘 다 해당되지 않으면  인터페이스 내 모든 메서드에 대한 분석을 진행하는 `loadServiceMethod` 을 호출합니다.
+ `true` 로 설정하게 되면 모든 메서드에 대해서 디폴트 혹은 스태틱인지 검사를 해서 둘 다 해당되지 않으면 메서드를 분석을 진행하는 `loadServiceMethod` 을 호출합니다. 이 방식은 API 인터페이스를 사용하기 전에 안전하게 모든 메서드 분석을 끝내기 때문에 초기에 에러를 찾아낼 수 있습니다. 
 
-이 방식은 API 인터페이스를 사용하기 전에 안전하게 모든 메서드 분석을 끝내기 때문에 초기에 에러를 찾아낼 수 있습니다. 만약 `validateEagerly` 가 `false` 일 경우, API 메서드를 호출할 때 해당 메서드에 대한 `loadServiceMethod` 가 실행됩니다. 즉, 레트로핏은 기본적으로 호출 메서드에 대한 분석을 `Lazy` 하게 처리합니다. 
-
-적극적인 API 인터페이스 검증을 원한다면 `true` 로 설정해서 사용하시면 될 것 같습니다.
+만약 `validateEagerly` 가 `false` 일 경우, API 메서드를 호출할 때 해당 메서드에 대한 `loadServiceMethod` 가 실행됩니다. 즉, 레트로핏은 기본적으로 호출 메서드에 대한 분석을 `Lazy` 방식으로 처리합니다. 
 
 ​		
 
-### Proxy
+### Proxy.newProxyInstance
 
+`validateServiceInterface(service)` 이후에는 프록시 객체를 통해 인터페이스를 구현하게 됩니다. 프록시는 단어의 의미 그대로 원본 객체의 동작을 대신 처리합니다. 레트로핏은 자바의 동적 프록시 객체를 사용하여 런타임에 인터페이스를 구현합니다.
 
+일반적으로 프록시는 구현하려는 인터페이스 구조에 맞춰 클래스로 구현해야 합니다. 그런데 구현이 필요한 인터페이스가 한 개가 아닌 여러 개라면, 그만큼 프록시 객체가 많아져서 많은 코드량, 복잡성, 코드 중복 등의 껄끄러운 부분을 피할 수 없습니다.
+
+![image](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/2d6e8423-f2b7-4ec2-acf2-285e81b8f156)
+
+우리가 모바일 애플리케이션을 만든다면 분명 여러 기능을 구현할 테고, 그만큼 정의하는 API 인터페이스의 수가 많아질 것입니다. 일반 프록시 객체를 이용한다면 모든 인터페이스에 대한 프록시를 구현해야 하는 수고가 발생합니다.
+
+게다가 모든 API 인터페이스 내 모든 메서드는 서버 통신을 통해 요청에 대한 응답을 가져오는 공통된 동작을 가지고 있습니다. 일반 프록시 객체를 사용한다면, 모든 메서드에 해당 동작이 담긴 동일한 코드를 추가해야 하기 때문에 코드 중복을 피할 수 없습니다.
+
+하지만 동적 프록시를 사용하면 한 번 정의해둔 `InvocationHandler` 를 가지고 모든 API 인터페이스에 대한 프록시 생성이 가능해서 중복 코드와 구현 노동을 방지할 수 있습니다.
+
+동적 프록시를 사용하면 등록한 인터페이스 내에 어떤 메서드를 호출해도 호출된 메서드가 바로 실행되지 않습니다. 호출된 메서드의 정보를 가진 `InvocationHandler` 의 `invoke` 함수가 실행되기 때문에 해당 함수 내에 필요한 공통 동작 코드를 정의하면 됩니다.
+
+![image](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/f631c622-8117-4aaf-8792-8e70a7199fc4)
+
+레트로핏에서 정의한 `invoke` 함수를 보면 메서드가 `Object` 소속인지, `default` 인지 확인하는 코드가 있습니다. 우리가 요청한 메서드는 인터페이스 소속입니다. 이는 둘 다 해당되지 않으므로 메서드 분석을 통해 응답을 가져오는 `loadServiceMethod(method).invoke(args)` 가 리턴값으로 반환됩니다.
+
+```java
+Proxy.newProxyInstance(
+    service.getClassLoader(),
+    new Class<?>[] {service},
+    new InvocationHandler() {
+      private final Platform platform = Platform.get();
+      private final Object[] emptyArgs = new Object[0];
+
+      @Override
+      public @Nullable Object invoke(Object proxy, Method method, @Nullable Object[] args)
+          throws Throwable {
+        // If the method is a method from Object then defer to normal invocation.
+        if (method.getDeclaringClass() == Object.class) {
+          return method.invoke(this, args);
+        }
+        args = args != null ? args : emptyArgs;
+        return platform.isDefaultMethod(method)
+            ? platform.invokeDefaultMethod(method, service, proxy, args)
+            : loadServiceMethod(method).invoke(args);
+      }
+    });
+```
+
+​		
+
+### loadServiceMethod
+
+```java
+ServiceMethod<?> loadServiceMethod(Method method) {
+  ServiceMethod<?> result = serviceMethodCache.get(method);
+  if (result != null) return result;
+
+  synchronized (serviceMethodCache) {
+    result = serviceMethodCache.get(method);
+    if (result == null) {
+      result = ServiceMethod.parseAnnotations(this, method);
+      serviceMethodCache.put(method, result);
+    }
+  }
+  return result;
+}
+```
+
+`loadServiceMethod(method).invoke(args)` 가 무엇인지 알기 위해서 우선 `loadServiceMethod` 내부로 들어왔습니다. 메서드 이름에서 알 수 있듯이, 이 함수는 API 인터페이스의 `method` 호출을 HTTP 호출로 만들어 주는 역할을 합니다.
+
+그런데 HTTP 호출로 만드는 과정에서 메서드에 붙은 어노테이션 분석을 거치는데, 이는 잠재적 비용이 큰 리플렉션을 사용하기 때문에 한 번 리플렉션을 사용하여 어노테이션을 분석한 메서드는 `serviceMethodCache` 에 캐싱하여 다음 호출에 재사용합니다.
+
+```java
+ServiceMethod<?> result = serviceMethodCache.get(method);
+if (result != null) return result;
+```
+
+`serviceMethodCache` 에 `method` 정보가 존재하지 않는다면 `ServiceMethod.parseAnnotations` 로 어노테이션 분석을 진행한 다음, 결과값을 캐싱하고 리턴합니다.
+
+```java
+synchronized (serviceMethodCache) {
+  result = serviceMethodCache.get(method);
+  if (result == null) {
+    result = ServiceMethod.parseAnnotations(this, method);
+    serviceMethodCache.put(method, result);
+  }
+}
+return result;
+```
+
+​		
+
+### ServiceMethod.parseAnnotations
+
+`method` 를 HTTP 호출 형태로 다듬어서 캐싱을 하는 것까지 알았으니, 이제는 어떻게 HTTP 호출 형태로 바뀌는지 `ServiceMethod.parseAnnotations` 내부를 알아보겠습니다. `ServiceMethod` 구조는 다음과 같습니다.
+
+```java
+abstract class ServiceMethod<T> {
+  static <T> ServiceMethod<T> parseAnnotations(Retrofit retrofit, Method method) {
+    RequestFactory requestFactory = RequestFactory.parseAnnotations(retrofit, method);
+
+    Type returnType = method.getGenericReturnType();
+    if (Utils.hasUnresolvableType(returnType)) {
+      throw methodError(
+          method,
+          "Method return type must not include a type variable or wildcard: %s",
+          returnType);
+    }
+    if (returnType == void.class) {
+      throw methodError(method, "Service methods cannot return void.");
+    }
+
+    return HttpServiceMethod.parseAnnotations(retrofit, method, requestFactory);
+  }
+
+  abstract @Nullable T invoke(Object[] args);
+}
+```
+
+`parseAnnotation` 은 메서드의 리턴 타입과 어노테이션 분석을 통해서 메서드의 HTTP 호출을 반환합니다. 이때 반환 타입인 `HttpServiceMethod` 은 `ServiceMethod` 를 확장한 추상 클래스입니다. 메서드 어노테이션에 대한 분석은 `RequestFactory` 가 대신 처리하고 분석 결과를 기반으로 HTTP 호출로 다듬는 역할은 `HttpServiceMethod` 가 합니다.
+
+`invoke` 은 추상 메서드로 호출 메서드의 결과값을 반환합니다. 동적 프록시 객체를 생성할 때 인터페이스 메서드의 결과값으로 `loadServiceMethod(method).invoke(args)` 을 반환한다는 것을 위에서 설명했습니다. 즉, 이 함수는 우리가 원하는 요청에 대한 서버 응답값을 제공하는 최종 함수입니다.
+
+​		
+
+### RequestFactory.parseAnnotations
+
+```java
+static RequestFactory parseAnnotations(Retrofit retrofit, Method method) {
+  return new Builder(retrofit, method).build();
+}
+```
+
+`RequestFactory` 는 빌더 패턴을 사용하여 빌더 클래스에서 메서드 분석을 진행합니다. `build` 메서드를 보면 크게 세 가지 작업을 진행합니다.
+
+#### 1. 예외 처리
+
+발생할 수 있는 여러 변수에 대한 예외처리를 진행합니다. 각 예외처리에 대한 메세지를 보면 무엇을 말하는지 알 수 있습니다.
+
+```java
+if (httpMethod == null) {
+  throw methodError(method, "HTTP method annotation is required (e.g., @GET, @POST, etc.).");
+}
+
+if (!hasBody) {
+  if (isMultipart) {
+    throw methodError(
+        method,
+        "Multipart can only be specified on HTTP methods with request body (e.g., @POST).");
+  }
+  if (isFormEncoded) {
+    throw methodError(
+        method,
+        "FormUrlEncoded can only be specified on HTTP methods with "
+            + "request body (e.g., @POST).");
+  }
+}
+
+if (relativeUrl == null && !gotUrl) {
+  throw methodError(method, "Missing either @%s URL or @Url parameter.", httpMethod);
+}
+if (!isFormEncoded && !isMultipart && !hasBody && gotBody) {
+  throw methodError(method, "Non-body HTTP method cannot contain @Body.");
+}
+if (isFormEncoded && !gotField) {
+  throw methodError(method, "Form-encoded method must contain at least one @Field.");
+}
+if (isMultipart && !gotPart) {
+  throw methodError(method, "Multipart method must contain at least one @Part.");
+}
+```
+
+#### 2. 어노테이션 분석
+
+메서드에 붙은 모든 어노테이션을 분석합니다.
+
+```java
+for (Annotation annotation : methodAnnotations) {
+  parseMethodAnnotation(annotation);
+}
+```
+
+나올 수 있는 HTTP Method에 대해서 조건별 처리를 진행합니다. 여기서 눈에 띄는 부분은 `@DELETE` , `@GET` , `@HEAD` , `@PATCH` , `@POST` , `@PUT` , `@OPTIONS` 일 경우, 호출하는 `parseHttpMethodAndPath` 입니다.
+
+```java
+private void parseMethodAnnotation(Annotation annotation) {
+  if (annotation instanceof DELETE) {
+    parseHttpMethodAndPath("DELETE", ((DELETE) annotation).value(), false);
+  } else if (annotation instanceof GET) {
+    parseHttpMethodAndPath("GET", ((GET) annotation).value(), false);
+  } else if (annotation instanceof HEAD) {
+    parseHttpMethodAndPath("HEAD", ((HEAD) annotation).value(), false);
+  } else if (annotation instanceof PATCH) {
+    parseHttpMethodAndPath("PATCH", ((PATCH) annotation).value(), true);
+  } else if (annotation instanceof POST) {
+    parseHttpMethodAndPath("POST", ((POST) annotation).value(), true);
+  } else if (annotation instanceof PUT) {
+    parseHttpMethodAndPath("PUT", ((PUT) annotation).value(), true);
+  } else if (annotation instanceof OPTIONS) {
+    parseHttpMethodAndPath("OPTIONS", ((OPTIONS) annotation).value(), false);
+  } else if (annotation instanceof HTTP) {
+    HTTP http = (HTTP) annotation;
+    parseHttpMethodAndPath(http.method(), http.path(), http.hasBody());
+  } else if (annotation instanceof retrofit2.http.Headers) {
+    String[] headersToParse = ((retrofit2.http.Headers) annotation).value();
+    if (headersToParse.length == 0) {
+      throw methodError(method, "@Headers annotation is empty.");
+    }
+    headers = parseHeaders(headersToParse);
+  } else if (annotation instanceof Multipart) {
+    if (isFormEncoded) {
+      throw methodError(method, "Only one encoding annotation is allowed.");
+    }
+    isMultipart = true;
+  } else if (annotation instanceof FormUrlEncoded) {
+    if (isMultipart) {
+      throw methodError(method, "Only one encoding annotation is allowed.");
+    }
+    isFormEncoded = true;
+  }
+}
+```
+
+`parseHttpMethodAndPath` 의 첫 번째 인자는 Http 메서드 명칭의 `String` 값입니다. 두 번째 인자는 인터페이스에 메서드를 작성할 때 어노테이션 옆에 적은 `URL` 의 `String` 값을 의미합니다. 세 번째 인자는 파라미터명 그대로 `Body` 를 가지고 있는지에 대한 논리값을 의미합니다.
+
+예시를 보면 `@GET` 옆에 엔드 포인트 `URL` 이 있습니다. 해당 문자열 값은 `GET` 어노테이션 인터페이스 내 `value()` 메서드로 접근할 수 있습니다.
+
+```java
+public interface GitHubService {
+  @GET("users/{user}/repos")
+  Call<List<Repo>> listRepos(@Path("user") String user);
+}
+
+/* GET.java */
+@Documented
+@Target(METHOD)
+@Retention(RUNTIME)
+public @interface GET {
+  String value() default "";
+}
+```
+
+`parseHttpMethodAndPath` 내부로 들어가면 처음엔 HTTP 메서드 종류와 바디 소유 여부를 저장하고, 만약 `URL` 이 존재하지 않는다면 함수를 종료하는 것을 볼 수 있습니다.
+
+ `URL` 이 존재한다면 쿼리가 포함됐는지 확인해서 파라미터 정보를 추출하고 `URL` 과 함께 저장합니다.
+
+```java
+private void parseHttpMethodAndPath(String httpMethod, String value, boolean hasBody) {
+  if (this.httpMethod != null) {
+    throw methodError(
+        method,
+        "Only one HTTP method is allowed. Found: %s and %s.",
+        this.httpMethod,
+        httpMethod);
+  }
+  this.httpMethod = httpMethod;
+  this.hasBody = hasBody;
+
+  if (value.isEmpty()) {
+    return;
+  }
+
+  // Get the relative URL path and existing query string, if present.
+  int question = value.indexOf('?');
+  if (question != -1 && question < value.length() - 1) {
+    // Ensure the query string does not have any named parameters.
+    String queryParams = value.substring(question + 1);
+    Matcher queryParamMatcher = PARAM_URL_REGEX.matcher(queryParams);
+    if (queryParamMatcher.find()) {
+      throw methodError(
+          method,
+          "URL query string \"%s\" must not have replace block. "
+              + "For dynamic query parameters use @Query.",
+          queryParams);
+    }
+  }
+
+  this.relativeUrl = value;
+  this.relativeUrlParamNames = parsePathParameters(value);
+}
+```
+
+#### 3. 파라미터 분석
+
+마지막은 `parseParameter` 을 통해 메서드의 모든 파라미터를 분석해서 파라미터별 핸들러를 저장합니다.
+
+```java
+int parameterCount = parameterAnnotationsArray.length;
+parameterHandlers = new ParameterHandler<?>[parameterCount];
+for (int p = 0, lastParameter = parameterCount - 1; p < parameterCount; p++) {
+  parameterHandlers[p] =
+      parseParameter(p, parameterTypes[p], parameterAnnotationsArray[p], p == lastParameter);
+}
+```
+
+`parseParameter` 내부에서는 먼저 파라미터에 붙은 어노테이션을 분석하고 그에 맞는 핸들러를 리턴합니다. 
+
+```java
+ParameterHandler<?> result = null;
+if (annotations != null) {
+  for (Annotation annotation : annotations) {
+    ParameterHandler<?> annotationAction =
+        parseParameterAnnotation(p, parameterType, annotations, annotation);
+
+    if (annotationAction == null) {
+      continue;
+    }
+
+    if (result != null) {
+      throw parameterError(
+          method, p, "Multiple Retrofit annotations found, only one allowed.");
+    }
+
+    result = annotationAction;
+  }
+}
+```
+
+그런데 `suspend` 함수의 파라미터로 추가되는 `Continuation` 과 같이 파라미터에 어노테이션이 없는 경우도 있습니다. 이런 경우, `Continuation` 인지 확인하여 `isKotlinSuspendFunction` 의 값을 `true` 로 설정합니다.
+
+```java
+if (result == null) {
+  if (allowContinuation) {
+    try {
+      if (Utils.getRawType(parameterType) == Continuation.class) {
+        isKotlinSuspendFunction = true;
+        return null;
+      }
+    } catch (NoClassDefFoundError ignored) {
+    }
+  }
+  throw parameterError(method, p, "No Retrofit annotation found.");
+}
+```
+
+여기서 `allowContinuation` 은 인자로 들어온 파라미터가 마지막 파라미터인지가 맞는지에 대한 값입니다. `Continuation` 은 함수의 파라미터 중에서 순번이 마지막입니다. 
+
+그래서 메서드의 모든 파라미터를 차례대로 검사할 때 마지막 파라미터는 `Continuation` 일 가능성이 있으니 마지막 파라미터 차례가 오면 `allowContinuation` 을 `true` 로 설정하여 중단 함수인지 확인하는 것입니다.
+
+중단 함수를 확인하는 이유는 만약 호출한 메서드가 중단 함수라면, 서버 응답을 반환하는 과정에서 코루틴을 사용해서 처리하기 위함입니다. 레트로핏은 코루틴을 이용한 처리도 지원하므로 `suspend` 키워드를 이용해서 API 메서드 호출을 하면 그에 맞춰 내부 코루틴 처리를 통한 응답을 반환합니다.
+
+​		
+
+### HttpServiceMethod.parseAnnotations
 
 
 
@@ -554,3 +888,5 @@ if (validateEagerly) {
 [**Cheat sheet part 1: Retrofit**](https://medium.com/@vishalnaikawadi/retrofit-cheatsheet-c5ddd5173233)
 
 [**Retrofit GitHub**](https://github.com/square/retrofit)
+
+[**누구나 쉽게 배우는 Dynamic Proxy 다루기**](https://inpa.tistory.com/entry/JAVA-%E2%98%95-%EB%88%84%EA%B5%AC%EB%82%98-%EC%89%BD%EA%B2%8C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Dynamic-Proxy-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
