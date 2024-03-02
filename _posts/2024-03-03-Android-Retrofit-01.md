@@ -1,9 +1,9 @@
 ---
 title: Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정
 author: yoonmin
-date: 2024-03-02 00:00:00 +0900
+date: 2024-03-03 00:00:00 +0900
 categories: [Android, 라이브러리]
-tags: [Kotlin, Retrofit2, REST API, Android]
+tags: [Kotlin, Retrofit2, REST API, Android, 레트로핏]
 render_with_liquid: true
 ---
 
@@ -15,7 +15,7 @@ render_with_liquid: true
 
 > *A type-safe HTTP client for Android and Java* - **Square** -
 
-레트로핏은 Android, Java에서 사용되는 타입 세이프한 `Http Client`이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 `OkHttpClient` 가 무엇인지부터 알아야 할 필요가 있습니다.
+레트로핏은 Android, Java에서 사용되는 타입 세이프한 `Http Client`이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜 주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 `OkHttpClient` 가 무엇인지부터 알아야 할 필요가 있습니다.
 
 Square에서 레트로핏 이전에 `OkHttpClient` 라는 `Http Client`를 먼저 제공했습니다. 이후에 `OkHttpClient`의 네트워크 처리 기능 기반에 어노테이션을 이용한 API 인터페이스로 응답을 처리하는 좀 더 높은 수준의 추상화를 추가하게 됐는데 이것이 `Retrofit`입니다.
 
@@ -45,7 +45,7 @@ Square에서 레트로핏 이전에 `OkHttpClient` 라는 `Http Client`를 먼�
 
 - `Retrofit` 방식
 
-  <span style="color: #898989">요청 처리 방법을 어노테이션을 이용한 인터페이스로 정의하고, 레트로핏 객체를 통해서 인터페이스 내 메서드를 호출할 수 있게 내부적으로</span> `create` <span style="color: #898989">합니다. 생성된 이후에 메서드 호출을 통해 응답을 받습니다.</span>
+  <span style="color: #898989">요청 처리 방법을 어노테이션을 이용한 인터페이스로 정의하고, 레트로핏 객체를 통해서 인터페이스 내 메서드를 호출할 수 있게 내부적으로</span> `create` <span style="color: #898989">합니다. 생성된 이후에 메서드 호출을 통해 응답받습니다.</span>
 
   ```java
   public interface GitHubService {
@@ -176,7 +176,7 @@ fun onResponse(call: Call, response: Response)
 
 여기서 `Response`  타입의 파라미터를 볼 수 있는데 이것을 통해서 응답 본문을 읽을 수 있습니다. 콜백 인터페이스에 달린 라이브러리 자체 코멘트를 보면 `response` 는 응답 본문이 `close` 되기 전에는 유효한 것을 알 수 있습니다. 
 
-이 부분에 대해서 `close` 는 레트로핏이 알아서 처리해주므로 우리가 직접 처리해줄 필요는 없습니다. `close` 와 관련하여 [레트로핏 깃허브 이슈](https://github.com/square/retrofit/issues/2950)에 관련 내용들을 찾을 수 있는데 `@Streaming` 을 메서드에 사용하지 않는 이상, 내부에서 처리하므로 신경쓸 필요가 없다고 합니다.
+이 부분에 대해서 `close` 는 레트로핏이 알아서 처리해주므로 우리가 직접 처리해줄 필요는 없습니다. `close` 와 관련하여 [레트로핏 깃허브 이슈](https://github.com/square/retrofit/issues/2950)에 관련 내용들을 찾을 수 있는데 `@Streaming` 을 메서드에 사용하지 않는 이상, 내부에서 처리하므로 신경 쓸 필요가 없다고 합니다.
 
 `close` 처리는 `OkHttpCall` 이라는 `Call` 구현체와 관련있는데 뒤에서 자세히 다뤄보도록 하겠습니다. 지금은 그냥 `response` 를 통해서 응답 본문을 얻을 수 있다는 것만 알고 넘어가면 됩니다.
 
@@ -409,15 +409,15 @@ public Retrofit build() {
 
 *`Call.Factory`*
 
-: 이 정보는 전달하지 않아도 기본으로 `OkHttpClient` 를 사용하기 때문에 선택사항입니다. 여기서 내부적으로 `OkHttpClient` 를 이용한다는 것을 알 수 있습니다.
+: 이 정보는 전달하지 않아도 기본으로 `OkHttpClient` 을 사용하기 때문에 선택사항입니다. 여기서 내부적으로 `OkHttpClient` 을 이용한다는 것을 알 수 있습니다.
 
 *`CallbackExecutor`*
 
-: 레트로핏을 사용하는  `Android` 에서 `Callback` 은 `MainThread` 에서 처리가 됩니다. 따라서 커스텀 콜백 실행자가 따로 없다면 기본으로 플랫폼 객체에서 `MainThreadExecutor` 를 가지고 와서 사용합니다.
+: 레트로핏을 사용하는  `Android` 에서 `Callback` 은 `MainThread` 에서 처리됩니다. 따라서 커스텀 콜백 실행자가 따로 없다면 기본으로 플랫폼 객체에서 `MainThreadExecutor` 을 가지고 와서 사용합니다.
 
 *`CallAdapter.Factory`*
 
-: `CallAdapter` 를 만드는 역할입니다.  `defaultCallAdapterFactories` 메서드를 호출해서 기존 리스트에 기본 팩토리를 추가합니다.
+: `CallAdapter` 을 만드는 역할입니다.  `defaultCallAdapterFactories` 메서드를 호출해서 기존 리스트에 기본 팩토리를 추가합니다.
 
 *`Converter.Factory`*
 
@@ -425,9 +425,7 @@ public Retrofit build() {
 
  *`Retrofit`*
 
-: 최종적으로 위의 정보들이 `Retrofit` 인스턴스 생성을 위한 인자로 전달되는데 마지막 인자인 `validateEagerly` 는 빌드 과정에서 `true` 로 설정하지 않는다면 `false` 로 전달됩니다. 이런 과정을 통해 최종적으로 생성된 레트로핏 인스턴스가 반환됩니다.
-
-​		
+: 최종적으로 위의 정보들이 `Retrofit` 인스턴스 생성을 위한 인자로 전달되는데 마지막 인자인 `validateEagerly` 는 빌드 과정에서 `true` 로 설정하지 않는다면 `false` 로 전달됩니다. 이런 과정을 통해 최종적으로 생성된 레트로핏 인스턴스가 반환됩니다.		
 
 ## 인터페이스 내부 처리
 
@@ -501,7 +499,7 @@ while (!check.isEmpty()) {
 
 클래스 정보가 담긴 `Class<T>` 의 클래스 제네릭을 전부 가져오는 `getTypeParameters` 을 통해서 제네릭을 배열의 사이즈가 `0` 인지 확인합니다. 제네릭이 하나라도 존재한다면 `length` 가 `0` 이 아니기 때문에 예외가 발생합니다. 여기서는 인터페이스에 제네릭이 존재하는 것을 허용하지 않기 때문에 제네릭 없는 인터페이스로 구현 요청을 해야 합니다.
 
-`getTypeParameters` 예시로  만약 `HashMap` 을 대상으로 호출하면 해시맵은 제네릭으로 `<K, V>` 두 개를 사용하기 때문에 `length` 값이 `2` 가 됩니다. 예시 인터페이스인 `GitHubService` 은 제네릭이 없기 때문에 위의 조건을 통과합니다.
+`getTypeParameters` 예시로  만약 `HashMap` 을 대상으로 호출하면 해시맵은 제네릭으로 `<K, V>` 두 개를 사용하기 때문에 `length` 값이 `2` 가 됩니다. 예시 인터페이스인 `GitHubService` 는 제네릭이 없기 때문에 위의 조건을 통과합니다.
 
 ```java
 public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Cloneable, Serializable { /* ... */ }
@@ -527,7 +525,7 @@ if (validateEagerly) {
 
 `validateEagerly` 은 변수명 그대로 좀 더 자세하게 검사할 것을 원하는지 물어보는 겁니다. 빌드 과정에서 `validateEagerly` 을 `true` 로 설정했다면 *"인터페이스 검사를 좀 더 확실하게 해주세요"* 이렇게 요청하는 거라고 이해하시면 좋을 것 같습니다.
 
- `true` 로 설정하게 되면 모든 메서드에 대해서 디폴트 혹은 스태틱인지 검사를 해서 둘 다 해당되지 않으면 메서드를 분석을 진행하는 `loadServiceMethod` 을 호출합니다. 이 방식은 API 인터페이스를 사용하기 전에 안전하게 모든 메서드 분석을 끝내기 때문에 초기에 에러를 찾아낼 수 있습니다. 
+ `true` 로 설정했을 때 모든 메서드에 대해서 디폴트 혹은 스태틱인지 검사를 해서 둘 다 해당하지 않으면 메서드를 분석을 진행하는 `loadServiceMethod` 을 호출합니다. 이 방식은 API 인터페이스를 사용하기 전에 안전하게 모든 메서드 분석을 끝내기 때문에 초기에 에러를 찾아낼 수 있습니다. 
 
 만약 `validateEagerly` 가 `false` 일 경우, API 메서드를 호출할 때 해당 메서드에 대한 `loadServiceMethod` 가 실행됩니다. 즉, 레트로핏은 기본적으로 호출 메서드에 대한 분석을 `Lazy` 방식으로 처리합니다. 
 
@@ -543,15 +541,15 @@ if (validateEagerly) {
 
 우리가 모바일 애플리케이션을 만든다면 분명 여러 기능을 구현할 테고, 그만큼 정의하는 API 인터페이스의 수가 많아질 것입니다. 일반 프록시 객체를 이용한다면 모든 인터페이스에 대한 프록시를 구현해야 하는 수고가 발생합니다.
 
-게다가 모든 API 인터페이스 내 모든 메서드는 서버 통신을 통해 요청에 대한 응답을 가져오는 공통된 동작을 가지고 있습니다. 일반 프록시 객체를 사용한다면, 모든 메서드에 해당 동작이 담긴 동일한 코드를 추가해야 하기 때문에 코드 중복을 피할 수 없습니다.
+게다가 모든 API 인터페이스 내 모든 메서드는 서버 통신을 통해 요청에 대한 응답을 가져오는 공통된 동작을 가지고 있습니다. 일반 프록시 객체를 사용한다면, 모든 메서드에 해당 동작이 담긴 동일한 코드를 추가해야 하므로 코드 중복을 피할 수 없습니다.
 
-하지만 동적 프록시를 사용하면 한 번 정의해둔 `InvocationHandler` 를 가지고 모든 API 인터페이스에 대한 프록시 생성이 가능해서 중복 코드와 구현 노동을 방지할 수 있습니다.
+하지만 동적 프록시를 사용하면 한 번 정의해 둔 `InvocationHandler` 을 가지고 모든 API 인터페이스에 대한 프록시 생성이 가능해서 중복 코드와 구현 노동을 방지할 수 있습니다.
 
 동적 프록시를 사용하면 등록한 인터페이스 내에 어떤 메서드를 호출해도 호출된 메서드가 바로 실행되지 않습니다. 호출된 메서드의 정보를 가진 `InvocationHandler` 의 `invoke` 함수가 실행되기 때문에 해당 함수 내에 필요한 공통 동작 코드를 정의하면 됩니다.
 
 ![image](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/f631c622-8117-4aaf-8792-8e70a7199fc4)
 
-레트로핏에서 정의한 `invoke` 함수를 보면 메서드가 `Object` 소속인지, `default` 인지 확인하는 코드가 있습니다. 우리가 요청한 메서드는 인터페이스 소속입니다. 이는 둘 다 해당되지 않으므로 메서드 분석을 통해 응답을 가져오는 `loadServiceMethod(method).invoke(args)` 가 리턴값으로 반환됩니다.
+레트로핏에서 정의한 `invoke` 함수를 보면 메서드가 `Object` 소속인지, `default` 인지 확인하는 코드가 있습니다. 우리가 요청한 메서드는 인터페이스 소속입니다. 이는 둘 다 해당하지 않으므로 메서드 분석을 통해 응답을 가져오는 `loadServiceMethod(method).invoke(args)` 가 리턴값으로 반환됩니다.
 
 ```java
 Proxy.newProxyInstance(
@@ -605,7 +603,7 @@ ServiceMethod<?> result = serviceMethodCache.get(method);
 if (result != null) return result;
 ```
 
-`serviceMethodCache` 에 `method` 정보가 존재하지 않는다면 `ServiceMethod.parseAnnotations` 로 어노테이션 분석을 진행한 다음, 결과값을 캐싱하고 리턴합니다.
+`serviceMethodCache` 에 `method` 정보가 존재하지 않는다면 `ServiceMethod.parseAnnotations` 로 어노테이션 분석을 진행한 다음, 결괏값을 캐싱하고 리턴합니다.
 
 ```java
 synchronized (serviceMethodCache) {
@@ -622,7 +620,7 @@ return result;
 
 ### ServiceMethod.parseAnnotations
 
-`method` 를 HTTP 호출 형태로 다듬어서 캐싱을 하는 것까지 알았으니, 이제는 어떻게 HTTP 호출 형태로 바뀌는지 `ServiceMethod.parseAnnotations` 내부를 알아보겠습니다. `ServiceMethod` 구조는 다음과 같습니다.
+`method` 를 HTTP 호출 형태로 다듬어서 캐싱하는 것까지 알았으니, 이제는 어떻게 HTTP 호출 형태로 바뀌는지 `ServiceMethod.parseAnnotations` 내부를 알아보겠습니다. `ServiceMethod` 구조는 다음과 같습니다.
 
 ```java
 abstract class ServiceMethod<T> {
@@ -647,9 +645,9 @@ abstract class ServiceMethod<T> {
 }
 ```
 
-`parseAnnotation` 은 메서드의 리턴 타입과 어노테이션 분석을 통해서 메서드의 HTTP 호출을 반환합니다. 이때 반환 타입인 `HttpServiceMethod` 은 `ServiceMethod` 를 확장한 추상 클래스입니다. 메서드 어노테이션에 대한 분석은 `RequestFactory` 가 대신 처리하고 분석 결과를 기반으로 HTTP 호출로 다듬는 역할은 `HttpServiceMethod` 가 합니다.
+`parseAnnotation` 은 메서드의 리턴 타입과 어노테이션 분석을 통해서 메서드의 HTTP 호출을 반환합니다. 이때 반환 타입인 `HttpServiceMethod` 은 `ServiceMethod` 을 확장한 추상 클래스입니다. 메서드 어노테이션에 대한 분석은 `RequestFactory` 가 대신 처리하고 분석 결과를 기반으로 HTTP 호출로 다듬는 역할은 `HttpServiceMethod` 가 합니다.
 
-`invoke` 은 추상 메서드로 호출 메서드의 결과값을 반환합니다. 동적 프록시 객체를 생성할 때 인터페이스 메서드의 결과값으로 `loadServiceMethod(method).invoke(args)` 을 반환한다는 것을 위에서 설명했습니다. 즉, 이 함수는 우리가 원하는 요청에 대한 서버 응답값을 제공하는 최종 함수입니다.
+`invoke` 은 추상 메서드로 호출 메서드의 결과값을 반환합니다. 동적 프록시 객체를 생성할 때 인터페이스 메서드의 결과값으로 `loadServiceMethod(method).invoke(args)` 을 반환한다는 것을 위에서 설명했습니다. 즉, 이 함수는 우리가 원하는 요청에 대한 서버 응답 값을 제공하는 최종 함수입니다.
 
 ​		
 
@@ -665,7 +663,7 @@ static RequestFactory parseAnnotations(Retrofit retrofit, Method method) {
 
 #### 1. 예외 처리
 
-발생할 수 있는 여러 변수에 대한 예외처리를 진행합니다. 각 예외처리에 대한 메세지를 보면 무엇을 말하는지 알 수 있습니다.
+발생할 수 있는 여러 변수에 대한 예외 처리를 진행합니다. 각 예외 처리에 대한 메시지를 보면 무엇을 말하는지 알 수 있습니다.
 
 ```java
 if (httpMethod == null) {
@@ -751,7 +749,7 @@ private void parseMethodAnnotation(Annotation annotation) {
 }
 ```
 
-`parseHttpMethodAndPath` 의 첫 번째 인자는 Http 메서드 명칭의 `String` 값입니다. 두 번째 인자는 인터페이스에 메서드를 작성할 때 어노테이션 옆에 적은 `URL` 의 `String` 값을 의미합니다. 세 번째 인자는 파라미터명 그대로 `Body` 를 가지고 있는지에 대한 논리값을 의미합니다.
+`parseHttpMethodAndPath` 의 첫 번째 인자는 Http 메서드 명칭의 `String` 값입니다. 두 번째 인자는 인터페이스에 메서드를 작성할 때 어노테이션 옆에 적은 `URL` 의 `String` 값을 의미합니다. 세 번째 인자는 파라미터명 그대로 `Body` 를 가졌는지에 대한 논리값을 의미합니다.
 
 예시를 보면 `@GET` 옆에 엔드 포인트 `URL` 이 있습니다. 해당 문자열 값은 `GET` 어노테이션 인터페이스 내 `value()` 메서드로 접근할 수 있습니다.
 
@@ -873,6 +871,294 @@ if (result == null) {
 
 ### HttpServiceMethod.parseAnnotations
 
+`RequestFactory` 을 통해서 메서드의 어노테이션, 파라미터에 대한 분석을 모두 마쳤기 때문에 이제는 이 분석 결과로 HTTP 호출 형태로 만들어야 합니다. `HttpServiceMethod` 의 `parseAnnotations` 이 해당 작업을 맡습니다.
+
+`parseAnnotation` 의 초반 작업은 인터페이스 메서드가 중단 함수인지, 일반 함수인지 구분해서 `CallAdapter` 에 들어갈 타입과 어노테이션을 정합니다. 
+
+중단 함수인 경우에는 메서드 반환 값이 `Response<T>` 인 경우와 그렇지 않은 경우를 구분해서 `continuationWantsResponse` 와 `adapterType` 을 설정합니다. 일반 함수인 경우에는 바로 메서드 반환 타입에 대한 `adapterType` 을 설정합니다.
+
+```java
+static <ResponseT, ReturnT> HttpServiceMethod<ResponseT, ReturnT> parseAnnotations(
+    Retrofit retrofit, Method method, RequestFactory requestFactory) {
+  boolean isKotlinSuspendFunction = requestFactory.isKotlinSuspendFunction;
+  boolean continuationWantsResponse = false;
+  boolean continuationBodyNullable = false;
+
+  Annotation[] annotations = method.getAnnotations();
+  Type adapterType;
+  if (isKotlinSuspendFunction) {
+    Type[] parameterTypes = method.getGenericParameterTypes();
+    Type responseType =
+        Utils.getParameterLowerBound(
+            0, (ParameterizedType) parameterTypes[parameterTypes.length - 1]);
+    if (getRawType(responseType) == Response.class && responseType instanceof ParameterizedType) {
+      // Unwrap the actual body type from Response<T>.
+      responseType = Utils.getParameterUpperBound(0, (ParameterizedType) responseType);
+      continuationWantsResponse = true;
+    } else {
+      // TODO figure out if type is nullable or not
+      // Metadata metadata = method.getDeclaringClass().getAnnotation(Metadata.class)
+      // Find the entry for method
+      // Determine if return type is nullable or not
+    }
+
+    adapterType = new Utils.ParameterizedTypeImpl(null, Call.class, responseType);
+    annotations = SkipCallbackExecutorImpl.ensurePresent(annotations);
+  } else {
+    adapterType = method.getGenericReturnType();
+  }
+  
+  /* ... */
+}
+```
+
+이렇게 해서 만든 `adapterType` 와 `annotation` 을 가지고 `CallAdapter` 을 제작합니다.
+
+```java
+CallAdapter<ResponseT, ReturnT> callAdapter = createCallAdapter(retrofit, method, adapterType, annotations);
+```
+
+그다음은 반환 타입에서 발생할 수 있는 변수를 예외 처리합니다.
+
+```java
+Type responseType = callAdapter.responseType();
+if (responseType == okhttp3.Response.class) {
+  throw methodError(
+      method,
+      "'"
+          + getRawType(responseType).getName()
+          + "' is not a valid response body type. Did you mean ResponseBody?");
+}
+if (responseType == Response.class) {
+  throw methodError(method, "Response must include generic type (e.g., Response<String>)");
+}
+// TODO support Unit for Kotlin?
+if (requestFactory.httpMethod.equals("HEAD") && !Void.class.equals(responseType)) {
+  throw methodError(method, "HEAD method must use Void as response type.");
+}
+```
+
+`responseType` 에 대한 예외처리 검사를 마치면, 해당 값을 가지고 `Converter` 을 제작합니다.
+
+```java
+Converter<ResponseBody, ResponseT> responseConverter = createResponseConverter(retrofit, method, responseType);
+```
+
+컨버터 제작 이후에는 콜 팩토리를 제작합니다.
+
+```java
+okhttp3.Call.Factory callFactory = retrofit.callFactory;
+```
+
+여기까지 `CallAdapter` , `Converter` , `Call.Factory` 이렇게 세 가지를 만들었습니다. 이 세 가지는 `HttpServiceMethod` 객체 생성을 위한 생성자로 사용됩니다.
+
+객체 생성은 중단 함수를 구분하는 `isKotlinSuspendFunction` 값을 기준으로 진행됩니다. 레트로핏에서 구현된 `HttpServiceMethod` 구현체는 일반 함수용 한 개, 중단 함수용 두 개로 총 세 개가 존재합니다.
+
+```java
+if (!isKotlinSuspendFunction) {
+  return new CallAdapted<>(requestFactory, callFactory, responseConverter, callAdapter);
+} else if (continuationWantsResponse) {
+  return (HttpServiceMethod<ResponseT, ReturnT>)
+      new SuspendForResponse<>(
+          requestFactory,
+          callFactory,
+          responseConverter,
+          (CallAdapter<ResponseT, Call<ResponseT>>) callAdapter);
+} else {
+  return (HttpServiceMethod<ResponseT, ReturnT>)
+      new SuspendForBody<>(
+          requestFactory,
+          callFactory,
+          responseConverter,
+          (CallAdapter<ResponseT, Call<ResponseT>>) callAdapter,
+          continuationBodyNullable);
+}
+```
+
+​		
+
+### HttpServiceMethod 구현체
+
+![image](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/465b4214-3a41-4b30-87d7-a01537bc1658)
+
+먼저 일반 함수일 경우, `CallAdapted` 가 생성됩니다. `adapt` 가 호출되면 멤버 콜 어댑터를 통해서 `adapt` 처리를 합니다.
+
+```		java
+static final class CallAdapted<ResponseT, ReturnT> extends HttpServiceMethod<ResponseT, ReturnT> {
+  private final CallAdapter<ResponseT, ReturnT> callAdapter;
+
+  CallAdapted(
+      RequestFactory requestFactory,
+      okhttp3.Call.Factory callFactory,
+      Converter<ResponseBody, ResponseT> responseConverter,
+      CallAdapter<ResponseT, ReturnT> callAdapter) {
+    super(requestFactory, callFactory, responseConverter);
+    this.callAdapter = callAdapter;
+  }
+
+  @Override
+  protected ReturnT adapt(Call<ResponseT> call, Object[] args) {
+    return callAdapter.adapt(call);
+  }
+}
+```
+
+나머지 두 개는 중단 함수 전용으로 `SuspendForResponse` 와 `SuspendForBody` 입니다. 이 두 객체의 `adapt` 처리는 `CallAdapted` 와는 다르게 코루틴 블럭을 사용하여 처리합니다. 
+
+두 클래스의 마지막 반환 코드를 보면 `KotlinExtensions.kt` 내의 메서드를 호출합니다. 여기서 코루틴 블럭을 이용한 비동기 처리를 합니다.
+
+```java
+static final class SuspendForResponse<ResponseT> extends HttpServiceMethod<ResponseT, Object> {
+  private final CallAdapter<ResponseT, Call<ResponseT>> callAdapter;
+
+  SuspendForResponse(
+      RequestFactory requestFactory,
+      okhttp3.Call.Factory callFactory,
+      Converter<ResponseBody, ResponseT> responseConverter,
+      CallAdapter<ResponseT, Call<ResponseT>> callAdapter) {
+    super(requestFactory, callFactory, responseConverter);
+    this.callAdapter = callAdapter;
+  }
+
+  @Override
+  protected Object adapt(Call<ResponseT> call, Object[] args) {
+    call = callAdapter.adapt(call);
+    Continuation<Response<ResponseT>> continuation =
+        (Continuation<Response<ResponseT>>) args[args.length - 1];
+    try {
+      return KotlinExtensions.awaitResponse(call, continuation);
+    } catch (Exception e) {
+      return KotlinExtensions.suspendAndThrow(e, continuation);
+    }
+  }
+}
+
+static final class SuspendForBody<ResponseT> extends HttpServiceMethod<ResponseT, Object> {
+  private final CallAdapter<ResponseT, Call<ResponseT>> callAdapter;
+  private final boolean isNullable;
+
+  SuspendForBody(
+      RequestFactory requestFactory,
+      okhttp3.Call.Factory callFactory,
+      Converter<ResponseBody, ResponseT> responseConverter,
+      CallAdapter<ResponseT, Call<ResponseT>> callAdapter,
+      boolean isNullable) {
+    super(requestFactory, callFactory, responseConverter);
+    this.callAdapter = callAdapter;
+    this.isNullable = isNullable;
+  }
+
+  @Override
+  protected Object adapt(Call<ResponseT> call, Object[] args) {
+    call = callAdapter.adapt(call);
+    Continuation<ResponseT> continuation = (Continuation<ResponseT>) args[args.length - 1];
+    try {
+      return isNullable
+          ? KotlinExtensions.awaitNullable(call, continuation)
+          : KotlinExtensions.await(call, continuation);
+    } catch (Exception e) {
+      return KotlinExtensions.suspendAndThrow(e, continuation);
+    }
+  }
+}
+```
+
+ `KotlinExtensions.await` 의 코드입니다.  `suspendCancellableCoroutine` 을 이용하여 내부에서 `enqueue` 을 호출하고 `continuation` 을 `resume` 하여 중단 지점에 호출 결과를 전달합니다. 이렇게 하면 중단됐던 지점은 호출 결과를 가지고 함수 실행을 재개할 수 있습니다. 
+
+```java
+suspend fun <T : Any> Call<T>.await(): T {
+  return suspendCancellableCoroutine { continuation ->
+    continuation.invokeOnCancellation {
+      cancel()
+    }
+    enqueue(object : Callback<T> {
+      override fun onResponse(call: Call<T>, response: Response<T>) {
+        if (response.isSuccessful) {
+          val body = response.body()
+          if (body == null) {
+            val invocation = call.request().tag(Invocation::class.java)!!
+            val method = invocation.method()
+            val e = KotlinNullPointerException("Response from " +
+                method.declaringClass.name +
+                '.' +
+                method.name +
+                " was null but response body type was declared as non-null")
+            continuation.resumeWithException(e)
+          } else {
+            continuation.resume(body)
+          }
+        } else {
+          continuation.resumeWithException(HttpException(response))
+        }
+      }
+
+      override fun onFailure(call: Call<T>, t: Throwable) {
+        continuation.resumeWithException(t)
+      }
+    })
+  }
+}
+```
+
+​			
+
+### Invoke
+
+ `HttpServiceMethod` 객체가 생성되면 이후에 이 객체는 어디로 이동하고 어떤 동작을 할까요? 앞서 살펴본 `Retrofit` 인스턴스 생성 과정을 차근차근 다시 살펴봅시다.
+
+```java
+public <T> T create(final Class<T> service) {
+  validateServiceInterface(service);
+  return (T)
+      Proxy.newProxyInstance(
+          service.getClassLoader(),
+          new Class<?>[] {service},
+          new InvocationHandler() {
+            private final Platform platform = Platform.get();
+            private final Object[] emptyArgs = new Object[0];
+
+            @Override
+            public @Nullable Object invoke(Object proxy, Method method, @Nullable Object[] args)
+                throws Throwable {
+              // If the method is a method from Object then defer to normal invocation.
+              if (method.getDeclaringClass() == Object.class) {
+                return method.invoke(this, args);
+              }
+              args = args != null ? args : emptyArgs;
+              return platform.isDefaultMethod(method)
+                  ? platform.invokeDefaultMethod(method, service, proxy, args)
+                  : loadServiceMethod(method).invoke(args);
+            }
+          });
+}
+```
+
+우리가 호출하는 인터페이스 메서드는 프록시 객체 `InvocationHandler` 의 `invoke` 에서 처리되고, 그 결과로`loadServiceMethod(method).invoke(args)` 이 반환됩니다. 
+
+즉, 우리가 원하는 API 응답 값은 `loadServiceMethod(method).invoke(args)` 입니다. `loadServiceMethod(method)` 은 내부에서 `ServiceMethod` 을 확장한  `HttpServiceMethod`  을 반환합니다.
+
+결국 ***loadServiceMethod(method).invoke(args)*** 은 ***HttpServiceMethod*** 의 ***invoke*** 라는 결론을 얻게 됩니다.  `HttpServiceMethod` 의 `invoke` 함수를 보겠습니다.
+
+```java
+@Override
+final @Nullable ReturnT invoke(Object[] args) {
+  Call<ResponseT> call = new OkHttpCall<>(requestFactory, args, callFactory, responseConverter);
+  return adapt(call, args);
+}
+```
+
+`adapt` 에 넘길 `call` 구현체로 `OkHttpCall` 을 사용합니다. 그리고 위에서 설명한 `HttpServiceMethod` 의 `adapt` 를 통해 우리가 원하는 타입의 API 응답을 얻을 수 있게 됩니다.
+
+​		
+
+## Retrofit 동작의 전체적인 흐름
+
+![image](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/09d35ce2-555b-45d4-af04-a3c4508445cb)
+
+
+
+
+
 
 
 ## 참조
@@ -890,3 +1176,5 @@ if (result == null) {
 [**Retrofit GitHub**](https://github.com/square/retrofit)
 
 [**누구나 쉽게 배우는 Dynamic Proxy 다루기**](https://inpa.tistory.com/entry/JAVA-%E2%98%95-%EB%88%84%EA%B5%AC%EB%82%98-%EC%89%BD%EA%B2%8C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Dynamic-Proxy-%EB%8B%A4%EB%A3%A8%EA%B8%B0)
+
+[**Android-Retrofit**](https://medium.com/@georgema2023/android-retrofit-8be27ede82e4)

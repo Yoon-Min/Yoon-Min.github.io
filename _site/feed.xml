@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-03-02T01:51:48+09:00</updated>
+  <updated>2024-03-03T02:22:50+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정</title>
     <link href="http://localhost:4000/posts/Android-Retrofit-01/" rel="alternate" type="text/html" title="Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정" />
-    <published>2024-03-02T00:00:00+09:00</published>
+    <published>2024-03-03T00:00:00+09:00</published>
   
-    <updated>2024-03-02T00:00:00+09:00</updated>
+    <updated>2024-03-03T00:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/Android-Retrofit-01/</id>
     <content src="http://localhost:4000/posts/Android-Retrofit-01/" />
@@ -58,9 +58,9 @@ Retrofit Intro
   A type-safe HTTP client for Android and Java - Square -
 
 
-레트로핏은 Android, Java에서 사용되는 타입 세이프한 Http Client이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 OkHttpClient 가 무엇인지부터 알아야 할 필요가 있습니다.
+레트로핏은 Android, Java에서 사용되는 타입 세이프한 Http Client이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜 주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 OkHttpClient 가 무엇인지부터 알아야 할 필요가 있습니다.
 
-Square에서 레트로핏 이전에 OkHttpClient 라는 Http Client를 먼저 제공했습니다. 이후에 OkHttpClient의 네트워크 처리 기능 기반에 어노테이션을 이용한 API 인터페이스로 응답을 ...
+Square에서 레트로핏 이전에 OkHttpClient 라는 Http Client를 먼저 제공했습니다. 이후에 OkHttpClient의 네트워크 처리 기능 기반에 어노테이션을 이용한 API 인터페이스로 응답을...
     </summary>
   
 
