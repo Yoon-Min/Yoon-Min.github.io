@@ -27,7 +27,62 @@ Kotlin 함수는 `first-class` - 일급 함수로, 변수와 데이터 구조에
 
 ## Function types
 
+### Common type
 
+코틀린은 함수를 변수, 인자, 반환값으로 활용할 수 있기 때문에 정수는 `Int` , 문자열은 `String` 인 것처럼 함수도 코드로 명시할 타입이 필요합니다. 코틀린이 지정한 모든 함수의 공통적인 타입 표기는 다음과 같습니다.
+
+```kotlin
+(A, B) -> C
+```
+
+소괄호 내에 파라미터 목록을 표기하고 파라미터가 없다면 빈 소괄호로 표기합니다. 그리고 `->` 을 추가하고 소괄호 내 파라미터 목록을 활용하여 `C` 타입의 값을 반환합니다. 
+
+이 방식으로 다음 예제와 같이 함수에 대한 타입을 표기합니다.
+
+```kotlin
+// ex1
+(Int) -> String
+// ex2
+val onClick: () -> Unit = { /* ... */ }
+```
+
+​		
+
+### Option1. Receiver type
+
+수신자가 있는 함수 타입으로 정의를 하는 방법도 있습니다. 수신자가 있는 함수 타입 정의는 다음과 같이 수신자와 `.` 을 앞에 표기합니다. 이렇게 하면 수신자 객체 `A` 에서 매개변수 `B` 를 호출하고 `C` 를 반환하는 동작을 합니다.
+
+```kotlin
+A.(B) -> C
+```
+
+이 방식은 수신자가 있는 함수 리터럴로 인스턴스화할 수 있습니다. 즉, 람다 표현식이나 익명 함수와 같은 함수 리터럴 본문 내에서 수신자 객체를 암시적 `this` 로 접근해서 수신자 객체나 멤버에 접근할 수 있습니다.
+
+```kotlin
+/* Lambda expression */
+val add: Int.(Int) -> Int = { this.plus(it) }
+println(2.add(10))
+println(add(2,10))
+
+/* Anonymous function */
+val add = fun Int.(other: Int): Int = this + other
+println(2.add(3))
+println(add(2,3))
+```
+
+여기서 뭔가 익숙함을 느끼지 않았나요? 이 동작은 함수 본문 내에서 수신자 객체의 멤버에 접근할 수 있는 **확장 함수의 동작과 유사**한 것이 특징입니다.
+
+​		
+
+### Option2. Suspend type
+
+중단 함수에 대한 타입을 정의하는 방법도 있습니다. 함수 타입 맨 앞에 `suspend` 키워드를 추가합니다.
+
+```kotlin
+suspend A.(B) -> C
+```
+
+​		
 
 ## Lambda & Anonymous
 
