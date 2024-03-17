@@ -270,6 +270,32 @@ public static final void main() {
 
 ​		
 
+### Passing trailing lambdas
+
+코틀린은 함수의 마지막 매개변수가 함수인 경우 해당 인자로 전달되는 람다 표현식을 괄호 밖에 배치할 수 있다는 특징이 있습니다. 예시로 `Iterable` 의 확장 함수인 `fold` 함수를 보겠습니다.
+
+```kotlin
+public inline fun <T, R> Iterable<T>.fold(initial: R, operation: (acc: R, T) -> R): R {
+    var accumulator = initial
+    for (element in this) accumulator = operation(accumulator, element)
+    return accumulator
+}
+```
+
+`R` 타입의 첫 번째 매개변수 다음에 `(R,T) -> R` 함수 타입이 마지막에 위치해 있습니다. 코틀린이 제공하는 `trailing lambda` 에 따라서 마지막 함수 인자를 람다 표현식으로 전달할 경우 다음과 같이 괄호 밖에 배치가 가능합니다.
+
+```kotlin
+val product = items.fold(1) { acc, e -> acc * e }
+```
+
+반면에 익명 함수는 괄호 안에 넣어서 전달해야 합니다. 괄호 밖에 함수를 배치할 수 있는 문법은 람다 표현식만 가능합니다.
+
+```kotlin
+val product = items.fold(1, fun(acc, e): Int { return acc * e})
+```
+
+​		
+
 ## 정리
 
 코틀린의 함수는 일급 함수이면서 고차 함수의 조건을 만족합니다. 이에 대한 근거로 함수를 변수, 인자, 반환 값으로 사용하기 위한 함수 타입 문법을 제공하고 이를 이용한 람다 표현식과 익명 함수 기능을 제공합니다.
