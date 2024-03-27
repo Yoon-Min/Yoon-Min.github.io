@@ -165,9 +165,34 @@ println(sum)
 >
 > [**How Kotlin lambda capture variable**](https://medium.com/@yangweigbh/how-kotlin-lambda-capture-variable-ef90e11e531d)
 
-자바 클로저는 외부 변수에 접근하려면 외부 변수가 `final` 혹은 `effectively final` 이어야 하는 조건이 있습니다. 
+자바 클로저는 `enclosing scope` 지역 변수에 접근하려면 해당 변수가 `final` 혹은 `effectively final` 이어야 하는 조건이 있습니다. 람다 표현식이나 익명 함수에서 외부 지역 변수를 사용할 경우, 해당 변수를 **캡쳐해서** 람다 인스턴스 내부에서 사용할 수 있습니다.
 
+```java
+String prefix = "prefix";
+Executor executor = Executors.newSingleThreadExecutor();
+executor.execute(() -> System.out.println(prefix + "hello world"));
+```
 
+```java
+// $FF: synthetic class
+public final class -$$Lambda$Foo$SO0lUY_bGsXMRCTRPJJFcOU0yQM implements Runnable {
+   // $FF: synthetic field
+   public final String f$0;
+
+   // $FF: synthetic method
+   public _$$Lambda$Foo$SO0lUY_bGsXMRCTRPJJFcOU0yQM/* $FF was: -$$Lambda$Foo$SO0lUY_bGsXMRCTRPJJFcOU0yQM*/(String var1) {
+      this.f$0 = var1;
+   }
+
+   public final void run() {
+      System.out.println(this.f$0 + "hello world");
+   }
+}
+```
+
+위 코드를 보면 `f$0`  멤버 변수가 외부에서 캡쳐한 값을 저장합니다. 그 밑을 보면 외부에서 캡쳐한 정보를 `var1` 로 가져와서 `f$0` 에 저장하는 것을 볼 수 있습니다. 굳이 람다 인스턴스 내에서 멤버 변수를 따로 만들어서 외부 지역 변수 값을 복사하는 이유가 뭘까요? 
+
+람다 인스턴스는 힙에서 관리가 되지만 외부 지역 변수를 포함한 메서드는 스택에서 관리됩니다. 메모리 관리 특성상 메서드가 끝난 이후에도 힙은 계속 남아 있을 수 있기 때문에 람다 내에서 변수를 호출했을 때 변수가 존재하지 않을 가능성이 있습니다. 그래서 람다 인스턴스 내에 따로 멤버 변수를 두는 것입니다.
 
 ​		
 
