@@ -192,7 +192,74 @@ public final class -$$Lambda$Foo$SO0lUY_bGsXMRCTRPJJFcOU0yQM implements Runnable
 
 위 코드를 보면 `f$0`  멤버 변수가 외부에서 캡쳐한 값을 저장합니다. 그 밑을 보면 외부에서 캡쳐한 정보를 `var1` 로 가져와서 `f$0` 에 저장하는 것을 볼 수 있습니다. 굳이 람다 인스턴스 내에서 멤버 변수를 따로 만들어서 외부 지역 변수 값을 복사하는 이유가 뭘까요? 
 
-람다 인스턴스는 힙에서 관리가 되지만 외부 지역 변수를 포함한 메서드는 스택에서 관리됩니다. 메모리 관리 특성상 메서드가 끝난 이후에도 힙은 계속 남아 있을 수 있기 때문에 람다 내에서 변수를 호출했을 때 변수가 존재하지 않을 가능성이 있습니다. 그래서 람다 인스턴스 내에 따로 멤버 변수를 두는 것입니다.
+람다 인스턴스는 힙에서 관리가 되지만 외부 지역 변수를 포함한 메서드는 스택에서 관리됩니다. 메모리 관리 특성상 메서드가 끝난 이후에도 힙은 계속 남아 있을 수 있기 때문에 람다 내에서 변수를 호출했을 때 변수가 존재하지 않을 가능성이 있습니다. 그래서 람다 인스턴스 내에 따로 멤버 변수를 둬서 해당 문제를 방지하는 것입니다.
+
+그런데 인스턴스 내부에 변수를 두고 사용하는 부분에서 위험한 점이 존재합니다. 위에서 람다 인스턴스 내부에서 사용하는 변수는 복사하려는 외부 지역 **변수를 캡쳐한 것**이라고 언급했습니다. 
+
+**캡쳐한 시점의 값을 사용하고 있는데 외부 지역 변수의 값이 변경된다면 값이 일치하지 않는 시점이 생깁니다.** 이 부분은 개발자에게 큰 혼란을 야기하기 때문에 자바는 이 상황에서 외부 지역 변수를 `final` 혹은 `effectively final` 로 강제해서 값이 다른 상황을 방지합니다.
+
+하지만 코틀린은 자바와 다르게 외부 지역 변수 수정이 가능합니다. 코틀린은 함수형 프로그래밍 구현을 강력하게 지원하기 때문에 가능하면 람다나 익명 함수를 이용한 유연한 코드 처리를 지원합니다.
+
+​		
+
+- `val` 키워드를 이용하여 불변 변수를 람다 표현식에 이용할 때
+
+  ```kotlin
+  val prefix = "Hello"
+  val threadPool = Executors.newSingleThreadExecutor()
+  threadPool.execute {
+      println("$prefix world")
+  }
+  ```
+
+  ```java
+  final String prefix = "Hello";
+  ExecutorService threadPool = Executors.newSingleThreadExecutor();
+  threadPool.execute((Runnable)(new Runnable() {
+     public final void run() {
+        String var1 = prefix + " world";
+        System.out.println(var1);
+     }
+  }));
+  ```
+
+- `var` 키워드를 이용하여 가변 변수를 람다 표현식에 이용할 때
+
+  ```kotlin
+  var prefix = "Hello"
+  val threadPool = Executors.newSingleThreadExecutor()
+  threadPool.execute {
+      prefix += " my"
+      println("$prefix world")
+  }
+  ```
+
+  ```java
+  final Ref.ObjectRef prefix = new Ref.ObjectRef();
+  prefix.element = "Hello";
+  ExecutorService threadPool = Executors.newSingleThreadExecutor();
+  threadPool.execute((Runnable)(new Runnable() {
+     public final void run() {
+        Ref.ObjectRef var10000 = prefix;
+        String var10001 = (String)var10000.element;
+        var10000.element = var10001 + " my";
+        String var1 = (String)prefix.element + " world";
+        System.out.println(var1);
+     }
+  }));
+  
+  /* Hello my world */
+  ```
+
+​		
+
+불변 변수를 이용할 때는 `final` 키워드가 붙는 자바 방식으로 처리가 되지만 가변 변수를 사용해서 람다 표현식 내에 수정 작업을 하면 `final` 이 붙지 않고 `Ref` 라는 객체 참조 클래스를 이용하여 외부 지역 변수와 연결합니다. 이 덕분에 람다 표현식 내에서도 외부 지역 변수 수정이 가능합니다.
+
+
+
+
+
+
 
 ​		
 
