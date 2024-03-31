@@ -125,7 +125,7 @@ val messages = listOf(                                        // Create a list
 
 ​		
 
-### **코틀린 클로저?**
+### 코틀린 클로저?
 
 > *"A lambda expression or anonymous function (as well as a local function and an object expression can access its closure, which includes the variables declared in the outer scope. The variables captured in the closure can be modified in the lambda"*
 >
@@ -157,7 +157,7 @@ println(sum)
 
 ​		
 
-### **자바 클로저는 코틀린과 같을까?**
+### 자바 클로저는 코틀린과 같을까?
 
 > *"In Android Java world, you know that when you declare a lambda in a function, you can access the parameters of that function as well as the local variables declared before the lambda. These variables are said to be captured by the lambda, but the variables must be final or effectively final to be captured by lambda. In Kotlin, this constraint has been removed."*
 >
@@ -254,6 +254,306 @@ public final class -$$Lambda$Foo$SO0lUY_bGsXMRCTRPJJFcOU0yQM implements Runnable
 ​		
 
 불변 변수를 이용할 때는 `final` 키워드가 붙는 자바 방식으로 처리가 되지만 가변 변수를 사용해서 람다 표현식 내에 수정 작업을 하면 `final` 이 붙지 않고 `Ref` 라는 객체 참조 클래스를 이용하여 외부 지역 변수와 연결합니다. 이 덕분에 람다 표현식 내에서도 외부 지역 변수 수정이 가능합니다.
+
+```java
+public class Ref {
+    private Ref() {}
+
+    public static final class ObjectRef<T> implements Serializable {
+        public T element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class ByteRef implements Serializable {
+        public byte element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class ShortRef implements Serializable {
+        public short element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class IntRef implements Serializable {
+        public int element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class LongRef implements Serializable {
+        public long element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class FloatRef implements Serializable {
+        public float element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class DoubleRef implements Serializable {
+        public double element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class CharRef implements Serializable {
+        public char element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+
+    public static final class BooleanRef implements Serializable {
+        public boolean element;
+
+        @Override
+        public String toString() {
+            return String.valueOf(element);
+        }
+    }
+}
+```
+
+​		
+
+### 고차 함수는 객체 전환 비용이 발생한다
+
+클로저 다음으로 알아야 할 것은 고차 함수의 객체 전환 비용입니다. 코틀린은 고차 함수가 사용될 경우, 인자나 반환값으로 활용되는 함수를 객체로 변환합니다. 그래서 고차 함수를 활용하면 필연적으로 메모리 할당에 대한 오버헤드가 따라올 수밖에 없습니다.
+
+말로만 들으면 이해가 잘 되지 않으니 예시로 첫 번째로 함수를 인자로 활용하는 경우를 보겠습니다. 다음과 같이 `func` 이름의 함수가 함수를 인자로 받아서 이를 내부에서 실행하는 코드가 있습니다.
+
+```kotlin
+fun func(lambda: () -> Unit) {
+    lambda()
+}
+```
+
+그리고 이 함수를 다음과 같이 `main` 영역에서 활용합니다. 이를 실행하면 예상대로 `sum` 은 `1` 이 되어 출력됩니다.
+
+```kotlin
+fun main() {
+    var sum = 0
+    func {
+        sum += 1
+        println(sum)
+    }
+}
+```
+
+코틀린 코드는 위와 같습니다. 그렇다면 코틀린에서 자바 코드로 변환될 때는 코드가 어떻게 될까요? 디컴파일을 하면 다음과 같습니다.
+
+```java
+public static final void main() {    
+		final Ref.IntRef sum = new Ref.IntRef();
+    sum.element = 0;
+    func((Function0)(new Function0() {
+       // $FF: synthetic method
+       // $FF: bridge method
+       public Object invoke() {
+          this.invoke();
+          return Unit.INSTANCE;
+       }
+
+       public final void invoke() {
+          ++sum.element;
+          int var1 = sum.element;
+          System.out.println(var1);
+       }
+    }));
+}
+
+public static final void func(@NotNull Function0 lambda) {
+    Intrinsics.checkNotNullParameter(lambda, "lambda");
+    lambda.invoke();
+}
+```
+
+고차 함수인 `func` 의 파라미터(함수를 인자로 받는)가 `Function0` 이라는 객체로 전환된 것을 알 수 있습니다. 실제로 메인 영역에서 람다 표현식을 전달할 때 `new Function0()` 코드로 인스턴스를 생성합니다.
+
+이번에는 함수를 반환값으로 활용하는 경우를 보겠습니다. 함수를 인자로 활용하는 예시와 마찬가지로 함수를 반환하는 `func` 함수를 정의하고 메인 영역에서 호출합니다. 결과는 예상대로 `2` 가 출력됩니다.
+
+```kotlin
+fun main() {
+		val adder = func()
+    println(adder(1))
+}
+
+fun func() = { n: Int -> n + 1  }
+```
+
+이를 자바 코드로 변환하면 다음과 같습니다. `func` 의 반환되는 함수가 `Function1` 로 전환이 됐고 해당 인스턴스를 반환합니다. 해당 인스턴스를 받은 메인 영역은 `invoke` 메서드를 통해 정의했던 함수 - `{ n: Int -> n + 1  }` 를 실행합니다.
+
+```java
+public static final void main() {
+  Function1 adder = func();
+  int var1 = ((Number)adder.invoke(1)).intValue();
+  System.out.println(var1);
+}
+
+@NotNull
+public static final Function1 func() {
+  return (Function1)null.INSTANCE;
+}
+```
+
+위의 두 가지 예시를 통해서 우리는 이제 코틀린 공식 문서가 말하는 고차 함수의 런타임 오버헤드가 무엇인지 알 수 있습니다. 고차 함수를 활용하면 인자나 반환값으로 활용되는 함수를 객체로 전환하고 심지어 외부 변수 사용에 대한 클로저도 객체를 사용합니다.
+
+​		
+
+## 인라인 함수
+
+> *"But it appears that in many cases this kind of overhead can be eliminated by inlining the lambda expressions."*
+>
+> **Kotlin docs**
+
+코틀린은 이러한 문제점을 해결하기 위해 전달되는 인자를 포함해서 고차 함수의 코드를 호출 지점에 인라이닝할 수 있는 기능을 제공합니다. 이것이 `inline` 키워드입니다.
+
+ `inline` 키워드는 `fun` 앞에 붙일 수 있으며 인라인으로 지정한 함수는 호출 지점에 본인의 코드를 붙여넣습니다. 이를 인라이닝이라고 합니다.
+
+​		
+
+### 인라이닝
+
+위에서 예시로 사용했던 `func` 함수를 다시 보겠습니다. 다음과 같이 함수를 인자로 받고 내부에서 인자로 받은 함수를 실행하는 코드를 가지고 있습니다.
+
+```kotlin
+fun main() {
+    var sum = 0
+    func {
+        sum += 1
+        println(sum)
+    }
+}
+
+fun func(lambda: () -> Unit) {
+    lambda()
+}
+```
+
+이것을 `inline` 함수로 바꾸고 몇 개의 출력문 코드를 추가하겠습니다.
+
+```kotlin
+inline fun func(lambda: () -> Unit) {
+    println("before lambda()")
+    lambda()
+    println("after lambda()")
+}
+```
+
+이제 `func` 함수는 인라인 함수가 됐습니다. 자바 코드로 디컴파일 했을 때 코드가 어떻게 변했는지 보겠습니다.
+
+```java
+/* inline 키워드를 사용한 경우 */
+public static final void main() {
+  int sum = 0;
+  int $i$f$func = false;
+  String var2 = "before lambda()";
+  System.out.println(var2);
+  int var3 = false;
+  ++sum;
+  System.out.println(sum);
+  var2 = "after lambda()";
+  System.out.println(var2);
+}
+
+/* inline 키워드를 사용하지 않은 경우 */
+public static final void main() {
+  final Ref.IntRef sum = new Ref.IntRef();
+  sum.element = 0;
+  func((Function0)(new Function0() {
+     // $FF: synthetic method
+     // $FF: bridge method
+     public Object invoke() {
+        this.invoke();
+        return Unit.INSTANCE;
+     }
+
+     public final void invoke() {
+        ++sum.element;
+        int var1 = sum.element;
+        System.out.println(var1);
+     }
+  }));
+}
+```
+
+인라인 키워드를 사용하게 되면 함수 표현식을 객체에 담아서 전달할 필요 없이 오히려 표현식을 인자로 받는 `func` 의 코드를 호출 지점으로 불러옵니다.
+
+원래라면 함수를 호출하고 준비물로 람다 표현식을 전달하는데 이 과정에서 메모리 관련 오버헤드가 발생하므로 함수 호출 대신에 함수의 내부 코드를 불러와서 오버헤드를 방지하는 것입니다.
+
+​		
+
+### 인라인 키워드 사용시 주의점
+
+#### 자바 바이트 코드 증가
+
+오버헤드를 방지한다는 점에서 인라인 키워드는 굉장히 매력적으로 다가옵니다. 그러나 인라인 키워드를 사용하면 호출할 함수의 코드를 호출 지점으로 복사 붙여넣기를 하기 때문에 **자바 바이트 코드가 증가**한다는 단점이 있습니다. 
+
+그래서 인라인 키워드는 코드량이 많지 않은 함수에 사용하는 것이 효율적입니다. 코틀린 공식 문서는 크기가 적당한 함수를 인라이닝하면 성능 면에서 이점을 얻을 수 있다고 말합니다.
+
+> *"Inlining may cause the generated code to grow. However, if you do it in a reasonable way (avoiding inlining large functions), it will pay off in performance, especially at "megamorphic" call-sites inside loops."*
+>
+> **Kotlin docs**
+
+​		
+
+#### 함수 타입 파라미터를 사용하는 경우가 아니면 고려가 필요
+
+또한 인라인은 함수를 인자로 받는 경우에 사용하는 것이 가장 효율적입니다. 그 이외의 경우에 인라인 키워드를 사용하는 것은 크게 효율적이지 않을 수 있기 때문에 개인이 잘 판단하면 될 것 같습니다.
+
+실제로 함수 파라미터가 없거나 `reified` 타입 파라미터가 없는데 `inline` 키워드를 사용하는 경우 경고 문구가 뜹니다. 그래도 `inline` 키워드를 사용하고자 경고 문구를 삭제하고 싶다면 다음 주석을 추가하면 됩니다.
+
+```kotlin
+@Suppress("NOTHING_TO_INLINE") 
+```
+
+
+
+​		
+
+## 인라인 관련 추가 기능
+
+### noinline
+
+일반적으로 인라인 함수에 전달되는 함수 인자는 모두 인라인 처리됩니다. 그러나 특정 함수 인자를 인라인 처리하고 싶지 않다면 `noinline` 을 앞에 추가하면 됩니다.
+
+```kotlin
+inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
+```
+
+인라인 처리된 람다 표현식은 인라인 함수 내부에서만 호출하거나 인라인 인자로 전달할 수 있습니다. 그러나 비인라인 처리가 된 람다 표현식은 필드에 저장하거나 전달되는 등 원하는 방식으로 조작할 수 있습니다.
+
+​		
+
+### crossinline
 
 
 
