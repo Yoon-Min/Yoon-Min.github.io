@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-03-31T23:48:31+09:00</updated>
+  <updated>2024-04-01T01:18:44+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Kotlin - 고차 함수와 inline (2/2)</title>
     <link href="http://localhost:4000/posts/KotlinHighOrderFunction2/" rel="alternate" type="text/html" title="Kotlin - 고차 함수와 inline (2/2)" />
-    <published>2024-03-19T00:00:00+09:00</published>
+    <published>2024-04-01T00:00:00+09:00</published>
   
-    <updated>2024-03-28T23:30:09+09:00</updated>
+    <updated>2024-03-31T23:49:01+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinHighOrderFunction2/</id>
     <content src="http://localhost:4000/posts/KotlinHighOrderFunction2/" />

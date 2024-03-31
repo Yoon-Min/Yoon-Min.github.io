@@ -1,7 +1,7 @@
 ---
 title: Kotlin - 고차 함수와 inline (2/2)
 author: yoonmin
-date: 2024-03-19 00:00:00 +0900
+date: 2024-04-01 00:00:00 +0900
 categories: [CS, 프로그래밍 언어]
 tags: [Kotlin, Android, 함수형 프로그래밍, 람다, 익명 함수, inline]
 render_with_liquid: true
@@ -555,11 +555,69 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 
 ### crossinline
 
+만약 인라인 함수 본문에서 함수 파라미터를 직접 실행하지 않고 다른 실행 컨텍스트에서 실행하고자 한다면 `crossinline` 을 앞에 추가하면 됩니다.
 
+`inline` 함수는 호출 지점에 코드가 복사되기 때문에 비지역 반환이 가능하다는 특징이 있습니다. 이 점 때문에 만약 다른 컨텍스트에서 함수 파라미터를 실행한다면 비지역 반환 제어 흐름이 복잡해질 우려가 있습니다.
 
+그래서 크로스 인라인은 다른 실행 컨텍스트에서 함수 파라미터 실행을 허용하지만 비지역 리턴 기능은 허용하지 않습니다.
 
+```kotlin
+inline fun f(crossinline body: () -> Unit) {
+    val f = object: Runnable {
+        override fun run() = body()
+    }
+    // ...
+}
+```
 
+​		
 
+### reified
+
+런타임에 타입 파라미터를 파악하고 싶은 경우 사용하는 키워드입니다. 타입 파라미터를 제네릭이라 하는데 제네릭은 컴파일 타임에 타입 검사가 끝나고 런타임에는 **[타입이 소거](https://kotlinlang.org/docs/generics.html#type-projections)**됩니다.
+
+이러한 특성 때문에 제네릭을 이용한 타입 관련 검사를 시도한다면 오류가 발생할 수 있습니다. 그런데 인라인 함수는 호출 지점으로 코드가 이동하는 특징 덕분에 런타임에도 타입 파라미터 체크가 가능합니다.
+
+다음 예시를 보겠습니다. 함수에 제네릭을 사용할 경우 함수 이름 앞에 정의하면 됩니다. 그리고 꺽쇠 안에 `reified` 키워드를 추가하고 본문에 타입 파라미터 체크 관련 코드를 추가합니다.
+
+```kotlin
+inline fun <reified T> printGeneric(t: T){
+    val generic =  when(T::class) {
+        Char::class -> "Char"
+        String::class -> "String"
+        Int::class -> "Int"
+        Boolean::class -> "Boolean"
+        else -> "Nothing"
+    }
+    println(generic)
+}
+```
+
+메인 함수는 다음과 같이 정의합니다. 결과는 인라인 함수에서 정의한대로 정상 출력됩니다.
+
+```kotlin
+fun main() {
+    printGeneric('a')
+}
+
+/* 
+   Char
+   
+   Process finished with exit code 0
+*/
+```
+
+`printGeneric` 이 메인 영역에 복사되면 다음과 같습니다. 인라이닝 특징 덕분에 문자 타입인 `a` 와 타입 검사 코드가 메인 영역에 묶여 타입 정보를 런타임에도 알 수 있습니다.
+
+```java
+public static final void main() {
+    char t$iv = true;
+    int $i$f$printGeneric = false;
+    KClass var2 = Reflection.getOrCreateKotlinClass(Character.class);
+    String generic$iv = Intrinsics.areEqual(var2, Reflection.getOrCreateKotlinClass(Character.TYPE)) ? "Char" : (Intrinsics.areEqual(var2, Reflection.getOrCreateKotlinClass(String.class)) ? "String" : (Intrinsics.areEqual(var2, Reflection.getOrCreateKotlinClass(Integer.TYPE)) ? "Int" : (Intrinsics.areEqual(var2, Reflection.getOrCreateKotlinClass(Boolean.TYPE)) ? "Boolean" : "Nothing")));
+    System.out.println(generic$iv);
+}
+```
 
 ​		
 
