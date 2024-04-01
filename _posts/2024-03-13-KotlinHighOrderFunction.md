@@ -1,5 +1,5 @@
 ---
-title: Kotlin - 고차 함수와 inline (1/2)
+title: Kotlin Function (1/2) - 함수 타입과 함수 리터럴
 author: yoonmin
 date: 2024-03-13 00:00:00 +0900
 categories: [CS, 프로그래밍 언어]
@@ -8,6 +8,40 @@ render_with_liquid: true
 ---
 
 ![christian-lue-b4kKyX0BQvc-unsplash 1](https://github.com/Yoon-Min/Yoon-Min.github.io/assets/80873132/3278a245-59a1-4b63-abd4-f70758bb333a)
+
+## Contents
+
+1. **함수 타입과 함수 리터럴**
+
+   <span style="color: #898989">1-1. Intro</span>
+
+   <span style="color: #898989">1-2. 코틀린 함수 타입</span>
+
+   <span style="color: #898989">1-3. 함수 리터럴 기반의 람다 표현식과 익명 함수</span>
+
+   <span style="color: #898989">1-4. 람다 함수와 익명 함수의 반환</span>
+
+   <span style="color: #898989">1-5. 정리</span>
+
+   <span style="color: #898989">1-6. 참조</span>
+
+2. [**고차 함수와 inline**](https://yoon-min.github.io/posts/KotlinHighOrderFunction2/)
+
+   <span style="color: #898989">2-1. Contents</span>
+
+   <span style="color: #898989">2-2. Intro</span>
+
+   <span style="color: #898989">2-3. 고차 함수를 활용해야 하는 이유</span>
+
+   <span style="color: #898989">2-4. 고차 함수 활용 시 주의사항</span>
+
+   <span style="color: #898989">2-5. 인라인 함수</span>
+
+   <span style="color: #898989">2-6. 인라인 관련 추가 기능</span>
+
+   <span style="color: #898989">2-7. 참조</span>
+
+
 
 ## Intro
 
@@ -177,7 +211,7 @@ l.filter(fun(item) = item > 2) /* 표현식 사용시 반환형 추론 가능 */
 
 ​		
 
-## 람다 함수와 익명 함수의 반환
+## 람다 함수와 익명 함수의 차이
 
 ### Non-local return
 

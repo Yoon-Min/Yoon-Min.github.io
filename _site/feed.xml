@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-04-01T01:18:44+09:00</updated>
+  <updated>2024-04-01T13:40:03+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>Kotlin - 고차 함수와 inline (2/2)</title>
-    <link href="http://localhost:4000/posts/KotlinHighOrderFunction2/" rel="alternate" type="text/html" title="Kotlin - 고차 함수와 inline (2/2)" />
+    <title>Kotlin Function (2/2) - 고차 함수와 inline</title>
+    <link href="http://localhost:4000/posts/KotlinHighOrderFunction2/" rel="alternate" type="text/html" title="Kotlin Function (2/2) - 고차 함수와 inline" />
     <published>2024-04-01T00:00:00+09:00</published>
   
-    <updated>2024-03-31T23:49:01+09:00</updated>
+    <updated>2024-04-01T01:19:02+09:00</updated>
   
     <id>http://localhost:4000/posts/KotlinHighOrderFunction2/</id>
     <content src="http://localhost:4000/posts/KotlinHighOrderFunction2/" />
@@ -50,13 +50,48 @@
 
       
 
+Contents
+
+
+  
+    함수 타입과 함수 리터럴
+
+    1-1. Intro
+
+    1-2. 코틀린 함수 타입
+
+    1-3. 함수 리터럴 기반의 람다 표현식과 익명 함수
+
+    1-4. 람다 함수와 익명 함수의 반환
+
+    1-5. 정리
+
+    1-6. 참조
+  
+  
+    고차 함수와 inline
+
+    2-1. Contents
+
+    2-2. Intro
+
+    2-3. 고차 함수를 활용해야 하는 이유
+
+    2-4. 고차 함수 활용 시 주의사항
+
+    2-5. 인라인 함수
+
+    2-6. 인라인 관련 추가 기능
+
+    2-7. 참조
+  
+
+
+​
+
 Intro
 
-저번 고차 함수와 인라인 1편에서 코틀린 함수가 왜 고차 함수인지 함수 타입과 함수 리터럴을 통해 알아봤습니다. 코틀린은 함수에 대한 타입을 제공하고 이를 통해서 함수를 인자로 활용하거나 반환값으로 활용할 수 있습니다. 특히 인자로 활용하는 과정에서 함수 리터럴을 활용하면 가독성이 뛰어난 코드 구현이 가능합니다.
-
-이런 뛰어난 장점을 가진 고차 함수도 단점은 존재합니다. 이 때문에 코틀린은 고차 함수의 단점을 보완하기 위해 inline 이라는 키워드를 제공하여 고차 함수의 단점을 보완하는 데 도움을 제공합니다.
-
-따라서 코틀린이 제공하는 함수형 프로그래밍을 제대로 활용하려면 고차 함수의 장점과 단점이 무엇인지 파악하고 사용해야 합니다. 이번 글에서는 고차 함수가 가지는 장점과 단점이 무...
+저번 고차 함수와 인라인 1편에서 코틀린 함수가 왜 고차 함수인지 함수 타입과 함수 리터럴을 통해 알아봤...
     </summary>
   
 
@@ -64,8 +99,8 @@ Intro
 
   
   <entry>
-    <title>Kotlin - 고차 함수와 inline (1/2)</title>
-    <link href="http://localhost:4000/posts/KotlinHighOrderFunction/" rel="alternate" type="text/html" title="Kotlin - 고차 함수와 inline (1/2)" />
+    <title>Kotlin Function (1/2) - 함수 타입과 함수 리터럴</title>
+    <link href="http://localhost:4000/posts/KotlinHighOrderFunction/" rel="alternate" type="text/html" title="Kotlin Function (1/2) - 함수 타입과 함수 리터럴" />
     <published>2024-03-13T00:00:00+09:00</published>
   
     <updated>2024-03-18T00:48:19+09:00</updated>
@@ -94,15 +129,47 @@ Intro
 
       
 
+Contents
+
+
+  
+    함수 타입과 함수 리터럴
+
+    1-1. Intro
+
+    1-2. 코틀린 함수 타입
+
+    1-3. 함수 리터럴 기반의 람다 표현식과 익명 함수
+
+    1-4. 람다 함수와 익명 함수의 반환
+
+    1-5. 정리
+
+    1-6. 참조
+  
+  
+    고차 함수와 inline
+
+    2-1. Contents
+
+    2-2. Intro
+
+    2-3. 고차 함수를 활용해야 하는 이유
+
+    2-4. 고차 함수 활용 시 주의사항
+
+    2-5. 인라인 함수
+
+    2-6. 인라인 관련 추가 기능
+
+    2-7. 참조
+  
+
+
 Intro
 
 
-  “Kotlin functions are first-class, which means they can be stored in variables and data structures, and can be passed as arguments to and returned from other higher-order functions. You can perform any operations on functions that are possible for other non-function values.”
-
-  Kotlin docs
-
-
-Kotlin 함수는 first-class - 일급 함수로, 변수와 데이터 구조에 저장할 수 있으며 다른 상위 함수에 인자로 전달하거나 반환 값으로 활용할 수 있습니다...
+  “Kotlin functions are first-class, which means they can be...
     </summary>
   
 
