@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-07-19T22:30:27+09:00</updated>
+  <updated>2024-07-22T18:07:57+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>Android ViewModel 생성 과정</title>
-    <link href="http://localhost:4000/posts/ViewModelCreation/" rel="alternate" type="text/html" title="Android ViewModel 생성 과정" />
+    <title>Android - ViewModel 생성과 반환</title>
+    <link href="http://localhost:4000/posts/ViewModelCreation/" rel="alternate" type="text/html" title="Android - ViewModel 생성과 반환" />
     <published>2024-07-19T00:00:00+09:00</published>
   
     <updated>2024-07-19T00:00:00+09:00</updated>
@@ -54,8 +54,15 @@ Intro
 
 ViewModel 은 안드로이드의 UI 층을 구현하는 데 많은 도움을 주는 Jetpack 라이브러리입니다. 화면 구성의 변경이나 여러 프래그먼트에서 UI 상태 데이터를 보존하고 공유할 수 있다는 장점 덕분에 많은 사람들이 사용하고 있고, 저 역시 뷰모델을 애용하고 있습니다.
 
-그러나 지금까지 뷰모델의 사용 방법과 역할만 숙지한 탓에 최근 내부 동작이 어떻게 되는지에 대한 이해가 많이 부족한 것을 느꼈습니다. 현재 계획하고 있는 프로젝트가 두 개이고 해당 프로젝트를 앞으로 제대로 수행하려면 사용하는 라이브러리에 대한 이해가 필요할 것 같아 이번 기회에 정리하고자 합니다.
+그러나 지금까지 뷰모델의 사용 방법과 역할만 숙지한 탓에 최근 내부 동작이 어떻게 되는지에 대한 이해가 매우 부족한 것을 느꼈습니다. 현재 계획하고 있는 프로젝트가 두 개이고 해당 프로젝트를 앞으로 제대로 수행하려면 사용하는 라이브러리에 대한 이해가 필요할 것 같아 이번 기회에 정리하고자 합니다.
 
+​
+
+ViewModel 관련 관계도
+
+
+
+먼저 뷰모델 생성 및 관리에 관여하는 객체들의 관계도는 위 그림과 같습니다....
     </summary>
   
 
