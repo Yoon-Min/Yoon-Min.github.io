@@ -1,7 +1,7 @@
 ---
 title: Android - ViewModel 생성과 반환
 author: yoonmin
-date: 2024-07-19 00:00:00 +0900
+date: 2024-07-22 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, 뷰모델, ViewModel]
 render_with_liquid: true
