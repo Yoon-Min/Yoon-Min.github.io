@@ -5,7 +5,6 @@ date: 2024-07-22 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, 뷰모델, ViewModel]
 render_with_liquid: true
-
 ---
 
 ![1](https://gist.github.com/user-attachments/assets/26c57e61-2115-41d8-9c62-1188f7504493)
