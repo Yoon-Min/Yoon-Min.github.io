@@ -419,6 +419,74 @@
 
   <div class="post-preview">
     <h1>
+      <a href="/posts/ViewModelClear/">Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유</a>
+    </h1>
+
+    <div class="post-content">
+      <p>
+        
+
+
+
+
+
+        
+
+Intro
+
+뷰모델은 ViewModelStoreOwner 가 사라질 때까지 메모리에 남아 있습니다. 덕분에 액티비티의 화면 구성 변경 후에도 뷰모델을 유지할 수 있습니다. 뷰모델이 파괴되는 조건은 다음과 같이 세 가지가 있습니다.
+
+
+  액티비티가 완료될 때 -&amp;gt; onDestroy
+  프래그먼트가 분리될 때
+  네비게이션 백 스택에서 삭제될 ...
+      </p>
+    </div>
+
+    <div class="post-meta text-muted d-flex">
+      <div class="mr-auto">
+
+        <!-- posted date -->
+        <i class="far fa-calendar fa-fw"></i>
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1721660400"
+    data-df="ll"
+    >
+  Jul 23, 2024
+</em>
+
+
+        <!-- categories -->
+        
+          <i class="far fa-folder-open fa-fw"></i>
+          <span>
+          
+            Android,
+            라이브러리
+          </span>
+        
+
+      </div>
+
+      
+
+    </div> <!-- .post-meta -->
+
+  </div> <!-- .post-review -->
+
+
+
+  <div class="post-preview">
+    <h1>
       <a href="/posts/GoogleIOAndroid/">Google I/O Android Korea 2024 후기</a>
     </h1>
 
@@ -970,71 +1038,6 @@ Kotlin Collection
 
 
 
-  <div class="post-preview">
-    <h1>
-      <a href="/posts/KotlinAlgorithm11/">(프로그래머스 | Kotlin) - 2차원 동전 뒤집기</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        
-
-
-
-
-
-        해결 방법
-
-이 문제는 특정 행, 혹은 열을 뒤집어서 원하는 형태를 만드는 게 핵심이다. 어떤 행, 혹은 열을 뒤집는 순서가 중요한 것이 아니다. 어떤 행, 혹은 열의 상태를 어떻게 할 것인지(뒤집거나 그대로 두거나)가 중요하다.  M X N  형태에서 특정 열과 행의 상태를 결정하는 방식으로 로직을 짜면 된다.
-
-​
-
-뒷면, 앞면의 상태값을 비트로 ...
-      </p>
-    </div>
-
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
-
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class=""
-    data-ts="1700708400"
-    data-df="ll"
-    >
-  Nov 23, 2023
-</em>
-
-
-        <!-- categories -->
-        
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          
-            CS,
-            알고리즘 문제
-          </span>
-        
-
-      </div>
-
-      
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
-
-
-
 </div> <!-- #post-list -->
 
 
@@ -1158,6 +1161,11 @@ Kotlin Collection
         
         
         
+      <li><a href="/posts/ViewModelCreation/">Android - ViewModel 생성과 반환</a></li>
+      
+        
+        
+        
       <li><a href="/posts/KotlinHighOrderFunction/">Kotlin Function (1/2) - 함수 타입과 함수 리터럴</a></li>
       
         
@@ -1174,11 +1182,6 @@ Kotlin Collection
         
         
       <li><a href="/posts/KotlinAlgorithm11/">(프로그래머스 | Kotlin) - 2차원 동전 뒤집기</a></li>
-      
-        
-        
-        
-      <li><a href="/posts/Kotlin-Generic/">Kotlin Generic (1) 제네릭 클래스와 함수, 그리고 변성</a></li>
       
     </ul>
   </div> <!-- #access-lastmod -->
@@ -1981,6 +1984,116 @@ Kotlin Collection
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -2129,136 +2242,7 @@ Kotlin Collection
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -2311,147 +2295,6 @@ Kotlin Collection
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2496,13 +2339,13 @@ Kotlin Collection
       <a class="post-tag" href="/tags/ui/">UI</a>
     
       
+      <a class="post-tag" href="/tags/viewmodel/">ViewModel</a>
+    
+      
       <a class="post-tag" href="/tags/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/">레이아웃</a>
     
       
-      <a class="post-tag" href="/tags/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/">카카오 코딩테스트</a>
-    
-      
-      <a class="post-tag" href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">함수형 프로그래밍</a>
+      <a class="post-tag" href="/tags/%EB%B7%B0%EB%AA%A8%EB%8D%B8/">뷰모델</a>
     
 
     </div>
@@ -3323,6 +3166,116 @@ Kotlin Collection
     
     
     
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
   
     
     
@@ -3471,136 +3424,7 @@ Kotlin Collection
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
       
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
     
   
     
@@ -3653,147 +3477,6 @@ Kotlin Collection
     
     
     
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -3838,13 +3521,13 @@ Kotlin Collection
       <a class="post-tag" href="/tags/ui/">UI</a>
     
       
+      <a class="post-tag" href="/tags/viewmodel/">ViewModel</a>
+    
+      
       <a class="post-tag" href="/tags/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83/">레이아웃</a>
     
       
-      <a class="post-tag" href="/tags/%EC%B9%B4%EC%B9%B4%EC%98%A4-%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/">카카오 코딩테스트</a>
-    
-      
-      <a class="post-tag" href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">함수형 프로그래밍</a>
+      <a class="post-tag" href="/tags/%EB%B7%B0%EB%AA%A8%EB%8D%B8/">뷰모델</a>
     
 
     </div>

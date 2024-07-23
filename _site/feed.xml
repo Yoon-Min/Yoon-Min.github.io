@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-07-23T16:53:38+09:00</updated>
+  <updated>2024-07-23T20:55:11+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,58 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유</title>
+    <link href="http://localhost:4000/posts/ViewModelClear/" rel="alternate" type="text/html" title="Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유" />
+    <published>2024-07-23T00:00:00+09:00</published>
+  
+    <updated>2024-07-23T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/ViewModelClear/</id>
+    <content src="http://localhost:4000/posts/ViewModelClear/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      
+
+Intro
+
+뷰모델은 ViewModelStoreOwner 가 사라질 때까지 메모리에 남아 있습니다. 덕분에 액티비티의 화면 구성 변경 후에도 뷰모델을 유지할 수 있습니다. 뷰모델이 파괴되는 조건은 다음과 같이 세 가지가 있습니다.
+
+
+  액티비티가 완료될 때 -&amp;gt; onDestroy
+  프래그먼트가 분리될 때
+  네비게이션 백 스택에서 삭제될 때
+
+
+
+
+그런데 여기서 궁금한 점이 생겼습니다. 대표적인 구성 변경인 화면 전환이 발생하면 분명 액티비티는 onDestroy 후에 onCreate 으로 재생성을 하는 과정을 거치는데 뷰모델의 파괴 조건에 따르면 이때 뷰모델도 파괴되어야 합니다. 하지만 구성 변경이 발생하면 뷰모델은  Clear 되지 않습니다.
+
+안드로이드는 구성 변경과 같이 액티비티가 잠...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -68,7 +120,7 @@ Android 행사 참여는 처음이지만 행사를 진행하는 구글 스타트
     <link href="http://localhost:4000/posts/ViewModelCreation/" rel="alternate" type="text/html" title="Android - ViewModel 생성과 반환" />
     <published>2024-07-22T00:00:00+09:00</published>
   
-    <updated>2024-07-22T00:00:00+09:00</updated>
+    <updated>2024-07-23T16:54:55+09:00</updated>
   
     <id>http://localhost:4000/posts/ViewModelCreation/</id>
     <content src="http://localhost:4000/posts/ViewModelCreation/" />
@@ -264,54 +316,6 @@ Intro
 
 
   “Kotlin functions are first-class, which means they can be...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정</title>
-    <link href="http://localhost:4000/posts/Android-Retrofit-01/" rel="alternate" type="text/html" title="Android Retrofit - 인스턴스 생성과 API Interface의 동작 과정" />
-    <published>2024-03-03T00:00:00+09:00</published>
-  
-    <updated>2024-03-03T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/Android-Retrofit-01/</id>
-    <content src="http://localhost:4000/posts/Android-Retrofit-01/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Retrofit version - 2.9.0
-
-Retrofit Intro
-
-
-  A type-safe HTTP client for Android and Java - Square -
-
-
-레트로핏은 Android, Java에서 사용되는 타입 세이프한 Http Client이며 안드로이드 애플리케이션에서 네트워크 요청 및 응답 처리에 대한 과정을 단순화시켜 주는 라이브러리입니다. 이 라이브러리를 알아보기 전에 레트로핏의 기반이 되는 OkHttpClient 가 무엇인지부터 알아야 할 필요가 있습니다.
-
-Square에서 레트로핏 이전에 OkHttpClient 라는 Http Client를 먼저 제공했습니다. 이후에 OkHttpClient의 네트워크 처리 기능 기반에 어노테이션을 이용한 API 인터페이스로 응답을...
     </summary>
   
 
