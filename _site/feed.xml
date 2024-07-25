@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-07-23T20:55:11+09:00</updated>
+  <updated>2024-07-26T00:45:05+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,56 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android - LiveData의 생명주기(Lifecycle) 인식 원리</title>
+    <link href="http://localhost:4000/posts/AndroidLiveDataLifecycle/" rel="alternate" type="text/html" title="Android - LiveData의 생명주기(Lifecycle) 인식 원리" />
+    <published>2024-07-25T00:00:00+09:00</published>
+  
+    <updated>2024-07-25T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/AndroidLiveDataLifecycle/</id>
+    <content src="http://localhost:4000/posts/AndroidLiveDataLifecycle/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Unsplash의Nitish Meena
+
+Intro
+
+LiveData 는 관찰 가능한 UI 데이터 홀더 클래스입니다. 라이브 데이터는 안드로이드의 수명주기를 인식하여 수명주기에 맞춰 동작한다는 특징을 가지고 있어서 UI Layer에서 UI 데이터를 보유하는 역할을 수행합니다.
+
+그런데 여기서 한 가지 궁금증이 생깁니다. 라이브 데이터가 안드로이드의 생명주기에 맞춰서 동작한다는 것은 알겠는데 어떻게 인식을 하는 걸까요? 이번 포스팅은 그 원리를 알아보는 시간을 가지고자 합니다.
+
+​
+
+Lifecycle
+
+라이브 데이터를 분석하기 전에 먼저 생명주기에 대해서 알 필요가 있습니다. 보통 안드로이드에서 생명주기라 하면 액티비티 혹은 프래그먼트의 생명주기를 떠올릴 것입니다.
+
+그 생명주기의 근간이 되는 클래스가...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -238,84 +288,6 @@ Contents
 Intro
 
 저번 고차 함수와 인라인 1편에서 코틀린 함수가 왜 고차 함수인지 함수 타입과 함수 리터럴을 통해 알아봤...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Kotlin Function (1/2) - 함수 타입과 함수 리터럴</title>
-    <link href="http://localhost:4000/posts/KotlinHighOrderFunction/" rel="alternate" type="text/html" title="Kotlin Function (1/2) - 함수 타입과 함수 리터럴" />
-    <published>2024-03-13T00:00:00+09:00</published>
-  
-    <updated>2024-04-01T13:40:49+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinHighOrderFunction/</id>
-    <content src="http://localhost:4000/posts/KotlinHighOrderFunction/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="프로그래밍 언어" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Contents
-
-
-  
-    함수 타입과 함수 리터럴
-
-    1-1. Intro
-
-    1-2. 코틀린 함수 타입
-
-    1-3. 함수 리터럴 기반의 람다 표현식과 익명 함수
-
-    1-4. 람다 함수와 익명 함수의 반환
-
-    1-5. 정리
-
-    1-6. 참조
-  
-  
-    고차 함수와 inline
-
-    2-1. Contents
-
-    2-2. Intro
-
-    2-3. 고차 함수를 활용해야 하는 이유
-
-    2-4. 고차 함수 활용 시 주의사항
-
-    2-5. 인라인 함수
-
-    2-6. 인라인 관련 추가 기능
-
-    2-7. 참조
-  
-
-
-Intro
-
-
-  “Kotlin functions are first-class, which means they can be...
     </summary>
   
 
