@@ -1,7 +1,7 @@
 ---
 title: Android - LiveData의 생명주기(Lifecycle) 인식 원리
 author: yoonmin
-date: 2024-07-28 00:00:00 +0900
+date: 2024-07-31 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, LiveData, UI]
 render_with_liquid: true
@@ -55,7 +55,19 @@ render_with_liquid: true
 
 이벤트와 상태가 어떤 느낌인지 정확히 알려면 아래의 Android 수명주기를 인식하는 상태와 이벤트표를 참고하세요. 이 표를 보면 상태와 이벤트가 어떻게 연결되어 있는지 이해하는 데 도움이 될 것입니다.
 
+아래 그림을 통해 `targtState` , `downFrom` , `downTo` , `upFrom` , `upTo` 내부 코드는 충분히 이해가 가능합니다. 그리고 `State` 의 `isAtLeast` 는 `State` 열거 클래스 내 요소들의 순서 번호를 비교하여 최소 `state` 인자 이상의 상태인지 확인합니다.
+
+예를 들어서 `isAtLeast` 의 인자로 `STARTED` 가 전달되면 현재 상태가 최소한 `STARTED` 이상의 상태인지 확인한다고 이해하면 될 것 같습니다.
+
 ![Group 54](https://gist.github.com/user-attachments/assets/29bffb38-0078-4a2c-ac8e-4d3a61d05fc9)
+
+​		
+
+### LifeCycleRegistry
+
+마지막으로  `Lifecycle` 의 `Owner` 가 가지고 있는 `Lifecycle` 객체를 보겠습니다. 가지고 있는 라이프 사이클 구현체는 위에서 설명했던 대로 `LifecycleRegistry` 가 되겠습니다.
+
+이 구현체는 여러 관찰자(Observers)를 처리(Handle)하는 역할을 가지고 있습니다. 그리고 생명주기에 변화가 생기면 해당 정보를 관찰자들에게 전달하여 관찰자들이 바로바로 상태를 감지할 수 있도록 합니다. 이러한 점 때문에 `LiveData` 도 해당 객체에 생명주기를 관찰하는 관찰자로 들어가서 생명주기를 인식할 수 있습니다.
 
 
 
