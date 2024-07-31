@@ -109,7 +109,19 @@ render_with_liquid: true
 
 ### LifecycleRegistry 주요 메서드4 - sync
 
-
+`LifecycleOwner` 의 상태와 모든 옵저버의 상태를 동기화하는 작업을 진행합니다. 현재 등록된 옵저버들 중에서 가장 오래된 것과 가장 최신의 것을 각각 현재 상태와 비교하여 `backwarPass` 혹은 `forwarPass` 기법으로 동기화를 진행합니다.
 
 <script src="https://gist.github.com/Yoon-Min/12a46f537f706082f8d91ae3ea32a626.js"></script>
+
+`backwarPass` 와 `forwardPass` 의 차이는 동기화를 진행하는 방향에 있습니다. 전자는 `Event.downFrom` , 후자는 `Event.upFrom` 으로 동기화를 진행합니다.
+
+![Group 56](https://gist.github.com/user-attachments/assets/52c8b88e-bf92-45cd-9855-f5d5e2cd917c)
+
+​		
+
+### LifecycleRegistry 주요 메서드5 - handleLifecycleEvent
+
+생명주기의 변화가 생기면 내부적으로 `handleLifecycleEvent` 가 실행되고 상태값을 새로 설정하여 옵저버들에게 이를 알립니다. 현재 상태 값을 갱신하게 되면 `sync` 메서드를 통해 옵저버들에게 알림을 보냅니다.
+
+<script src="https://gist.github.com/Yoon-Min/6e0b706c64ae1998f15804aebe74dbf8.js"></script>
 
