@@ -63,11 +63,53 @@ render_with_liquid: true
 
 ​		
 
-### LifeCycleRegistry
+### LifecycleRegistry
 
 마지막으로  `Lifecycle` 의 `Owner` 가 가지고 있는 `Lifecycle` 객체를 보겠습니다. 가지고 있는 라이프 사이클 구현체는 위에서 설명했던 대로 `LifecycleRegistry` 가 되겠습니다.
 
 이 구현체는 여러 관찰자(Observers)를 처리(Handle)하는 역할을 가지고 있습니다. 그리고 생명주기에 변화가 생기면 해당 정보를 관찰자들에게 전달하여 관찰자들이 바로바로 상태를 감지할 수 있도록 합니다. 이러한 점 때문에 `LiveData` 도 해당 객체에 생명주기를 관찰하는 관찰자로 들어가서 생명주기를 인식할 수 있습니다.
 
+![Group 55](https://gist.github.com/user-attachments/assets/e56515e5-504d-462a-986b-a54da4e27722)
 
+​		
+
+### LifecycleRegistry 주요 메서드1 - addObserver
+
+`LifecycleOwner`  가 되는 액티비티 혹은 프래그먼트의 상태가 변경될 때 알림을 받을 옵저버를 추가합니다.
+
+<script src="https://gist.github.com/Yoon-Min/07b4b8e0055039f9faea9a719ae2ce49.js"></script>
+
+1. 메인스레드에서 동작되는지 확인 (해당 동작은 메인스레드에서 동작되어야 함)
+2. 현재 상태에 따라 초기 상태를 설정하고 추가하려는 옵저버가 이미 존재하는지 확인
+3. 이미 존재하는 옵저버면 동기화 작업이 필요하지 않으므로 종료
+4. `observerMap` 에 옵저버를 추가하고 현재 생명주기 상태에 맞춰주는 동기화 작업을 진행
+   - 한 단계씩 차례대로 상태 갱신
+
+5. 현재 `addObserver` 가 재진입 상태면 `sync()` 작업을 진행하지 스택의 `Top` 일 때 `sync()` 작업을 진행한다. 
+   - `sync()` - `LifecycleOwner` 의 상태와 모든 옵저버의 상태를 동기화하는 작업
+   - `isReentrance` ? - 함수가 실행되는 도중에 같은 함수가 다시 호출(옵저버 추가 과정)될 수 있기 때문에 오류방지 차원에서 확인
+
+​		
+
+### LifecycleRegistry 주요 메서드2 - ObserveWithState
+
+옵저버와 옵저버의 현재 상태를 함께 저장하기 위한 클래스입니다. 그리고 내부의 `dispatchEvent` 메서드를 통해 옵저버에게 이벤트를 전달하여 옵저버가 생명주기를 인식할 수 있게 합니다.
+
+<script src="https://gist.github.com/Yoon-Min/96f2ebf80734ac09a5ec2ad2b9d4c8be.js"></script>
+
+​		
+
+### LifecycleRegistry 주요 메서드3 - calculateTargetState
+
+옵저버의 목표 상태를 계산해서 반환합니다.
+
+<script src="https://gist.github.com/Yoon-Min/ad1239b5428abf5d5b4cb64f169d10a1.js"></script>
+
+​		
+
+### LifecycleRegistry 주요 메서드4 - sync
+
+
+
+<script src="https://gist.github.com/Yoon-Min/12a46f537f706082f8d91ae3ea32a626.js"></script>
 
