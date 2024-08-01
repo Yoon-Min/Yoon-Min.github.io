@@ -73,7 +73,7 @@ render_with_liquid: true
 
 ​		
 
-### LifecycleRegistry 주요 메서드1 - addObserver
+### addObserver
 
 `LifecycleOwner`  가 되는 액티비티 혹은 프래그먼트의 상태가 변경될 때 알림을 받을 옵저버를 추가합니다.
 
@@ -91,7 +91,7 @@ render_with_liquid: true
 
 ​		
 
-### LifecycleRegistry 주요 메서드2 - ObserveWithState
+### ObserveWithState
 
 <script src="https://gist.github.com/Yoon-Min/96f2ebf80734ac09a5ec2ad2b9d4c8be.js"></script>
 
@@ -99,7 +99,7 @@ render_with_liquid: true
 
 ​		
 
-### LifecycleRegistry 주요 메서드3 - calculateTargetState
+### calculateTargetState
 
 <script src="https://gist.github.com/Yoon-Min/ad1239b5428abf5d5b4cb64f169d10a1.js"></script>
 
@@ -107,7 +107,7 @@ render_with_liquid: true
 
 ​		
 
-### LifecycleRegistry 주요 메서드4 - sync
+### sync
 
 <script src="https://gist.github.com/Yoon-Min/12a46f537f706082f8d91ae3ea32a626.js"></script>
 
@@ -119,7 +119,7 @@ render_with_liquid: true
 
 ​		
 
-### LifecycleRegistry 주요 메서드5 - handleLifecycleEvent
+### handleLifecycleEvent
 
 <script src="https://gist.github.com/Yoon-Min/6e0b706c64ae1998f15804aebe74dbf8.js"></script>
 
@@ -157,13 +157,23 @@ render_with_liquid: true
 
 라이브 데이터의 `observe` 메서드를 통해 옵저버를 내외부에 등록할 때는 옵저버 정보를 `LifecycleBoundObserver` 객체에 감싸서 등록합니다. `LifecycleBoundObserver` 클래스는 `LifecycleObserver` 인터페이스를 구현하고 `ObserverWrapper` 추상 클래스를 확장한 형태입니다.
 
-전자의 경우는 `LifecyleOwenr` 의 생명주기 변화 발생시 [등록된 옵저버들의 `onStateChanged` 메서드를 실행](#lifecycleregistry-주요-메서드2-\-\-observewithstate)(생명주기의 오너가 되는 액티비티 혹은 프래그먼트가 옵저버들을 꺼내서 해당 메서드 실행)함으로써 옵저버들에게 생명주기 이벤트를 송신하기 때문에 구현해야 합니다.
+`LifecycleBoundObserver` 는 `LifecyleOwenr` 의 생명주기 변화 발생시 [등록된 옵저버들의 `onStateChanged` 메서드를 실행](#observewithstate)(생명주기의 오너가 되는 액티비티 혹은 프래그먼트가 옵저버들을 꺼내서 해당 메서드 실행)함으로써 옵저버들에게 생명주기 이벤트를 송신할 수 있도록 합니다.
 
-후자의 경우는 수신한 생명주기 이벤트를 라이브 데이터 내부 동작 처리에 사용합니다. 라이브 데이터가 활성 상태일 때 이벤트를 수신할 수 있는 이유가 이 클래스를 통해 라이브 데이터의 활성 상태를 설정하고 판별하기 때문입니다.
+![Group 57](https://gist.github.com/user-attachments/assets/59e90b4f-3146-4f5e-86dd-dedb361f4b03)
+
+`ObserverWrapper` 는 수신한 생명주기 이벤트를 라이브 데이터 내부 동작 처리에 사용합니다. 라이브 데이터가 활성 상태일 때 이벤트를 수신할 수 있는 이유가 이 클래스를 통해 라이브 데이터의 활성 상태를 설정하고 판별하기 때문입니다.
+
+![Group 100](https://gist.github.com/user-attachments/assets/e259bd7e-adf9-4508-9907-81424660a123)
+
+
 
 ​		
 
-### 생명주기 이벤트 수신 후 라이브 데이터 활성화 상태 판단
+### LifecycleBoundObserver - onStateChanged
+
+<script src="https://gist.github.com/Yoon-Min/ea7c02daffbe7bbe48c4ca5caadb114f.js"></script>
+
+
 
 
 
