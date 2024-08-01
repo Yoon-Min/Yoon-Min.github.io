@@ -1,7 +1,7 @@
 ---
 title: Android - LiveData의 생명주기(Lifecycle) 인식 원리
 author: yoonmin
-date: 2024-07-31 00:00:00 +0900
+date: 2024-08-01 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, LiveData, UI]
 render_with_liquid: true
@@ -33,15 +33,15 @@ render_with_liquid: true
 
 ### LifecycleOwner
 
+<script src="https://gist.github.com/Yoon-Min/dc1eba4dba3d4601c8b9ee262ec10b2a.js"></script>
+
 `LifecycleOwner` 는 `Lifecycle` 을 가지고 있는 인터페이스입니다. 뷰모델 저장소인 `ViewModelStore` 을 `ViewModelStoreOwner` 인터페이스가 가지고 있는 것과 동일한 방식입니다. 이 뷰모델 저장소의 오너는 액티비티 혹은 프래그먼트가 됩니다.
 
 생명주기 오너도 마찬가지로 액티비티 혹은 프래그먼트가 `Lifecycle` 의 `Owner` 가 되어 내부의 `Lifecycle` 클래스를 통해 생명주기를 관리합니다.
 
-<script src="https://gist.github.com/Yoon-Min/dc1eba4dba3d4601c8b9ee262ec10b2a.js"></script>
+<script src="https://gist.github.com/Yoon-Min/5cac59b3039185a3b5ddf627d4f5570b.js"></script>
 
 액티비티의 첫 번째 뼈대가 되는 컴포넌트 액티비티와 프래그먼트에서 구현 인터페이스 목록을 보면 `LifecycleOwner` 가 있는 것을 볼 수 있습니다. 액티비티와 프래그먼트가 생명주기의 주인이 되어 `LifecycleOwner` 내부의 `lifecycle` 을 구현합니다.
-
-<script src="https://gist.github.com/Yoon-Min/5cac59b3039185a3b5ddf627d4f5570b.js"></script>
 
 `lifecycleRegistry` 는 추상 클래스인 `Lifecycle` 의 하위(상속)클래스입니다. `Lifecycle` 은 생명주기의 기본적인 상태와 이벤트를 정의한 클래스라면 레지스트리는 생명주기를 관찰하여 처리하는 방법들을 정의한 클래스라 할 수 있습니다.
 
@@ -49,9 +49,9 @@ render_with_liquid: true
 
 ### LifeCycle
 
-`LifeCycle` 객체는 `Event` , `State` 의 두 가지 열거형 클래스를 관리합니다. 생명주기에 대한 공부를 했다면 매우 익숙한 키워드일 것입니다.
-
 <script src="https://gist.github.com/Yoon-Min/ff60878fabc630caf0b00a38d706cf52.js"></script>
+
+`LifeCycle` 객체는 `Event` , `State` 의 두 가지 열거형 클래스를 관리합니다. 생명주기에 대한 공부를 했다면 매우 익숙한 키워드일 것입니다.
 
 이벤트와 상태가 어떤 느낌인지 정확히 알려면 아래의 Android 수명주기를 인식하는 상태와 이벤트표를 참고하세요. 이 표를 보면 상태와 이벤트가 어떻게 연결되어 있는지 이해하는 데 도움이 될 것입니다.
 
@@ -93,25 +93,25 @@ render_with_liquid: true
 
 ### LifecycleRegistry 주요 메서드2 - ObserveWithState
 
-옵저버와 옵저버의 현재 상태를 함께 저장하기 위한 클래스입니다. 그리고 내부의 `dispatchEvent` 메서드를 통해 옵저버에게 이벤트를 전달하여 옵저버가 생명주기를 인식할 수 있게 합니다.
-
 <script src="https://gist.github.com/Yoon-Min/96f2ebf80734ac09a5ec2ad2b9d4c8be.js"></script>
+
+옵저버와 옵저버의 현재 상태를 함께 저장하기 위한 클래스입니다. 그리고 내부의 `dispatchEvent` 메서드를 통해 옵저버에게 이벤트를 전달하여 옵저버가 생명주기를 인식할 수 있게 합니다.
 
 ​		
 
 ### LifecycleRegistry 주요 메서드3 - calculateTargetState
 
-옵저버의 목표 상태를 계산해서 반환합니다.
-
 <script src="https://gist.github.com/Yoon-Min/ad1239b5428abf5d5b4cb64f169d10a1.js"></script>
+
+옵저버의 목표 상태를 계산해서 반환합니다.
 
 ​		
 
 ### LifecycleRegistry 주요 메서드4 - sync
 
-`LifecycleOwner` 의 상태와 모든 옵저버의 상태를 동기화하는 작업을 진행합니다. 현재 등록된 옵저버들 중에서 가장 오래된 것과 가장 최신의 것을 각각 현재 상태와 비교하여 `backwarPass` 혹은 `forwarPass` 기법으로 동기화를 진행합니다.
-
 <script src="https://gist.github.com/Yoon-Min/12a46f537f706082f8d91ae3ea32a626.js"></script>
+
+`LifecycleOwner` 의 상태와 모든 옵저버의 상태를 동기화하는 작업을 진행합니다. 현재 등록된 옵저버들 중에서 가장 오래된 것과 가장 최신의 것을 각각 현재 상태와 비교하여 `backwarPass` 혹은 `forwarPass` 기법으로 동기화를 진행합니다.
 
 `backwarPass` 와 `forwardPass` 의 차이는 동기화를 진행하는 방향에 있습니다. 전자는 `Event.downFrom` , 후자는 `Event.upFrom` 으로 동기화를 진행합니다.
 
@@ -121,7 +121,51 @@ render_with_liquid: true
 
 ### LifecycleRegistry 주요 메서드5 - handleLifecycleEvent
 
+<script src="https://gist.github.com/Yoon-Min/6e0b706c64ae1998f15804aebe74dbf8.js"></script>
+
 생명주기의 변화가 생기면 내부적으로 `handleLifecycleEvent` 가 실행되고 상태값을 새로 설정하여 옵저버들에게 이를 알립니다. 현재 상태 값을 갱신하게 되면 `sync` 메서드를 통해 옵저버들에게 알림을 보냅니다.
 
-<script src="https://gist.github.com/Yoon-Min/6e0b706c64ae1998f15804aebe74dbf8.js"></script>
+![Group 58](https://gist.github.com/user-attachments/assets/8d792390-8d28-4dff-9daa-c9e514c98445)
+
+​		
+
+## LiveData
+
+이제 생명주기에 대한 얘기를 끝내고 라이브 데이터를 살펴 보겠습니다. 보통 라이브 데이터는 `ViewModel` 에서 생성 및 관리를 하게 됩니다. 액티비티에서는 `ViewModl` 을 참조하여 라이브 데이터에 대해 오직 `observe` 메서드만 사용하여 관찰합니다.
+
+따라서 `LiveData` 와 `Lifecycle` 의 내부 동작으로 인해 다음과 같은 효과를 얻습니다. 이것들이 어떻게 가능한지 `LiveData` 내부 메서드를 통해 알아 보겠습니다.
+
+- `LifecycleOwner` 가 `STARTED`  혹은 `RESUMED` 의 활성 상태일 때 이벤트를 수신한다.
+- `DESTROYED` 상태라면 이벤트를 수신하지 않는다.
+- `LifecycleOwner` 가 비활성 상태일 때 업데이트를 받지 않고 다시 활성화되면 마지막으로 사용 가능한 데이터를 자동 수신한다.
+
+​		
+
+### observe
+
+<script src="https://gist.github.com/Yoon-Min/c14db4777e02bf21ed32c67bb105c172.js"></script>
+
+라이브 데이터의 `observe` 함수를 통해 옵저버 정보를 내부에 저장하는 작업을 먼저 진행하고 마지막은 `LifecycleOwner` 에 옵저버 정보를 등록하는 작업을 진행합니다. 
+
+전자는 라이브 데이터의 값을 변경했을 때 액티비티가 변경사항을 받아볼 수 있게 하기 위함이고 후자는 라이브 데이터의 활성 상태와 생명주기 변화에 따른 이벤트 수신을 판단하기 위함입니다.
+
+​		
+
+### LifecycleBoundObserver
+
+<script src="https://gist.github.com/Yoon-Min/75e77f1d654b3e0b56fdbcb4c2888d88.js"></script>
+
+라이브 데이터의 `observe` 메서드를 통해 옵저버를 내외부에 등록할 때는 옵저버 정보를 `LifecycleBoundObserver` 객체에 감싸서 등록합니다. `LifecycleBoundObserver` 클래스는 `LifecycleObserver` 인터페이스를 구현하고 `ObserverWrapper` 추상 클래스를 확장한 형태입니다.
+
+전자의 경우는 `LifecyleOwenr` 의 생명주기 변화 발생시 [등록된 옵저버들의 `onStateChanged` 메서드를 실행](#lifecycleregistry-주요-메서드2-\-\-observewithstate)(생명주기의 오너가 되는 액티비티 혹은 프래그먼트가 옵저버들을 꺼내서 해당 메서드 실행)함으로써 옵저버들에게 생명주기 이벤트를 송신하기 때문에 구현해야 합니다.
+
+후자의 경우는 수신한 생명주기 이벤트를 라이브 데이터 내부 동작 처리에 사용합니다. 라이브 데이터가 활성 상태일 때 이벤트를 수신할 수 있는 이유가 이 클래스를 통해 라이브 데이터의 활성 상태를 설정하고 판별하기 때문입니다.
+
+​		
+
+### 생명주기 이벤트 수신 후 라이브 데이터 활성화 상태 판단
+
+
+
+
 
