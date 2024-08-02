@@ -1,6 +1,23 @@
 [
   
   {
+    "title": "Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정",
+    "url": "/posts/AndroidLiveDataSetValue/",
+    "categories": "Android, 라이브러리",
+    "tags": "Android, LiveData, UI",
+    "date": "2024-08-02 00:00:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "사진: Unsplash의Jr KorpaIntro",
+    "content": "사진: Unsplash의Jr KorpaIntro"
+  },
+  
+  {
     "title": "Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리",
     "url": "/posts/AndroidLiveDataLifecycle/",
     "categories": "Android, 라이브러리",

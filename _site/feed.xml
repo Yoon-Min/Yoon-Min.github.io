@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-08-02T15:31:00+09:00</updated>
+  <updated>2024-08-02T21:57:00+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,46 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정</title>
+    <link href="http://localhost:4000/posts/AndroidLiveDataSetValue/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정" />
+    <published>2024-08-02T00:00:00+09:00</published>
+  
+    <updated>2024-08-02T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/AndroidLiveDataSetValue/</id>
+    <content src="http://localhost:4000/posts/AndroidLiveDataSetValue/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의Jr Korpa
+
+Intro
+
+
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -209,85 +249,6 @@ ViewModel 관련 관계도
 
 
 먼저 뷰모델 생성 및 관리에 관여하는 객체들의 관계도는 위 그림과 같습니다....
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Kotlin Function (2/2) - 고차 함수와 inline</title>
-    <link href="http://localhost:4000/posts/KotlinHighOrderFunction2/" rel="alternate" type="text/html" title="Kotlin Function (2/2) - 고차 함수와 inline" />
-    <published>2024-04-01T00:00:00+09:00</published>
-  
-    <updated>2024-04-01T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/KotlinHighOrderFunction2/</id>
-    <content src="http://localhost:4000/posts/KotlinHighOrderFunction2/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="CS" />
-    
-    <category term="프로그래밍 언어" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Contents
-
-
-  
-    함수 타입과 함수 리터럴
-
-    1-1. Intro
-
-    1-2. 코틀린 함수 타입
-
-    1-3. 함수 리터럴 기반의 람다 표현식과 익명 함수
-
-    1-4. 람다 함수와 익명 함수의 반환
-
-    1-5. 정리
-
-    1-6. 참조
-  
-  
-    고차 함수와 inline
-
-    2-1. Contents
-
-    2-2. Intro
-
-    2-3. 고차 함수를 활용해야 하는 이유
-
-    2-4. 고차 함수 활용 시 주의사항
-
-    2-5. 인라인 함수
-
-    2-6. 인라인 관련 추가 기능
-
-    2-7. 참조
-  
-
-
-​
-
-Intro
-
-저번 고차 함수와 인라인 1편에서 코틀린 함수가 왜 고차 함수인지 함수 타입과 함수 리터럴을 통해 알아봤...
     </summary>
   
 
