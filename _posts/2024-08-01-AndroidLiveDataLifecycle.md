@@ -145,9 +145,15 @@ render_with_liquid: true
 
 <script src="https://gist.github.com/Yoon-Min/c14db4777e02bf21ed32c67bb105c172.js"></script>
 
-라이브 데이터의 `observe` 함수를 통해 옵저버 정보를 내부에 저장하는 작업을 먼저 진행하고 마지막은 `LifecycleOwner` 에 옵저버 정보를 등록하는 작업을 진행합니다. 
+라이브 데이터의 `observe` 함수를 통해 옵저버 정보를 내부에 저장하는 작업을 먼저 진행하고 마지막은 `LifecycleOwner` 에 옵저버 정보를 등록하는 작업을 진행합니다. 옵저버 저장 코드 라인이 두 가지인 이유는 다음과 같습니다.
 
-전자는 라이브 데이터의 값을 변경했을 때 액티비티가 변경사항을 받아볼 수 있게 하기 위함이고 후자는 라이브 데이터의 활성 상태와 생명주기 변화에 따른 이벤트 수신을 판단하기 위함입니다.
+`mObservers.putIfAbsent(observer, wrapper);` 
+
+: `Activity` 가 `LiveData` 의 UI 데이터를 얻기 위해 구독하기 때문에 라이브 데이터 클래스 내부에 액티비티가 구독할 때 전달한 정보를 저장하는 것입니다.
+
+`owner.getLifecycle().addObserver(wrapper);`
+
+: `LiveData` 가 `Activity` 의 생명주기에 맞춰 UI 데이터를 전달해 줘야 하기 때문에 `Lifecycle` 클래스 내 옵저버로 `LiveData` 을 등록하는 것입니다.
 
 ​		
 
@@ -173,9 +179,51 @@ render_with_liquid: true
 
 <script src="https://gist.github.com/Yoon-Min/ea7c02daffbe7bbe48c4ca5caadb114f.js"></script>
 
+`Lifecycle` 은 생명주기 이벤트를 `LiveData` 로 넘길 때 라이브 데이터를 래핑한 옵저버 객체의 `onStatChanged` 메서드를 호출합니다. 생명주기 이벤트가 `Lifecycle` -> `LiveData` 로 넘어가는 첫 단계라고 생각하시면 될 것 같습니다. 
 
+해당 메서드의 인자는 `Lifecycle` 에서 보낸 값이고 내부에서 관찰 대상의 생명주기 정보를 최신화하고 `activeStateChanged` 메서드를 통해 라이브 데이터 활성화를 결정합니다. 만약 관찰 대상의 생명주기가 파괴됐다면 관찰 대상이 라이브 데이터를 구독했을 때 넘겼던 옵저버 정보를 삭제합니다.
 
+{:.prompt-tip}
 
+> **LiveData** -> Activity : 액티비티의 생명주기 관찰을 위해 구독 
+>
+> **Activity** -> LiveData : 라이브 데이터가 지닌 UI 데이터를 얻기 위해 구독	
 
+​		
 
+### LifecycleBoundObserver - activeStateChanged
+
+<script src="https://gist.github.com/Yoon-Min/3fd3b93ddc80b0c38d332f2735c833bc.js"></script>
+
+라이브 데이터의 활성 상태를 설정하는 메서드입니다. 라이브 데이터의 활성 조건은 관찰 대상의 생명주기가 최소 `STARTED` 이어야 합니다. 그래서 인자로 들어오는 `newActive` 는 `shouldBeActive()` 메서드의 결과값이 됩니다.
+
+만약 라이브 데이터의 기존 활성 상태와 인자로 들어온 `newActive` 가 같다면 갱신 작업이 필요없으므로 종료합니다. 반면에 새로운 상태가 들어왔다면 갱신작업을 진행하고 활성화 상태에 해당되면 `dispatchingValue` 을 통해 라이브 데이터를 구독하는 옵저버에 값을 전달하는 작업을 준비합니다.
+
+​		
+
+### LifecycleBoundObserver - dispatchingValue
+
+<script src="https://gist.github.com/Yoon-Min/c49c4a9e03c541a0de155955687285be.js"></script>
+
+여기서는 라이브 데이터를 구독하는 옵저버에게 값을 전달하기 전에 단일 옵저버를 대상으로 알림을 보내는 것인지 모든 옵저버를 대상으로 알림을 보내는 것인지 구분하여 작업을 진행합니다.
+
+특정 옵저버를 대상으로 알림을 보내는 것이라면 해당 옵저버의 정볼르 인자 `initiator`  로 전달해서 알립니다. 만약 모든 옵저버에게 알림을 보내고 싶다면 `initiator` 값을 `null` 로 전달합니다. 알림 전송은 `considrNotify` 가 진행합니다.
+
+​		
+
+### LifecycleBoundObserver - considerNotify
+
+<script src="https://gist.github.com/Yoon-Min/8c8ee54aa432d7140e6060eafe837a45.js"></script>
+
+알림 전송을 하기 전에 옵저버(Activity)가 활성 상태인지 확인한 후에 알림을 전송합니다. 이때 마지막에 호출하는 `onChanged` 함수가 액티비티에서 정의했던 `viewModl.livedata.observer(this) { /* onChanged body */ }` 코드에 해당합니다.
+
+결국 생명주기의 변화가 시작되어 최종적으로 `LiveData` 의 `considerNotify` 가 실행되면 라이브 데이터를 구독했던 액티비티에게 알림을 전송하게 되는 것입니다. 이 과정에서 액티비티의 생명주기 상태에 따라 알림 전송을 취소하기도 합니다.
+
+​		
+
+## 참조
+
+[**Android Developers - Handling Lifecycles with Lifecycle-Aware Components**](https://developer.android.com/topic/libraries/architecture/lifecycle?hl=ko)
+
+[**Android Developers - LiveData**](https://developer.android.com/reference/androidx/lifecycle/LiveData#setValue(T))
 
