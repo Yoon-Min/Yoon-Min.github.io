@@ -1,7 +1,7 @@
 ---
-title: Android - LiveData의 생명주기(Lifecycle) 인식 원리
+title: Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리
 author: yoonmin
-date: 2024-08-01 00:00:00 +0900
+date: 2024-08-02 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, LiveData, UI]
 render_with_liquid: true

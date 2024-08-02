@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>Android를 좋아하고 기록하는 사람입니다 :)</subtitle>
-  <updated>2024-08-02T15:27:45+09:00</updated>
+  <updated>2024-08-02T15:31:00+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,11 @@
 
   
   <entry>
-    <title>Android - LiveData의 생명주기(Lifecycle) 인식 원리</title>
-    <link href="http://localhost:4000/posts/AndroidLiveDataLifecycle/" rel="alternate" type="text/html" title="Android - LiveData의 생명주기(Lifecycle) 인식 원리" />
-    <published>2024-08-01T00:00:00+09:00</published>
+    <title>Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리</title>
+    <link href="http://localhost:4000/posts/AndroidLiveDataLifecycle/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리" />
+    <published>2024-08-02T00:00:00+09:00</published>
   
-    <updated>2024-08-01T23:35:05+09:00</updated>
+    <updated>2024-08-02T00:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/AndroidLiveDataLifecycle/</id>
     <content src="http://localhost:4000/posts/AndroidLiveDataLifecycle/" />
