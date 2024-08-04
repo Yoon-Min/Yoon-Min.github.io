@@ -3,6 +3,7 @@
 */
 
 /* ---------- scss placeholder --------- */
+@import "colors/light-syntax.scss";
 
 %heading {
   color: var(--heading-color);
@@ -44,7 +45,7 @@
 }
 
 %tag-hover {
-  background: var(--tag-hover);
+  background: var(--tag-background-hover-color);
   transition: background 0.35s ease-in-out;
 }
 
@@ -55,13 +56,15 @@
 }
 
 %link-hover {
-  color: #d1699c !important;
-  border-bottom: 1px solid #fcebf3;
+  color: var(--main-color) !important;
+  border-bottom: 1px solid var(--tag-background-hover-color);
   text-decoration: none;
+  transition: 0.2s;
 }
 
 %link-color {
-  color: var(--link-color);
+  // color: var(--link-color);
+  color: #424242;
 }
 
 %link-underline {
@@ -137,7 +140,11 @@
   opacity: 0.6;
 }
 
-@mixin label($font-size: 1rem, $font-weight: 600, $color: var(--label-color)) {
+@mixin label(
+  $font-size: 1rem,
+  $font-weight: 600,
+  $color: var(--main-color) /*var(--label-color)*/
+) {
   color: $color;
   font-size: $font-size;
   font-weight: $font-weight;

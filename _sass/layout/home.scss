@@ -2,6 +2,8 @@
   Style for Homepage
 */
 
+@import "colors/light-syntax";
+
 .pagination {
   color: var(--btn-patinator-text-color);
   font-family: Lato, sans-serif;
@@ -88,7 +90,7 @@
           -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
           padding-left: 3px;
-          color: var(--pin-color);
+          color: var(--main-color);
         }
 
         span {
@@ -145,6 +147,7 @@
 
         > span {
           display: inline;
+          color: var(--main-color);
         }
       }
     }

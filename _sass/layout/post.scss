@@ -2,6 +2,8 @@
   Post-specific style
 */
 
+@import "colors/light-syntax";
+
 @mixin btn-sharing-color($light-color, $important: false) {
   @if $important {
     color: var(--btn-share-color, $light-color) !important;
@@ -124,7 +126,7 @@ h1 + .post-meta {
         &:hover {
           text-decoration: none;
 
-          >i {
+          > i {
             @extend %btn-share-hovor;
           }
         }
@@ -170,12 +172,12 @@ h1 + .post-meta {
   .btn {
     @include btn-post-nav;
 
-    color: var(--link-color);
+    color: var(--text-color);
 
     &:hover {
-      background: #2a408e;
+      background: var(--main-color);
       color: #ffffff;
-      border-color: #2a408e;
+      border-color: var(--main-color);
     }
 
     &.disabled {
@@ -333,7 +335,8 @@ nav[data-toggle="toc"] {
     margin-bottom: 2rem;
   }
 
-  #disqus_thread { /* stylelint-disable-line selector-id-pattern */
+  #disqus_thread {
+    /* stylelint-disable-line selector-id-pattern */
     min-height: 8.5rem;
   }
 }

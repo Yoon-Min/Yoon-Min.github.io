@@ -1,6 +1,7 @@
 /*
   The common styles
 */
+@import "colors/light-syntax.scss";
 
 html {
   @media (prefers-color-scheme: light) {
@@ -282,10 +283,10 @@ i {
     margin: 0 0.35rem 0.5rem 0;
 
     &:hover {
-      background-color: #fcebf3;
-      border-color: #fcebf3;
-      color: #d1699c;
-      transition: none;
+      background-color: var(--tag-background-hover-color);
+      border-color: var(--tag-background-hover-color);
+      color: var(--main-color);
+      transition: background 0.35s ease-in-out;
     }
   }
 
@@ -553,8 +554,8 @@ i {
     @extend %tag-hover;
     border-bottom: none;
     text-decoration: none;
-    color: #d1699c;
-    background: #fcebf3;
+    color: #43d4a1;
+    background: #ebfcfc;
   }
 }
 
@@ -827,7 +828,7 @@ $sidebar-display: "sidebar-display";
 
     &.active {
       .nav-link {
-        color: var(--sidebar-active-color);
+        color: var(--main-color);
       }
     }
 

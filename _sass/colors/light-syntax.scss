@@ -214,8 +214,23 @@
   } /* Literal.Number.Integer.Long */
 
   /* --- custom light colors --- */
+  /* main color */
+  --main-color: #2dc39e;
+  --sub-color: #d1699c;
+
+  /* inline 코드 배경 색상 */
   --highlight-bg-color: #fcfcfc;
-  --highlighter-rouge-color: #28a99c;
+  /* inline 코드 텍스트 색상 */
+  --highlighter-rouge-color: #167b71;
+  // --highlighter-rouge-color: #e927ae;
+
+  /* Tag Component Hover Color */
+  --tag-text-hover-color: var(--main-color);
+  --tag-background-hover-color: #e2f4f1;
+
+  /* Right SideBar Label Color */
+  --right-side-bar-label-color: var(--main-color);
+
   --highlight-lineno-color: #c2c6cc;
   --inline-code-bg: #f3f3f3;
   --code-header-text-color: #a3a3b1;
