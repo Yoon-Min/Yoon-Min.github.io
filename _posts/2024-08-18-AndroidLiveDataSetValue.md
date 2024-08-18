@@ -31,11 +31,63 @@ render_with_liquid: true
 
 <script src="https://gist.github.com/Yoon-Min/75e77f1d654b3e0b56fdbcb4c2888d88.js"></script>
 
+라이브 데이터 내에 저장되는 옵저버는 옵저버 클래스 자체로 저장되지 않습니다. 옵저버 객체에 `ObserverWrapper` 추상 클래스 기반의 `LifecycleBoundObserver` 클래스로 감싸서 저장합니다.
 
+먼저 `ObservrWrapper` 는 말그대로 옵저버와 옵저버의 상태 정보를 저장하는 래핑 클래스입니다. 이러한 정보에 생명주기 관련 정보를 추가(LifecycleBoundObserver)하는 방식으로 생명주기 관찰에 기반한 알림 전달을 진행합니다.
+
+![제목 없는 다이어그램 drawio](https://gist.github.com/user-attachments/assets/0b0c1876-b215-4fc7-ad8a-eb3517083d5e)
 
 ​		
 
 ## setValue
 
 <script src="https://gist.github.com/Yoon-Min/29565ffa35911e2eb79961f017ae9d2e.js"></script>
+
+이제 라이브 데이터 값을 설정하는 메서드를 살펴 보겠습니다. 우선 `setValue` 입니다. 해당 메서드는 메인 스레드에서 라이브 데이터의 값을 설정한다는 특징을 가지고 있습니다.
+
+그래서 메서드 첫 번째 라인에 `assertMainThrad` 를 통해 메인 스레드에서의 실행을 강제합니다. 이후에는 `mData` 에 설정하려는 값을 저장하여 `dispatchingValue` 를 통해 `mData` 를 옵저버에게 알립니다. 라이브 데이터에 값을 설정하면 내부에서는 `mData` 라는 변수에 값을 저장하여 관리합니다.
+
+​		
+
+## postValue
+
+<script src="https://gist.github.com/Yoon-Min/1d31bdf52c3bc7e101f26bada17876b2.js"></script>
+
+이 메서드는 `setValue` 와 마찬가지로 라이브 데이터의 값을 설정하는 특징을 가집니다. 그러나 차이점이라 하면 백그라운드 스레드에서 값을 변경하여 메인 스레드에서 실제 적용하는 과정을 거칩니다.
+
+기본적으로 라이브 데이터는 메인 스레드에서 값을 변경할 수 있습니다. 그런데 상황에 따라 백그라운드 환경에서 값을 설정해야 하는 경우도 있습니다. 그래서 `postValue` 메서드를 지원하여 백그라운드 환경에서 값을 변경하고 이를 메인 스레드에게 전달해 최종 적용하는 것입니다.
+
+백그라운드에서 값을 변경하기 위해서는 동기화 문제를 신경써야 합니다. 그래서 `synchronized` 를 통해 `mData` 가 아닌 `mPendingData` 에 임시로 값을 저장합니다. 임시로 값을 저장했으면 그 다음은 메인 스레드에게 `post` 합니다.
+
+<script src="https://gist.github.com/Yoon-Min/d82b8d40ac48fa3fb8cac647aef5bd2c.js"></script>
+
+메인 스레드에 전달하는 `Runnable` 객체는 임시로 저장한 값을 `setValue` 메서드를 호출하여 설정한 값을 실제 적용하는 작업을 진행합니다. 이를 통해 결국 `postValue` 는 최종적으로 `setValue` 를 호출한다는 것을 알 수 있습니다.
+
+​		
+
+## dispatchingValue
+
+<script src="https://gist.github.com/Yoon-Min/c49c4a9e03c541a0de155955687285be.js"></script>
+
+`setValue` 에서 마지막에 호출하는 이 메서드는 라이브 데이터 내 옵저버 맵에 저장되어 있는 옵저버에 알림(값이 변경됨)을 보냅니다. 이 알림은 `considerNotify` 에 위임합니다.
+
+여기서 단일(특정) 옵저버에 알림을 보낼 것인지, 모든 옵저버에 알림을 보낼 것인지 정해야 합니다. 만약 특정 옵저버에게만 알림을 보내고 싶다면 파라미터인 `initiator` 에 옵저버를 기입하고, 반대로 모든 옵저버에 알림을 보내고 싶다면 `null` 로 기입합니다.
+
+`setValue` 는 `null` 로 설정하기 때문에 해당 라이브 데이터를 관찰하고 있는 모든 옵저버에게 알림을 전송하게 되는 것입니다. 제가 설명하는 예제에서는 액티비티 하나만 라이브 데이터를 관찰하고 있기 때문에 이 액티비티에만 알림이 전송됩니다. 그러나 액티비티 이외에 다른 컴포넌트에서도 라이브 데이터를 관찰하고 있다면 해당 컴포넌트에도 알림이 전송됩니다.
+
+​		
+
+## considerNotify
+
+<script src="https://gist.github.com/Yoon-Min/8c8ee54aa432d7140e6060eafe837a45.js"></script>
+
+이 메서드에서 최종적으로 옵저버에 알림을 보냅니다. 먼저 옵저버가 활성화 상태인지 확인하는 작업을 거친 후에 마지막에 옵저버(액티비티)가 정의했던 `onChanged` 를 호출합니다.
+
+<script src="https://gist.github.com/Yoon-Min/8423acf0c2f974d429b7d38766c82c00.js"></script>
+
+라이브 데이터 내 `onChanged` 호출로 인해서 제가 액티비티에 정의했던 `Timber.d("result : $it")` 코드 블럭이 실행됩니다. 
+
+
+
+
 
