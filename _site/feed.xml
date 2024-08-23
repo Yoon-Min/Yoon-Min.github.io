@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2024-08-18T17:04:16+09:00</updated>
+  <updated>2024-08-23T17:11:28+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,51 @@
 
   
   <entry>
+    <title>GitHub Blog 간편하고 빠르게 꾸며보자 - 깃허브 블로그 커스터마이징 팁</title>
+    <link href="http://localhost:4000/posts/GitHubBlogCustom/" rel="alternate" type="text/html" title="GitHub Blog 간편하고 빠르게 꾸며보자 - 깃허브 블로그 커스터마이징 팁" />
+    <published>2024-08-23T00:00:00+09:00</published>
+  
+    <updated>2024-08-23T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/GitHubBlogCustom/</id>
+    <content src="http://localhost:4000/posts/GitHubBlogCustom/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="Github 블로그 만들기" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Unsplash의Krishdiphong Prayoonwongkasem
+
+Intro
+
+
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정</title>
     <link href="http://localhost:4000/posts/AndroidLiveDataSetValue/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정" />
     <published>2024-08-18T00:00:00+09:00</published>
   
-    <updated>2024-08-18T00:00:00+09:00</updated>
+    <updated>2024-08-18T17:05:16+09:00</updated>
   
     <id>http://localhost:4000/posts/AndroidLiveDataSetValue/</id>
     <content src="http://localhost:4000/posts/AndroidLiveDataSetValue/" />
@@ -211,56 +251,6 @@ Intro
 Android 행사 참여는 처음이지만 행사를 진행하는 구글 스타트업 캠퍼스는 너무나 익숙했다. 예전에 GDSC 활동을 할 때 잡페어 행사에 참가한 적이 있는데 그 행사를 구글 스타트업 캠퍼스에서 진행했었다. 그래서 한 번 가본 장소기 때문에 행사장은 문제 없이 잘 찾아갈 수 있었다.
 
 분위기는 굉장히 자유롭고 편했다. 중간마다 간단한 마실 것과...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - ViewModel 생성과 반환</title>
-    <link href="http://localhost:4000/posts/ViewModelCreation/" rel="alternate" type="text/html" title="Android - ViewModel 생성과 반환" />
-    <published>2024-07-22T00:00:00+09:00</published>
-  
-    <updated>2024-07-23T16:54:55+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ViewModelCreation/</id>
-    <content src="http://localhost:4000/posts/ViewModelCreation/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Intro
-
-ViewModel 은 안드로이드의 UI 층을 구현하는 데 많은 도움을 주는 Jetpack 라이브러리입니다. 화면 구성의 변경이나 여러 프래그먼트에서 UI 상태 데이터를 보존하고 공유할 수 있다는 장점 덕분에 많은 사람들이 사용하고 있고, 저 역시 뷰모델을 애용하고 있습니다.
-
-그러나 지금까지 뷰모델의 사용 방법과 역할만 숙지한 탓에 최근 내부 동작이 어떻게 되는지에 대한 이해가 매우 부족한 것을 느꼈습니다. 현재 계획하고 있는 프로젝트가 두 개이고 해당 프로젝트를 앞으로 제대로 수행하려면 사용하는 라이브러리에 대한 이해가 필요할 것 같아 이번 기회에 정리하고자 합니다.
-
-​
-
-ViewModel 관련 관계도
-
-
-
-먼저 뷰모델 생성 및 관리에 관여하는 객체들의 관계도는 위 그림과 같습니다....
     </summary>
   
 
