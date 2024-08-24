@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2024-08-23T21:43:38+09:00</updated>
+  <updated>2024-08-24T13:21:48+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/GitHubBlogCustom/" rel="alternate" type="text/html" title="GitHub Blog 간편하고 빠르게 꾸며보자 - 깃허브 블로그 커스터마이징 팁" />
     <published>2024-08-23T00:00:00+09:00</published>
   
-    <updated>2024-08-23T20:25:12+09:00</updated>
+    <updated>2024-08-23T21:44:05+09:00</updated>
   
     <id>http://localhost:4000/posts/GitHubBlogCustom/</id>
     <content src="http://localhost:4000/posts/GitHubBlogCustom/" />
