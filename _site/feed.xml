@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2024-08-24T13:21:48+09:00</updated>
+  <updated>2024-08-29T22:20:55+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,60 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android Compose Navigation 01 - 컴포즈 네비게이션 소개</title>
+    <link href="http://localhost:4000/posts/ComposeNavigationInro/" rel="alternate" type="text/html" title="Android Compose Navigation 01 - 컴포즈 네비게이션 소개" />
+    <published>2024-08-29T00:00:00+09:00</published>
+  
+    <updated>2024-08-29T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/ComposeNavigationInro/</id>
+    <content src="http://localhost:4000/posts/ComposeNavigationInro/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Unsplash의Katie Drazdauskaite
+
+​
+
+Compose Navigation 포스팅 현황
+
+
+  Android Compose Navigation 01 - 컴포즈 네비게이션 소개
+  Android Compose Navigation 02 - NavGraph 생성과정 (예정)
+  Android Compose Navigation 03 - Navigator (예정)
+
+
+​
+
+Intro
+
+화면 이동은 모바일 애플리케이션에서 중요한 요소입니다. 당장 우리가 일상에서 사용하는 앱을 살펴봐도 단순히 하나의 화면만 있는 것이 아닌 여러 화면을 통해 사용자에게 다양한 서비스를 제공하는 것을 볼 수 있습니다. 모바일 운영체제중 하나인 Android도 마찬가지입니다.
+
+그래서 Android는 이러한 화면 이동...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -211,50 +265,6 @@ Intro
 그런데 여기서 궁금한 점이 생겼습니다. 대표적인 구성 변경인 화면 전환이 발생하면 분명 액티비티는 onDestroy 후에 onCreate 으로 재생성을 하는 과정을 거치는데 뷰모델의 파괴 조건에 따르면 이때 뷰모델도 파괴되어야 합니다. 하지만 구성 변경이 발생하면 뷰모델은  Clear 되지 않습니다.
 
 안드로이드는 구성 변경과 같이 액티비티가 잠...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Google I/O Android Korea 2024 후기</title>
-    <link href="http://localhost:4000/posts/GoogleIOAndroid/" rel="alternate" type="text/html" title="Google I/O Android Korea 2024 후기" />
-    <published>2024-07-23T00:00:00+09:00</published>
-  
-    <updated>2024-07-23T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/GoogleIOAndroid/</id>
-    <content src="http://localhost:4000/posts/GoogleIOAndroid/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="블로그" />
-    
-    <category term="회고록" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-처음 가보는 Android 행사
-
-여태까지 Android를 다루는 행사에 참여해본 적이 없었는데 Google I/O를 통해 새로운 경험을 하게 되어서 매우 즐거웠다. 안드로이드 공부를 오랜만에 다시 시작한 탓에 내외부로 바뀐 것들에 대한 파악이 필요했었는데 마침 GDG에서 이를 알려주는 행사를 열어서 바로 찾아가게 된 것이 이번 행사의 참가 계기가 되겠다.
-
-Android 행사 참여는 처음이지만 행사를 진행하는 구글 스타트업 캠퍼스는 너무나 익숙했다. 예전에 GDSC 활동을 할 때 잡페어 행사에 참가한 적이 있는데 그 행사를 구글 스타트업 캠퍼스에서 진행했었다. 그래서 한 번 가본 장소기 때문에 행사장은 문제 없이 잘 찾아갈 수 있었다.
-
-분위기는 굉장히 자유롭고 편했다. 중간마다 간단한 마실 것과...
     </summary>
   
 
