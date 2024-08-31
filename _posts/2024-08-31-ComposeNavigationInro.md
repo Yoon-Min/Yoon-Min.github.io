@@ -1,7 +1,7 @@
 ---
 title: Android Compose Navigation 01 - 컴포즈 네비게이션 소개 
 author: yoonmin
-date: 2024-08-30 00:00:00 +0900
+date: 2024-08-31 00:00:00 +0900
 categories: [Android, 라이브러리]
 tags: [Android, Compose, Navigation]
 render_with_liquid: true
