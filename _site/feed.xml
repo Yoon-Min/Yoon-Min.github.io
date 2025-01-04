@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2024-09-08T23:53:32+09:00</updated>
+  <updated>2025-01-04T16:07:44+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -13,10 +13,96 @@
   <link rel="alternate" type="text/html" hreflang="en"
     href="http://localhost:4000/"/>
   <generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator>
-  <rights> © 2024 SeungMinYoon </rights>
+  <rights> © 2025 SeungMinYoon </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]</title>
+    <link href="http://localhost:4000/posts/Review2024/" rel="alternate" type="text/html" title="Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]" />
+    <published>2025-01-03T12:00:00+09:00</published>
+  
+    <updated>2025-01-03T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Review2024/</id>
+    <content src="http://localhost:4000/posts/Review2024/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의Annie Spratt
+
+2025년을 맞이하며
+
+1년 주기로 기록하는 개발 회고를 시작한지 벌써 2년이 지났다. 23년 회고를 포스팅하고 이것저것 해오던 것들을 마무리하다 보니 벌써 끝자락에 다다른 24년을 마주하고 있었다. 크게 이룬 것 하나 없는데 2024년과 작별해야 한다는 것이 참으로 쓸쓸하면서도 걱정스럽기도 했다.
+
+간략하게 되돌아 보면 24년은 내 기존 역량과 마음가짐을 좀 더 다듬을 수 있었던 해였다. 현재 내 수준을 점검하고 좀 더 발전이 필요한 부분을 확인하여 부족한 점을 채우기 위해 다양한 활동을 했다. 그렇다면 그 활동들이 모두 성공이었나? 하고 묻는다면 반은 실패했고 반은 성공했다고 답변할 수 있을 것 같다.
+
+이번에 실패가 많았던 요인은 아마 인생의 다음 ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>24년 3회 정보처리기사 합격 회고</title>
+    <link href="http://localhost:4000/posts/CertificationReview1/" rel="alternate" type="text/html" title="24년 3회 정보처리기사 합격 회고" />
+    <published>2025-01-03T12:00:00+09:00</published>
+  
+    <updated>2025-01-03T12:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/CertificationReview1/</id>
+    <content src="http://localhost:4000/posts/CertificationReview1/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      전공자의 정보처리기사 도전기
+
+정보처리기사 시험을 준비하면서 한 가지 깨달은 게 있다. 이건 절대 두 번은 응시 못한다. 컴퓨터랑 키보드 두드리면서 편하게 공부하다가 실물 책 스륵스륵 넘기면서 인쇄된 텍스트를 보면서 공부하려 하니 벽을 느꼈다. 그래서 최대한 집중해서 1회차에 합격하고 바로 미련없이 떠나자는 마음으로 공부했다.
+
+결론은 어떻게 됐는가? 결국 재시험 없이 첫 시도에 필기와 실기, 둘 다 합격하여 정보처리기사 자격증을 받았다. 필기는 대략 2주, 실기는 한 달이라는 넉넉한 기간을 잡고 공부했던 것 같다. 원래 전공자 기준에서는 이보다 더 짧게 공부해도 충분히 합격할 수 있지만, 나는 변수를 만들고 싶지 않아 확실하고 안정적인 합격을 위해 이론 파트에 시간을 많이 투자했다.
+
+이론 파트에 투...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -163,108 +249,6 @@ Observe
 
 
 라이브 데이터를 구독할 수 있는 observe 메서드는 라이브 데이터 클래스 ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리</title>
-    <link href="http://localhost:4000/posts/AndroidLiveDataLifecycle/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리" />
-    <published>2024-08-02T00:00:00+09:00</published>
-  
-    <updated>2024-08-02T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/AndroidLiveDataLifecycle/</id>
-    <content src="http://localhost:4000/posts/AndroidLiveDataLifecycle/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Unsplash의Nitish Meena
-
-Intro
-
-LiveData 는 관찰 가능한 UI 데이터 홀더 클래스입니다. 라이브 데이터는 안드로이드의 수명주기를 인식하여 수명주기에 맞춰 동작한다는 특징을 가지고 있어서 UI Layer에서 UI 데이터를 보유하는 역할을 수행합니다.
-
-그런데 여기서 한 가지 궁금증이 생깁니다. 라이브 데이터가 안드로이드의 생명주기에 맞춰서 동작한다는 것은 알겠는데 어떻게 인식을 하는 걸까요? 이번 포스팅은 그 원리를 알아보는 시간을 가지고자 합니다.
-
-​
-
-Lifecycle
-
-라이브 데이터를 분석하기 전에 먼저 생명주기에 대해서 알 필요가 있습니다. 보통 안드로이드에서 생명주기라 하면 액티비티 혹은 프래그먼트의 생명주기를 떠올릴 것입니다.
-
-그 생명주기의 근간이 되는 클래스가...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유</title>
-    <link href="http://localhost:4000/posts/ViewModelClear/" rel="alternate" type="text/html" title="Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유" />
-    <published>2024-07-23T00:00:00+09:00</published>
-  
-    <updated>2024-07-23T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ViewModelClear/</id>
-    <content src="http://localhost:4000/posts/ViewModelClear/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Intro
-
-뷰모델은 ViewModelStoreOwner 가 사라질 때까지 메모리에 남아 있습니다. 덕분에 액티비티의 화면 구성 변경 후에도 뷰모델을 유지할 수 있습니다. 뷰모델이 파괴되는 조건은 다음과 같이 세 가지가 있습니다.
-
-
-  액티비티가 완료될 때 -&amp;gt; onDestroy
-  프래그먼트가 분리될 때
-  네비게이션 백 스택에서 삭제될 때
-
-
-
-
-그런데 여기서 궁금한 점이 생겼습니다. 대표적인 구성 변경인 화면 전환이 발생하면 분명 액티비티는 onDestroy 후에 onCreate 으로 재생성을 하는 과정을 거치는데 뷰모델의 파괴 조건에 따르면 이때 뷰모델도 파괴되어야 합니다. 하지만 구성 변경이 발생하면 뷰모델은  Clear 되지 않습니다.
-
-안드로이드는 구성 변경과 같이 액티비티가 잠...
     </summary>
   
 
