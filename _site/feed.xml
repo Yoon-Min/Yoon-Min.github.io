@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-01-08T21:04:40+09:00</updated>
+  <updated>2025-01-11T01:05:45+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/Review2024/" rel="alternate" type="text/html" title="Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]" />
     <published>2025-01-03T12:00:00+09:00</published>
   
-    <updated>2025-01-07T19:04:12+09:00</updated>
+    <updated>2025-01-08T21:05:25+09:00</updated>
   
     <id>http://localhost:4000/posts/Review2024/</id>
     <content src="http://localhost:4000/posts/Review2024/" />
