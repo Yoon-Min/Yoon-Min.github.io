@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-01-21T13:10:03+09:00</updated>
+  <updated>2025-01-28T09:26:14+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -21,13 +21,13 @@
   
   <entry>
     <title>Android Compose Navigation 01 - 컴포즈 내비게이션 소개</title>
-    <link href="http://localhost:4000/posts/ComposeNavigationInro/" rel="alternate" type="text/html" title="Android Compose Navigation 01 - 컴포즈 내비게이션 소개" />
+    <link href="http://localhost:4000/posts/ComposeNavigation1/" rel="alternate" type="text/html" title="Android Compose Navigation 01 - 컴포즈 내비게이션 소개" />
     <published>2024-09-01T00:00:00+09:00</published>
   
     <updated>2024-09-01T00:00:00+09:00</updated>
   
-    <id>http://localhost:4000/posts/ComposeNavigationInro/</id>
-    <content src="http://localhost:4000/posts/ComposeNavigationInro/" />
+    <id>http://localhost:4000/posts/ComposeNavigation1/</id>
+    <content src="http://localhost:4000/posts/ComposeNavigation1/" />
     <author>
       <name>yoonmin</name>
     </author>
