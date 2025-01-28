@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-01-28T09:26:14+09:00</updated>
+  <updated>2025-01-28T10:10:38+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,62 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android Compose Navigation 02 - NavGraph 생성과정</title>
+    <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
+    <published>2025-01-28T00:00:00+09:00</published>
+  
+    <updated>2025-01-28T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/ComposeNavigation2/</id>
+    <content src="http://localhost:4000/posts/ComposeNavigation2/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="라이브러리" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의Jordan Madrid
+
+​
+
+Compose Navigation 포스팅 현황
+
+
+  Android Compose Navigation 01 - 컴포즈 내비게이션 소개
+  Android Compose Navigation 02 - NavGraph 생성과정
+  Android Compose Navigation 03 - Navigator (예정)
+
+
+​
+
+Intro
+
+지난 포스팅에서 Compose Navigation에 대해 간단하게 소개하는 시간을 가졌습니다. 이를 통해 NavHost 내부에 NavController와 NavGraph를 가지고 네비게이션을 생성하는 것을 알았습니다. 이번 포스팅은 좀 더 들어가서 NavHost 내부에 생성되는 NavGraph에 대해 알아보겠습니다.
+
+​
+
+...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -213,58 +269,6 @@ Lifecycle
 라이브 데이터를 분석하기 전에 먼저 생명주기에 대해서 알 필요가 있습니다. 보통 안드로이드에서 생명주기라 하면 액티비티 혹은 프래그먼트의 생명주기를 떠올릴 것입니다.
 
 그 생명주기의 근간이 되는 클래스가...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유</title>
-    <link href="http://localhost:4000/posts/ViewModelClear/" rel="alternate" type="text/html" title="Android - 화면 구성 변환에도 ViewModel 데이터가 보존될 수 있는 이유" />
-    <published>2024-07-23T00:00:00+09:00</published>
-  
-    <updated>2024-07-23T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ViewModelClear/</id>
-    <content src="http://localhost:4000/posts/ViewModelClear/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      
-
-Intro
-
-뷰모델은 ViewModelStoreOwner 가 사라질 때까지 메모리에 남아 있습니다. 덕분에 액티비티의 화면 구성 변경 후에도 뷰모델을 유지할 수 있습니다. 뷰모델이 파괴되는 조건은 다음과 같이 세 가지가 있습니다.
-
-
-  액티비티가 완료될 때 -&amp;gt; onDestroy
-  프래그먼트가 분리될 때
-  네비게이션 백 스택에서 삭제될 때
-
-
-
-
-그런데 여기서 궁금한 점이 생겼습니다. 대표적인 구성 변경인 화면 전환이 발생하면 분명 액티비티는 onDestroy 후에 onCreate 으로 재생성을 하는 과정을 거치는데 뷰모델의 파괴 조건에 따르면 이때 뷰모델도 파괴되어야 합니다. 하지만 구성 변경이 발생하면 뷰모델은  Clear 되지 않습니다.
-
-안드로이드는 구성 변경과 같이 액티비티가 잠...
     </summary>
   
 

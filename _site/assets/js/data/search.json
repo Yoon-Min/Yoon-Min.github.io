@@ -1,6 +1,23 @@
 [
   
   {
+    "title": "Android Compose Navigation 02 - NavGraph 생성과정",
+    "url": "/posts/ComposeNavigation2/",
+    "categories": "Android, 라이브러리",
+    "tags": "Android, Compose, Navigation",
+    "date": "2025-01-28 00:00:00 +0900",
+    
+
+
+
+
+
+    
+    "snippet": "사진: Unsplash의Jordan Madrid​Compose Navigation 포스팅 현황  Android Compose Navigation 01 - 컴포즈 내비게이션 소개  Android Compose Navigation 02 - NavGraph 생성과정  Android Compose Navigation 03 - Navigator (예정)​Int...",
+    "content": "사진: Unsplash의Jordan Madrid​Compose Navigation 포스팅 현황  Android Compose Navigation 01 - 컴포즈 내비게이션 소개  Android Compose Navigation 02 - NavGraph 생성과정  Android Compose Navigation 03 - Navigator (예정)​Intro지난 포스팅에서 Compose Navigation에 대해 간단하게 소개하는 시간을 가졌습니다. 이를 통해 NavHost 내부에 NavController와 NavGraph를 가지고 네비게이션을 생성하는 것을 알았습니다. 이번 포스팅은 좀 더 들어가서 NavHost 내부에 생성되는 NavGraph에 대해 알아보겠습니다.​NavHost 내 NavGraph 생성"
+  },
+  
+  {
     "title": "Android Compose Navigation 01 - 컴포즈 내비게이션 소개",
     "url": "/posts/ComposeNavigation1/",
     "categories": "Android, 라이브러리",
