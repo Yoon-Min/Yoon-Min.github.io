@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-01-30T10:06:19+09:00</updated>
+  <updated>2025-01-30T19:40:56+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Android Compose Navigation 02 - NavGraph 생성과정</title>
     <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
-    <published>2025-01-28T00:00:00+09:00</published>
+    <published>2025-01-30T00:00:00+09:00</published>
   
-    <updated>2025-01-28T00:00:00+09:00</updated>
+    <updated>2025-01-30T10:07:10+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeNavigation2/</id>
     <content src="http://localhost:4000/posts/ComposeNavigation2/" />
@@ -64,7 +64,7 @@ Compose Navigation 포스팅 현황
 
 Intro
 
-지난 포스팅에서 Compose Navigation에 대해 간단하게 소개하는 시간을 가졌습니다. 이를 통해 NavHost 내부에 NavController와 NavGraph를 가지고 네비게이션을 생성하는 것을 알았습니다. 이번 포스팅은 좀 더 들어가서 NavHost 내부에 생성되는 NavGraph에 대해 알아보겠습니다.
+지난 포스팅에서 Compose Navigation에 대해 간단하게 소개하는 시간을 가졌습니다. 이를 통해 NavHost 내부에 NavController와 NavGraph를 가지고 내비게이션을 생성하는 것을 알았습니다. 이번 포스팅은 좀 더 들어가서 NavHost 내부에 생성되는 NavGraph에 대해 알아보겠습니다.
 
 ​
 
