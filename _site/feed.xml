@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-02-04T22:41:19+09:00</updated>
+  <updated>2025-02-04T22:44:01+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -80,7 +80,7 @@ Intro
     <link href="http://localhost:4000/posts/Review2024/" rel="alternate" type="text/html" title="Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]" />
     <published>2025-01-11T12:00:00+09:00</published>
   
-    <updated>2025-01-21T13:13:31+09:00</updated>
+    <updated>2025-02-04T22:42:21+09:00</updated>
   
     <id>http://localhost:4000/posts/Review2024/</id>
     <content src="http://localhost:4000/posts/Review2024/" />
@@ -124,7 +124,7 @@ Intro
     <link href="http://localhost:4000/posts/CertificationReview1/" rel="alternate" type="text/html" title="24년 3회 정보처리기사 합격 회고" />
     <published>2025-01-03T12:00:00+09:00</published>
   
-    <updated>2025-01-21T13:13:31+09:00</updated>
+    <updated>2025-02-04T22:42:21+09:00</updated>
   
     <id>http://localhost:4000/posts/CertificationReview1/</id>
     <content src="http://localhost:4000/posts/CertificationReview1/" />
