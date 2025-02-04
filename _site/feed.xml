@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-01-30T19:40:56+09:00</updated>
+  <updated>2025-02-04T22:41:19+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
     <published>2025-01-30T00:00:00+09:00</published>
   
-    <updated>2025-01-30T10:07:10+09:00</updated>
+    <updated>2025-01-30T19:41:26+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeNavigation2/</id>
     <content src="http://localhost:4000/posts/ComposeNavigation2/" />
@@ -69,6 +69,92 @@ Intro
 ​
 
 ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]</title>
+    <link href="http://localhost:4000/posts/Review2024/" rel="alternate" type="text/html" title="Goodbye, 2024! Welcome, 2025! - [2024년 개발 회고]" />
+    <published>2025-01-11T12:00:00+09:00</published>
+  
+    <updated>2025-01-21T13:13:31+09:00</updated>
+  
+    <id>http://localhost:4000/posts/Review2024/</id>
+    <content src="http://localhost:4000/posts/Review2024/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의Annie Spratt
+
+2025년을 맞이하며
+
+1년 주기로 기록하는 개발 회고를 시작한 지 벌써 2년이 지났다. 23년 회고를 포스팅하고 이것저것 해오던 것들을 마무리하다 보니 벌써 끝자락에 다다른 24년을 마주하고 있었다. 크게 이룬 것 하나 없는데 2024년과 작별해야 한다는 것이 참으로 쓸쓸하면서도 걱정스럽기도 했다.
+
+간략하게 되돌아보면 24년은 내 기존 역량과 마음가짐을 좀 더 다듬을 수 있었던 해였다. 현재 내 수준을 점검하고 좀 더 발전이 필요한 부분을 확인하여 부족한 점을 채우기 위해 다양한 활동을 했다. 그렇다면 그 활동들이 모두 성공이었나? 하고 묻는다면 반은 실패했고 반은 성공했다고 답변할 수 있을 것 같다.
+
+이번에 실패가 많았던 요인은 아마 인생의 다음 ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>24년 3회 정보처리기사 합격 회고</title>
+    <link href="http://localhost:4000/posts/CertificationReview1/" rel="alternate" type="text/html" title="24년 3회 정보처리기사 합격 회고" />
+    <published>2025-01-03T12:00:00+09:00</published>
+  
+    <updated>2025-01-21T13:13:31+09:00</updated>
+  
+    <id>http://localhost:4000/posts/CertificationReview1/</id>
+    <content src="http://localhost:4000/posts/CertificationReview1/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      전공자의 정보처리기사 도전기
+
+정보처리기사 시험을 준비하면서 한 가지 깨달은 게 있다. 이건 절대 두 번은 응시 못 한다. 컴퓨터랑 키보드 두드리면서 편하게 공부하다가 실물 책 스륵 스륵 넘기면서 인쇄된 텍스트를 보면서 공부하려 하니 벽을 느꼈다. 그래서 최대한 집중해서 1회차에 합격하고 바로 미련 없이 떠나자는 마음으로 공부했다.
+
+결론은 어떻게 됐는가? 결국 재시험 없이 첫 시도에 필기와 실기, 둘 다 합격하여 정보처리기사 자격증을 받았다. 필기는 대략 2주, 실기는 한 달이라는 넉넉한 기간을 잡고 공부했던 것 같다. 원래 전공자 기준에서는 이보다 더 짧게 공부해도 충분히 합격할 수 있지만, 나는 변수를 만들고 싶지 않아 확실하고 안정적인 합격을 위해 이론 파트에 시간을 많이 투자했다.
+
+이론 파트...
     </summary>
   
 
@@ -167,108 +253,6 @@ Intro
 블로그를 오픈하는 과정하는 설명대로 따라가면 수월하게 할 수 있습니다만 이후의 블로그 관리는 조금 어려울 수 있습니다. 아이러니하게도 제가 블로그 관리에서 가장 어려움을 느꼈던 부분은 깃허브 블로그의 최고 장점이라 할 수 있는 커스터마이징 부분이었습니다.
 
 아무래도 모바일 개발을 주력으로 하다 보니 웹 개발과 관련된 개념에 무지했고 이 때문에 깃허브 블로그 테마 폴더 구조 파악...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정</title>
-    <link href="http://localhost:4000/posts/AndroidLiveDataSetValue/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData 값 설정부터 전달까지 과정" />
-    <published>2024-08-18T00:00:00+09:00</published>
-  
-    <updated>2024-08-18T17:05:16+09:00</updated>
-  
-    <id>http://localhost:4000/posts/AndroidLiveDataSetValue/</id>
-    <content src="http://localhost:4000/posts/AndroidLiveDataSetValue/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      사진: Unsplash의Jr Korpa
-
-Intro
-
-안드로이드의 LiveData 라이브러리를 사용하다 보면 라이브 데이터를 구독하고 있는 컴포넌트가 어떻게 값 변경에 대한 알림을 받는지 궁금할 수 있습니다. 저도 해당 라이브러리를 사용하면서 이 부분이 궁금했습니다. 그래서 라이브 데이터의 내부 코드를 분석하여 이를 정리하고자 합니다.
-
-​
-
-Observe
-
-
-
-라이브 데이터는 보통 ViewModel 에서 생성 및 업데이트를 관리합니다. 그리고 이러한 변경사항을 라이브 데이터의 구독자인 액티비티 혹은 프래그먼트가 전달받습니다. 이러한 알림 수신이 가능한 이유는 라이브 데이터가 가지고 있는 observe 함수 덕분입니다.
-
-
-
-라이브 데이터를 구독할 수 있는 observe 메서드는 라이브 데이터 클래스 ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리</title>
-    <link href="http://localhost:4000/posts/AndroidLiveDataLifecycle/" rel="alternate" type="text/html" title="Android - 내부 동작으로 살펴보는 LiveData의 생명주기(Lifecycle) 인식 원리" />
-    <published>2024-08-02T00:00:00+09:00</published>
-  
-    <updated>2024-08-02T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/AndroidLiveDataLifecycle/</id>
-    <content src="http://localhost:4000/posts/AndroidLiveDataLifecycle/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Unsplash의Nitish Meena
-
-Intro
-
-LiveData 는 관찰 가능한 UI 데이터 홀더 클래스입니다. 라이브 데이터는 안드로이드의 수명주기를 인식하여 수명주기에 맞춰 동작한다는 특징을 가지고 있어서 UI Layer에서 UI 데이터를 보유하는 역할을 수행합니다.
-
-그런데 여기서 한 가지 궁금증이 생깁니다. 라이브 데이터가 안드로이드의 생명주기에 맞춰서 동작한다는 것은 알겠는데 어떻게 인식을 하는 걸까요? 이번 포스팅은 그 원리를 알아보는 시간을 가지고자 합니다.
-
-​
-
-Lifecycle
-
-라이브 데이터를 분석하기 전에 먼저 생명주기에 대해서 알 필요가 있습니다. 보통 안드로이드에서 생명주기라 하면 액티비티 혹은 프래그먼트의 생명주기를 떠올릴 것입니다.
-
-그 생명주기의 근간이 되는 클래스가...
     </summary>
   
 
