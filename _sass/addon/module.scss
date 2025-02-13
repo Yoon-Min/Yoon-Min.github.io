@@ -5,10 +5,13 @@
 /* ---------- scss placeholder --------- */
 @import "colors/light-syntax.scss";
 
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
 %heading {
   color: var(--heading-color);
   font-weight: 400;
-  font-family: Lato, "Source Sans Pro", "Microsoft Yahei", sans-serif;
+  font-family: "Pretendard Variable", Lato, "Source Sans Pro", "Microsoft Yahei",
+    sans-serif;
 }
 
 %section {
