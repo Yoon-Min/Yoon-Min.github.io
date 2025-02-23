@@ -439,8 +439,9 @@ i {
 }
 
 .post-meta {
-  font-size: 0.85rem;
+  font-size: 14px;
   word-spacing: 1px;
+  font-weight: 400;
 
   a {
     &:not(:last-child) {
@@ -455,6 +456,32 @@ i {
   em {
     @extend %normal-font-style;
   }
+}
+
+.author-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: -1px;
+}
+
+.author-name {
+  font-size: 18px;
+  font-weight: 650;
+  color: var(--text-color);
 }
 
 .post-content {
@@ -559,8 +586,8 @@ i {
     @extend %tag-hover;
     border-bottom: none;
     text-decoration: none;
-    color: #43d4a1;
-    background: #ebfcfc;
+    color: var(--main-color);
+    background: var(--tag-background-hover-color);
   }
 }
 
