@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-02-25T23:52:03+09:00</updated>
+  <updated>2025-03-01T22:14:00+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>Android Compose - 내부 코드로 알아보는 Compose UI 상태 자동 업데이트 과정</title>
-    <link href="http://localhost:4000/posts/ComposeSnapshot/" rel="alternate" type="text/html" title="Android Compose - 내부 코드로 알아보는 Compose UI 상태 자동 업데이트 과정" />
+    <title>Android Compose UI State - Sanpshot 시스템</title>
+    <link href="http://localhost:4000/posts/ComposeSnapshot/" rel="alternate" type="text/html" title="Android Compose UI State - Sanpshot 시스템" />
     <published>2025-02-24T00:00:00+09:00</published>
   
     <updated>2025-02-24T00:00:00+09:00</updated>
@@ -50,11 +50,20 @@
 
       사진: Unsplash의sarandy westfall
 
+​
+
+Compose State Update 포스팅 현황
+
+
+  Android Compose UI State - Sanpshot 시스템
+  Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?  (예정)
+
+
+​
+
 Intro
 
-안드로이드의 최신 UI 제작 킷인 컴포즈는 상태를 등록하면 자동으로 관찰 및 수정을 처리하는 특징을 가지고 있습니다. 덕분에 컴포즈를 사용하는 개발자는 단순히 상태를 전달하기만 하면 되고, 상태가 변경됐을 때 이를 적용하는 수고를 컴포즈 런타임이 대신합니다. 이를 가능하게 만드는 대표 객체중 하나가 MutableState 입니다. 해당 상태 객체에 값을 저장하고 UI 데이터로 초기 설정하면 나중에 수정됐을 때 자동으로 적용됩니다.
-
-이것은 이전 뷰 시스템에 비해 혁신적이라 할 수 있습니다. 굳이 상태 변경을 적용한다는 코드를 명시할 필요 없이, 컴포즈가 자체적으로 다 처리하기 때문입니다. 그렇다면 여기서 궁금한 점이 생깁니다. 컴포즈 ...
+안드로이드의 최신 UI 제작 킷인 컴포즈는 상태를 등록하면 자동으로 관찰 및 수정을 처리하는 특징을 가지고 있습니다. 덕분에 컴포즈를 사용하는 개발자는 단순히 상태를 전달하기만 하면 되고, 상태가 변경됐을 때 이를 적용하는 수고를 컴포즈 런타임이 대신합니다. 이를 가능하게 만드는 대표 객체중 하나가 MutableState 입니다. 해당 상태 객체에 값을 저장하고 ...
     </summary>
   
 
@@ -168,7 +177,7 @@ Address already in use - bind(2) for 127.0.0.1:4000
     <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
     <published>2025-01-30T00:00:00+09:00</published>
   
-    <updated>2025-01-30T19:41:26+09:00</updated>
+    <updated>2025-02-25T23:53:22+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeNavigation2/</id>
     <content src="http://localhost:4000/posts/ComposeNavigation2/" />
