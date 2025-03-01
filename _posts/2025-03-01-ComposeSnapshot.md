@@ -1,7 +1,7 @@
 ---
 title: Android Compose UI State - Sanpshot 시스템
 author: yoonmin
-date: 2025-02-24 00:00:00 +0900
+date: 2025-03-01 00:00:00 +0900
 categories: [Android, Compose]
 tags: [Android, Compose, UI, State, Snapshot]
 render_with_liquid: true
@@ -11,7 +11,7 @@ render_with_liquid: true
 
 ​		
 
-**Compose State Update 포스팅 현황**
+**Compose UI State 포스팅 현황**
 
 + [x] <span style="color: #e05069">**Android Compose UI State - Sanpshot 시스템**</span>
 + [ ] <span style="color: #898989">Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?  (예정)</span>
