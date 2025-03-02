@@ -1,7 +1,7 @@
 ---
 title: Android Compose UI State - Sanpshot 시스템
 author: yoonmin
-date: 2025-03-01 00:00:00 +0900
+date: 2025-03-02 00:00:00 +0900
 categories: [Android, Compose]
 tags: [Android, Compose, UI, State, Snapshot]
 render_with_liquid: true
@@ -24,7 +24,7 @@ render_with_liquid: true
 
 이것은 이전 뷰 시스템에 비해 혁신적이라 할 수 있습니다. 굳이 **상태 변경을 적용한다는 코드를 명시할 필요 없이, 컴포즈가 자체적으로 다 처리**하기 때문입니다. 그렇다면 여기서 궁금한 점이 생깁니다. 컴포즈 런타임은 어떻게 상태를 관찰하고 변경 사항을 알아서 잘 적용할 수 있는 걸까요?
 
-이번 포스트는 컴포즈의 상태 추적 및 적용 시스템을 `MutableState` 객체를 통해 추적해 보고 내부 코드와 동작을 분석하기 전에 사전지식으로 알고 가야 할 스냅샷 시스템에 대해서 알아보겠습니다.
+이러한 자동처리 기능은 스냅샷 시스템 기반으로 작동합니다. 그래서 컴포즈의 상태 업데이트를 본격적으로 파헤치기 전에 스냅샷을 알아보는 시간을 가질까 합니다. 따라서 이번 포스트는 컴포즈의 상태 추적 및 적용 시스템을 `MutableState` 객체를 통해 추적해 보고 내부 코드와 동작을 분석하기 전에 사전지식으로 알고 가야 할 스냅샷 시스템에 대해서 알아보겠습니다.
 
 ​		
 
@@ -263,11 +263,147 @@ println(state1.intValue)
 
 ​		
 
-## Sanpshot in 멀티스레딩
+# 동시성 제어 시스템에서 바라본 Snapshot
 
-위에서 간단하게 살펴본 스냅샷을 정리해 보면 독립성 즉, 고립성(isolation) 기반으로 특정 시점의 상태를 캡처하고 불러오고 업데이트한다는 것을 알 수 있습니다. 이것을 멀티스레딩 관점에서 해석해 본다면, 특정 스레드의 스냅샷 내에서 해당 스냅샷이 `apply` 될 때까지 다른 스레드에서 상태 값 변경 사항이 표시되지 않습니다. 스냅샷은 ***고립성*** 특징을 가지고 있으니까요.
+## Compose 공식문서에서 말하길
 
- 특정 시점에서 어떤 상태를 작업하고 그동안 다른 스레드가 그 상태를 건드리지 못하도록 하려면 보통 Mutex와 같은 것을 사용해 해당 상태에 대한 접근을 막습니다. 하지만 스냅샷을 사용하면 다른 스레드가 상태를 변경해도 스냅샷이 있는 스레드는 스냅샷이 적용될 때까지 변경 사항을 모르고 적용되지도 않습니다. 스냅샷이 적용되고 전역 스냅샷이 처리하기까지 스냅샷 내부의 상태 변경 사항이 다른 스레드에 표시되지 않습니다.
+> "*Composable function은 병렬적으로 실행될 수 있다.*"
+>
+> "Compose가 다중 코어를 활용하고 화면에 없는 구성 가능한 함수를 낮은 우선순위로 실행할 수 있다."
+>
+> "이 최적화는 구성 가능한 함수가 백그라운드 스레드 풀 내에서 실행될 수 있음을 의미한다."
+
+이 말은 즉, 컴포저블 함수는 동시에 실행될 수 있어야 하므로 **멀티스레딩 환경**을 고려해야 합니다. 멀티스레딩에서 가장 중요한 것은 하나의 상태를 여러 스레드가 공유할 때의 적절한 동기화입니다. 가장 단순하고 확실한 해결책은 상태 자체를 불변으로 만들어서 값의 변경으로 인한 동기화 문제를 차단하는 것입니다.
+
+하지만 특정 이벤트에 의해 지속적으로 값이 바뀌는 상태를 활용해야 하는 모바일 운영체제에서는 모든 상태를 불변으로 활용하는 것은 거의 불가능합니다. 결국 Android 컴포즈 기반의 UI 레이어는 가변 상태를 여러 스레드에서 안전하게 운영해야 하며, 이를 위해 ***격리***와 ***다중 버전***이 필요합니다.
+
+​		
+
+## Snapshot의 다중 버전 동시성 제어(MVCC) 지원
+
+### 격리
+
+위의 스냅샷 기본 내용을 정리해 보면 스냅샷은 독립성 즉, 고립성(isolation) 기반으로 특정 시점의 상태를 캡처하고 불러오고 업데이트한다는 것을 알 수 있습니다. 이것을 멀티스레딩 관점에서 해석해 본다면, 특정 스레드의 스냅샷 내에서 해당 스냅샷이 `apply` 될 때까지 다른 스레드에서 상태 값 변경 사항이 표시되지 않습니다. 스냅샷은 ***고립성*** 특징을 가지고 있으니까요.
+
+ 특정 시점에서 어떤 상태를 작업하고 그동안 다른 스레드가 그 상태를 건드리지 못하도록 하려면 보통 `Mutex` 같은 것을 사용해 해당 상태로의 접근을 막습니다. 하지만 스냅샷을 사용하면 다른 스레드가 상태를 변경해도 해당 변경사항이 적용되기 전까지 다른 스냅샷에서 변경 사항을 무시한 채로 기존에 들고 있던 상태 버전을 유지한 채로 독립적인 작업이 가능합니다. 즉, 스냅샷이 적용되고 전역 스냅샷이 처리하기까지 스냅샷 내부의 상태 변경 사항이 다른 스레드에 표시되지 않습니다.
+
+### 다중 버전
+
+격리를 구현하기 위해서 데이터의 다중 버전이 필요합니다. 게임을 예시로 봅시다. 콘솔 게임을 하면서 특정 진행상황마다 자동저장 혹은 수동저장을 하게 됩니다. 만약에 특정 시점부터 다시 플레이하고 싶다면 해당 시점까지 저장된 파일을 불러와서 해당 시점부터 플레이할 것입니다. 
+
+스냅샷도 이러한 데이터 다중 버전을 지원합니다. 값을 변경했다고 이전 값을 폐기하는 것이 아니라 버전으로 남겨둬서 특정 시점의 상태를 제공합니다. 이제 왜 스냅샷 명칭이 스냅샷인지 이해가 조금 됩니다. 특정 시점의 값을 다양한 버전으로 관리할 수 있게 하여 여러 스레드에서 값을 읽거나 변경해도 전역으로 바로 업데이트하는 것이 아닌, 버전으로 추가해 다른 참조 영역에 영향이 가지 않게 격리 상태를 보장하는 것, 이것이 스냅샷입니다.
+
+![Image](https://github.com/user-attachments/assets/410c8cf1-705a-4e55-9e75-aba54147cdc0)
+
+​		
+
+# Snapshot 구조
+
+```kotlin
+sealed class Snapshot(
+    id: Int,
+
+    /**
+     * A set of all the snapshots that should be treated as invalid.
+     */
+    internal open var invalid: SnapshotIdSet
+) {
+  /* ... */
+}
+```
+
+스냅샷은 `saled class` 로 해당 클래스 내부에 여러 종류의 스냅샷이 존재합니다. 제가 예제에 사용한 스냅샷은 읽기 전용 스냅샷과 가변 스냅샷입니다.
+
+```
+GlobalSnapshot (androidx.compose.runtime.snapshots)
+MutableSnapshot (androidx.compose.runtime.snapshots)
+NestedMutableSnapshot (androidx.compose.runtime.snapshots)
+NestedReadonlySnapshot (androidx.compose.runtime.snapshots)
+ReadonlySnapshot (androidx.compose.runtime.snapshots)
+TransparentObserverMutableSnapshot (androidx. compose.runtime.snapshots)
+```
+
+​		
+
+## 계층 구조로 이루어진 Snapshot
+
+### GlobalSnapshot
+
+```kotlin
+fun main() {
+    val state1 = mutableIntStateOf(1)
+    val s1 = Snapshot.takeMutableSnapshot()
+    println(Snapshot.current)
+    println(Snapshot.isInSnapshot)
+
+    s1.enter {
+        state1.intValue = 3
+        println(state1.intValue)
+        println(Snapshot.current)
+        println(Snapshot.isInSnapshot)
+    }
+}
+
+/*
+출력 결과
+androidx.compose.runtime.snapshots.GlobalSnapshot@5c3bd550
+false
+3
+androidx.compose.runtime.snapshots.MutableSnapshot@14bf9759
+true
+*/
+```
+
+여러 종류의 스냅샷중 글로벌 스냅샷은 말 그대로 전역 스냅샷을 뜻합니다. 스냅샷의 종류는 다양하며 여러 스냅샷들이 서로 연결되어 하나의 트리구조를 형성합니다. 글로벌 스냅샷은 이 트리의 루트 노드를 담당합니다.
+
+처음 예제 코드에 현재 동작중인 스냅샷 정보를 출력하는 코드를 몇 개 추가해 확인해 봅시다. 출력 결과를 보면 메인 영역에서 동작하는 스냅샷은 글로벌 스냅샷, 따로 가변 스냅샷을 만들어서 해당 스냅샷 영역에서 동작하는 스냅샷은 가변 스냅샷이라 출력됩니다. 즉, 글로벌 스냅샷은 스냅샷 계층 구조의 루트 노드로 자리하고 자식 스냅샷들로부터 활동을 보고받습니다.
+
+스냅샷 영역에서 상태 값을 변경하고 메인 영역으로 나와 `apply` 메서드를 호출한 예제를 기억하시나요? 자식 스냅샷 객체로 적용 요청이 발생하면 이 변경사항을 글로벌 스냅샷에 적용합니다. 만약 적용 요청 영역이 중첩 스냅샷 내부라면 상위 스냅샷에 적용합니다.
+
+```kotlin
+fun main() {
+    val state1 = mutableIntStateOf(1)
+    val s1 = Snapshot.takeMutableSnapshot()
+
+    s1.enter {
+        state1.intValue = 3
+        println(state1.intValue)
+
+        val s2 = Snapshot.takeMutableSnapshot()
+        s2.enter {
+            state1.intValue = 4
+            println(state1.intValue)
+        }
+        println(state1.intValue)
+        s2.apply()
+        println(state1.intValue)
+    }
+    println(state1.intValue)
+}
+
+/*
+출력 결과
+3
+4
+3
+4
+1
+*/
+```
+
+코드를 보면 s1 스냅샷 내에서 s2 자식 스냅샷을 생성한 다음, 자식 스냅샷 내에서 상태를 변경합니다. 그리고 상태 적용을 s1 스냅샷 내부에서 요청하면 부모 스냅샷인 s1에도 변경사항이 적용됩니다. 물론 이 과정은 전부 s1 스냅샷 내부에서 발생한 것이기 때문에 s1 밖의 영역인 글로벌 영역에는 전혀 영향이 가지 않습니다. 마지막 메인 영역에서의 상태 값이 `1` 로 출력된 것으로 알 수 있습니다.
+
+### 계층 구조
+
+![Image](https://github.com/user-attachments/assets/418f0e39-cc02-460f-8619-8172c56fd70f)
+
+​		
+
+# 정리
+
+지금까지 스냅샷 시스템에 대해서 간략하게 알아 봤습니다. 스냅샷 시스템은 방대해서 제가 소개해 드린 내용은 극히 일부라 할 수 있습니다. 최대한 복잡하지 않게 어떤 역할을 하는지 쉽게 설명하려고 노력했는데 괜찮으셨나요? 스냅샷 객체의 내부구조는 방대하므로 궁금하신 분들은 내부 구조를 한 번 분석해 보시는 것도 좋을 것 같습니다.
+
+컴포즈 상태 시리즈의 첫 번째 글이 이렇게 끝났습니다. 다음 두 번째 글은 컴포즈에서 제공하는 상태 홀더 클래스인 `State` 와 스냅샷 시스템이 어떻게 연결되어 자동 상태 관리를 하는지 톺아볼 예정입니다. 만약 다음 글이 포스팅된 상태라면 이 글에 이어 다음 글까지 읽는 것을 추천드립니다. 감사합니다.
 
 ​		
 
