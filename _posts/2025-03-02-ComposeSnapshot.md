@@ -399,6 +399,53 @@ fun main() {
 
 ​		
 
+# 스냅샷 모델 
+
+## 트랜잭션(Transaction)
+
+스냅샷은 데이터베이스에서 유명한 개념인 트랜잭션과 닮았다고 할 수 있습니다. 트랜잭션은 데이터베이스 혹은 시스템에서 실행되는 하나의 논리적인 작업 단위입니다. 트랜잭션에서 가장 유명한 ACID원칙 일부를 스냅샷도 따른다고 보면 되겠습니다.
+
+### 원자성 - Atomacity
+
+스냅샷을 생성하고 해당 영역에서 상태를 변경해도 전역으로 적용이 되지 않습니다. `apply` 을  호출해야 비로소 작업 단위가 적용됩니다. 이것은 하나의 트랜잭션 단위가 커밋을 통해 반영되는 모습과 흡사합니다.
+
+![Image](https://github.com/user-attachments/assets/a5c876c1-65ac-477f-b66f-18fff7eeac54)
+
+### 일관성 - Consistency
+
+만약 변경 사항을 적용하려고 할 때, 충돌 등의 이유로 일부 변경 사항이 적용될 수 없다면, 어떠한 변경 사항도 적용되지 않습니다. 즉, 스냅샷은 내부적으로 일관성을 관리하기 위한 유효성 검사 코드가 존재합니다.
+
+![Image](https://github.com/user-attachments/assets/8debe4f4-bbb8-4bfd-8fa0-72279f6a7500)
+
+### 고립성 - Isolation
+
+변경사항을 적용하는 동안 다른 스레드에서 해당 변경사항을 알 수 없습니다. 그래서 스냅샷을 생성하면 다른 스냅샷으로부터 발생되는 변경 작업에 영향을 받지 않고 독자적인 작업이 가능합니다. 
+
+![Image](https://github.com/user-attachments/assets/a7f06c53-785c-4b62-b6bd-60ea51b2c350)
+
+### 지속성 - Durability
+
+지속성은 변경사항을 영구적으로 저장하는 특징이지만, 스냅샷은 메모리에만 존재하기 때문에 지속성 특징은 없습니다. 따라서 스냅샷은 ACID 원칙에서 D(Durability)가 빠진 상태라고 보시면 됩니다.
+
+​		
+
+## 깃(Git)
+
+| Git               | Snapshots                    |
+| ----------------- | ---------------------------- |
+| branches          | snapshots                    |
+| main branch       | global snapshot              |
+| commits           | state object writes          |
+| merge             | apply snapshot               |
+| resolve conflicts | merge strategy               |
+| hooks             | read, write, apply listeners |
+
+*"Snapshots are Git for your variables"*
+
+: 위의 표와 같이 스냅샷의 상태 버전 관리 특징은 깃과 비슷하다 할 수 있습니다.
+
+​		
+
 # 정리
 
 지금까지 스냅샷 시스템에 대해서 간략하게 알아 봤습니다. 스냅샷 시스템은 방대해서 제가 소개해 드린 내용은 극히 일부라 할 수 있습니다. 최대한 복잡하지 않게 어떤 역할을 하는지 쉽게 설명하려고 노력했는데 괜찮으셨나요? 스냅샷 객체의 내부구조는 방대하므로 궁금하신 분들은 내부 구조를 한 번 분석해 보시는 것도 좋을 것 같습니다.
