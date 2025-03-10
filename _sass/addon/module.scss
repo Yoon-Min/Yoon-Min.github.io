@@ -59,14 +59,19 @@
 }
 
 %link-hover {
-  color: var(--main-color) !important;
-  border-bottom: 1px solid var(--tag-background-hover-color);
+  color: var(--main-color);
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+a:hover {
+  color: var(--main-color);
+  // border-bottom: 1px solid var(--tag-background-hover-color);
   text-decoration: none;
   transition: 0.2s;
 }
 
 %link-color {
-  // color: var(--link-color);
   color: #424242;
 }
 
