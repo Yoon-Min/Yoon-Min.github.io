@@ -2,7 +2,7 @@
  * The syntax light mode typography colors
  */
 
-@import "colors/light-syntax.scss";
+@use "colors/light-syntax.scss" as *;
 
 @mixin light-scheme {
   /* Framework color */

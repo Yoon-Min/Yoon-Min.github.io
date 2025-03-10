@@ -2,7 +2,7 @@
   Style for Homepage
 */
 
-@import "colors/light-syntax";
+@use "colors/light-syntax" as *;
 
 .pagination {
   color: var(--btn-patinator-text-color);
@@ -64,7 +64,8 @@
     border-bottom: 1px solid var(--main-border-color);
 
     a:hover {
-      @extend %link-hover;
+      // @extend %link-hover;
+      @extend %link-hover !optional;
     }
 
     h1 {
@@ -82,7 +83,8 @@
       }
 
       em {
-        @extend %normal-font-style;
+        // @extend %normal-font-style;
+        @extend %normal-font-style !optional;
       }
 
       .pin {

@@ -2,7 +2,8 @@
   Post-specific style
 */
 
-@import "colors/light-syntax";
+@use "colors/light-syntax" as *;
+@use "addon/module" as *;
 
 @mixin btn-sharing-color($light-color, $important: false) {
   @if $important {

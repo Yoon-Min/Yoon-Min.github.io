@@ -3,7 +3,7 @@
 */
 
 /* ---------- scss placeholder --------- */
-@import "colors/light-syntax.scss";
+@use "colors/light-syntax.scss" as *;
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
