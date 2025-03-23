@@ -1,17 +1,8 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: 빌드 과정에서 발생한 오류 보고
 title: 'Bug: '
 labels: bug
-assignees: ''
-
----
-
----
-name: Bug report
-about: Describe a bug that needs to be fixed
-title: "[Bug]"
-labels: ''
 assignees: ''
 
 ---
