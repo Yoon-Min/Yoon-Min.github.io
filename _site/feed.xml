@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-03-28T23:22:53+09:00</updated>
+  <updated>2025-03-28T23:34:29+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/ComposeStateDetection/" rel="alternate" type="text/html" title="Android Compose UI State - MutableState  상태 자동 업데이트" />
     <published>2025-03-28T00:00:00+09:00</published>
   
-    <updated>2025-03-28T00:00:00+09:00</updated>
+    <updated>2025-03-28T23:23:52+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeStateDetection/</id>
     <content src="http://localhost:4000/posts/ComposeStateDetection/" />
@@ -77,7 +77,7 @@ Intro
     <link href="http://localhost:4000/posts/ComposeSnapshot/" rel="alternate" type="text/html" title="Android Compose UI State - Sanpshot 시스템" />
     <published>2025-03-02T00:00:00+09:00</published>
   
-    <updated>2025-03-03T15:08:14+09:00</updated>
+    <updated>2025-03-28T23:23:52+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeSnapshot/</id>
     <content src="http://localhost:4000/posts/ComposeSnapshot/" />
@@ -230,7 +230,7 @@ Address already in use - bind(2) for 127.0.0.1:4000
     <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
     <published>2025-01-30T00:00:00+09:00</published>
   
-    <updated>2025-02-25T23:53:22+09:00</updated>
+    <updated>2025-03-28T23:23:52+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeNavigation2/</id>
     <content src="http://localhost:4000/posts/ComposeNavigation2/" />
