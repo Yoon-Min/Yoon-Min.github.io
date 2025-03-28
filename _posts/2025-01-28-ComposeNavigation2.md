@@ -13,7 +13,7 @@ render_with_liquid: true
 
 **Compose Navigation 포스팅 현황**
 
-+ [x] <span style="color: #898989">Android Compose Navigation 01 - 컴포즈 내비게이션 소개</span>
++ [x] **[Android Compose Navigation 01 - 컴포즈 내비게이션 소개](https://yoon-min.github.io/posts/ComposeNavigation1/)**
 + [x] <span style="color: #e05069">**Android Compose Navigation 02 - NavGraph 생성과정**</span>
 + [ ] <span style="color: #898989">Android Compose Navigation 03 - Navigator (예정)</span>
 

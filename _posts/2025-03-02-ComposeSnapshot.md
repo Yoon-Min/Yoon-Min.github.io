@@ -14,7 +14,7 @@ render_with_liquid: true
 **Compose UI State 포스팅 현황**
 
 + [x] <span style="color: #e05069">**Android Compose UI State - Sanpshot 시스템**</span>
-+ [ ] <span style="color: #898989">Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?  (예정)</span>
++ [x] [Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?](https://yoon-min.github.io/posts/ComposeStateDetection/)
 
 ​		
 

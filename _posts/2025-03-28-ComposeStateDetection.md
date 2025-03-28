@@ -1,5 +1,5 @@
 ---
-title: Android Compose UI State - MutableState로 분석해 보는 상태 자동 업데이트
+title: Android Compose UI State - MutableState  상태 자동 업데이트
 author: yoonmin
 date: 2025-03-28 00:00:00 +0900
 categories: [Android, Compose]
@@ -7,13 +7,13 @@ tags: [Android, Compose, UI, State, Snapshot, MutableState]
 render_with_liquid: true
 ---
 
-![test]({{ site.url }}/assets/img/post/branch4/thumbnail.jpg)
+![test]({{ site.url }}/assets/img/post/branch4/thumbnail.jpg)_사진: [Unsplash](https://unsplash.com/ko/사진/사람들은-도시의-번화한-거리를-건넙니다-slMcaf6sULE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)의[Bryan Brittos](https://unsplash.com/ko/@bryanbrittos?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
 
 ​		
 
 **Compose UI State 포스팅 현황**
 
-+ [x] <span style="color: #898989">Android Compose UI State - Sanpshot 시스템</span>
++ [x] **[Android Compose UI State - Sanpshot 시스템](https://yoon-min.github.io/posts/ComposeSnapshot/)**
 + [x] <span style="color: #e05069">**Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?**  </span>
 
 ​		
@@ -533,7 +533,7 @@ return sync {
 
 # 참조
 
-[**Kotlin Internals**](https://leanpub.com/composeinternalskor)
+[**Jetpack Compose Internals**](https://leanpub.com/composeinternalskor)
 
 
 
