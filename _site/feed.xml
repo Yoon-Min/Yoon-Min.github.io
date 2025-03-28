@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-03-27T18:07:25+09:00</updated>
+  <updated>2025-03-28T22:55:29+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -22,9 +22,9 @@
   <entry>
     <title>Android Compose UI State - MutableState로 분석해 보는 상태 자동 업데이트</title>
     <link href="http://localhost:4000/posts/ComposeStateDetection/" rel="alternate" type="text/html" title="Android Compose UI State - MutableState로 분석해 보는 상태 자동 업데이트" />
-    <published>2025-03-27T00:00:00+09:00</published>
+    <published>2025-03-28T00:00:00+09:00</published>
   
-    <updated>2025-03-27T00:00:00+09:00</updated>
+    <updated>2025-03-28T00:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeStateDetection/</id>
     <content src="http://localhost:4000/posts/ComposeStateDetection/" />
@@ -48,7 +48,7 @@
 
 
 
-      사진: Unsplash의Frederic Köberl
+      
 
 ​
 
@@ -65,7 +65,7 @@ Intro
 
 지난 포스팅에서 스냅샷 개념을 이야기했습니다. 스냅샷을 간단하게 복습해 보면 특정 상태의 시점을 저장하여 독립적으로 해당 시점을 활용할 수 있는 객체입니다. 이러한 특징으로 깃(Git)과 유사하다는 언급도 했었는데요, 이번 글에서는 스냅샷 기반으로 동작하는 가변 상태 객체에 대해서 정리해 보겠습니다.
 
-시작하기 앞서 가볍게 MutableState 개념에 대해서 짚고 넘어가겠습니다...
+시작하기 앞서 가볍게 MutableState 개념에 대해서 짚고 넘어가겠습니다. 가변 상태 객체(MutableState)는 이름...
     </summary>
   
 
