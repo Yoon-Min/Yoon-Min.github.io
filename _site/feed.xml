@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-03-28T23:34:29+09:00</updated>
+  <updated>2025-03-29T19:48:01+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,50 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Github 블로그 로컬 이미지 파일 표시 오류</title>
+    <link href="http://localhost:4000/posts/GitHubBlogImageError/" rel="alternate" type="text/html" title="Github 블로그 로컬 이미지 파일 표시 오류" />
+    <published>2025-03-29T00:00:00+09:00</published>
+  
+    <updated>2025-03-29T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/GitHubBlogImageError/</id>
+    <content src="http://localhost:4000/posts/GitHubBlogImageError/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="Github 블로그 만들기" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      로컬 이미지의 경로를 이용한 표시 오류 발생
+
+블로그 빌드 버전을 업그레이드하고 난 뒤, 새로운 글 작성을 하던중 이미지 표시가 안 되는 오류를 마주했습니다. 원래 빌드 버전 업그레이드 전까지는 외부 도메인을 이용한 이미지 첨부 방식을 사용했습니다. 그런데 버전을 높이자 외부 도메인 첨부는 보안상 허용하지 않는다는 오류가 발생했습니다.
+
+그래서 외부 도메인에서 이미지를 블로그 폴더 내 저장해서 경로를 첨부하는 로컬 이미지 업로딩 방식으로 바꾸고 테스트를 해봤는데 이번에는 이미지가 표시되지 않는 오류가 발생했습니다.
+
+Chirpy 테마에서 제시하는 이미지 첨부 방법
+
+제가 사용하고 있는 블로그 테마는 Chirpy입니다. 해당 테마는 이미지 첨부를 로컬 폴더에 저장해서 경로를 명시하는 방식으로 할 것을 추...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -218,62 +262,6 @@ Address already in use - bind(2) for 127.0.0.1:4000
 
     lsof -wni tcp:4000
     
-...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android Compose Navigation 02 - NavGraph 생성과정</title>
-    <link href="http://localhost:4000/posts/ComposeNavigation2/" rel="alternate" type="text/html" title="Android Compose Navigation 02 - NavGraph 생성과정" />
-    <published>2025-01-30T00:00:00+09:00</published>
-  
-    <updated>2025-03-28T23:23:52+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ComposeNavigation2/</id>
-    <content src="http://localhost:4000/posts/ComposeNavigation2/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="라이브러리" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      사진: Unsplash의Jordan Madrid
-
-​
-
-Compose Navigation 포스팅 현황
-
-
-  Android Compose Navigation 01 - 컴포즈 내비게이션 소개
-  Android Compose Navigation 02 - NavGraph 생성과정
-  Android Compose Navigation 03 - Navigator (예정)
-
-
-​
-
-Intro
-
-지난 포스팅에서 Compose Navigation에 대해 간단하게 소개하는 시간을 가졌습니다. 이를 통해 NavHost 내부에 NavController와 NavGraph를 가지고 내비게이션을 생성하는 것을 알았습니다. 이번 포스팅은 좀 더 들어가서 NavHost 내부에 생성되는 NavGraph에 대해 알아보겠습니다.
-
-​
-
 ...
     </summary>
   
