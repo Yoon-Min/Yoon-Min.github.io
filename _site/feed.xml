@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-04-05T11:36:25+09:00</updated>
+  <updated>2025-04-05T15:45:17+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -21,13 +21,13 @@
   
   <entry>
     <title>25년 56회 SQLD 합격 회고</title>
-    <link href="http://localhost:4000/posts/SqldReview/" rel="alternate" type="text/html" title="25년 56회 SQLD 합격 회고" />
+    <link href="http://localhost:4000/posts/sqld-review/" rel="alternate" type="text/html" title="25년 56회 SQLD 합격 회고" />
     <published>2025-04-04T12:00:00+09:00</published>
   
     <updated>2025-04-04T12:00:00+09:00</updated>
   
-    <id>http://localhost:4000/posts/SqldReview/</id>
-    <content src="http://localhost:4000/posts/SqldReview/" />
+    <id>http://localhost:4000/posts/sqld-review/</id>
+    <content src="http://localhost:4000/posts/sqld-review/" />
     <author>
       <name>yoonmin</name>
     </author>
@@ -50,11 +50,12 @@
 
       전공자의 SQLD 도전기
 
+계기
 
+지난 정보처리기사 시험에 이어서 두 번째로 도전하는 자격증이었다. SQLD 자격증에 도전한 이유는 조금 다양한데, 주 이유는 당연히 취업이다. 그리고 두 번째는 정보처리기사로 자격증을 한 번 합격해 보니 성취감이 엄청나서 다른 자격증에도 도전하고 싶은 마음이 생겼다. 세 번째는 최근 데이터베이스 관련 지식이 부족함을 느꼈다. 그래서 25년이 되자마자 첫 번째 SQLD 시험 신청을 했고 대략 2주 조금 안되어서 준비했다.
+생각보다 순탄치 않은 준비과정
 
-
-
-
+정보처리기사를 준비하면서 SQL 관련 내용을 조금은 공부했기 때문에 이번 시험 준비는 꽤 수월할 것으로 예상했으나, 막상 공부를 시작하니 지엽적인 부분도 많았고 풀이보다 개념을 확실히 아는 것이 더 중요한 것임을 깨달았다...
     </summary>
   
 
