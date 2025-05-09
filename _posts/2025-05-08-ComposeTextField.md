@@ -33,7 +33,7 @@ render_with_liquid: true
 
 ​		
 
-# TextField
+# TextField 제작
 
 ```kotlin
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,76 +63,179 @@ fun TextField(
     shape: Shape = TextFieldDefaults.shape,
     colors: TextFieldColors = TextFieldDefaults.colors()
 ) {
-    @Suppress("NAME_SHADOWING")
-    val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
-    // If color is not provided via the text style, use content color as a default
-    val textColor =
-        textStyle.color.takeOrElse {
-            val focused = interactionSource.collectIsFocusedAsState().value
-            colors.textColor(enabled, isError, focused)
+  ...
+  CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
+    BasicTextField(
+      ...
+      decorationBox =
+        @Composable { innerTextField ->
+            // places leading icon, text field with label and placeholder, trailing icon
+            TextFieldDefaults.DecorationBox(
+                value = value,
+                visualTransformation = visualTransformation,
+                innerTextField = innerTextField,
+                placeholder = placeholder,
+                label = label,
+                leadingIcon = leadingIcon,
+                trailingIcon = trailingIcon,
+                prefix = prefix,
+                suffix = suffix,
+                supportingText = supportingText,
+                shape = shape,
+                singleLine = singleLine,
+                enabled = enabled,
+                isError = isError,
+                interactionSource = interactionSource,
+                colors = colors
+            )
         }
-    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
-
-    CompositionLocalProvider(LocalTextSelectionColors provides colors.textSelectionColors) {
-        BasicTextField(
-            value = value,
-            modifier =
-                modifier
-                    .defaultErrorSemantics(isError, getString(Strings.DefaultErrorMessage))
-                    .defaultMinSize(
-                        minWidth = TextFieldDefaults.MinWidth,
-                        minHeight = TextFieldDefaults.MinHeight
-                    ),
-            onValueChange = onValueChange,
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = mergedTextStyle,
-            cursorBrush = SolidColor(colors.cursorColor(isError)),
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            interactionSource = interactionSource,
-            singleLine = singleLine,
-            maxLines = maxLines,
-            minLines = minLines,
-            decorationBox =
-                @Composable { innerTextField ->
-                    // places leading icon, text field with label and placeholder, trailing icon
-                    TextFieldDefaults.DecorationBox(
-                        value = value,
-                        visualTransformation = visualTransformation,
-                        innerTextField = innerTextField,
-                        placeholder = placeholder,
-                        label = label,
-                        leadingIcon = leadingIcon,
-                        trailingIcon = trailingIcon,
-                        prefix = prefix,
-                        suffix = suffix,
-                        supportingText = supportingText,
-                        shape = shape,
-                        singleLine = singleLine,
-                        enabled = enabled,
-                        isError = isError,
-                        interactionSource = interactionSource,
-                        colors = colors
-                    )
-                }
-        )
-    }
+    )
+  }
 }
 ```
 
-## ExperimentalMaterial3Api
+뭔가 굉장히 복잡해 보이지만 파라미터가 많은 것을 제외하면 내부 코드는 단순합니다. `BasicTextField` 와 `DecorationBox` 컴포저블을 사용해서 텍스트 필드를 제작하는 방식입니다. 데코레이션 박스는 인자로 넘긴 클리어 버튼과 플레이스 홀더를 배치합니다.
 
-가장 먼저 눈에 띄는 것은 `실험적인 API` 라는 문구의 어노테이션입니다. 해당 어노테이션 내부 메시지를 보면 현재 텍스트 필드 컴포저블은 안정적인 버전이 아닙니다. 그래서 언제든지 삭제되거나 변경될 수 있습니다.
+​		
+
+## ExperimentalMaterial3Api
 
 ```kotlin
 @RequiresOptIn(
-    "This material API is experimental and is likely to change or to be removed in" + " the future."
+  "This material API is experimental and is likely to change or to be removed in" + " the future."
 )
 @Retention(AnnotationRetention.BINARY)
 annotation class ExperimentalMaterial3Api
 ```
+
+맨 위, 먼저 눈에 띄는 것은 `실험적인 API` 라는 문구의 어노테이션입니다. 해당 어노테이션 내부 메시지를 보면 현재 텍스트 필드 컴포저블은 안정적인 버전이 아닙니다. 그래서 언제든지 삭제되거나 변경될 수 있습니다. 
+
+​		
+
+## 주요 파라미터
+
+### onValueChange
+
+```kotlin
+TextField(
+  onValueChange = { textField ->
+      // textField.text로 상태 값 변경 요청
+  }
+)
+```
+
+사용자가 텍스트를 입력할 때마다 변경된 값을 받아 볼 수 있습니다. 상태 홀더에 관리되는 사용자 입력 값은 이 파라미터 함수에 의해 최신 값으로 업데이트 될 것입니다.
+
+```kotlin
+TextField(
+  onValueChange = { textField ->
+    if (textField.text.length <= maxLength) {
+      if (inputText.length != maxLength || textField.text.length != maxLength) {
+          // textField.text로 상태 값 변경 요청
+      }
+    }
+  }
+)
+```
+
+그런데 첫 번째 기능 요구사항의 텍스트 필드는 글자 수 제한이 있습니다. 따라서 최대 길이가 넘어가면 입력 텍스트 상태를 업데이트하지 않도록 코드를 추가해야 합니다. 위 예시처럼 로직과 로직을 보관하는 장소는 개인이 판단하여 설계하면 될 것 같습니다.
+
+​		
+
+### placeholder
+
+```kotlin
+placeholder = {
+  Text(text = hint)
+}
+```
+
+XML 에서 `hint` 역할을 합니다. 텍스트 필드에 어떤 것을 입력하도록 유도하는 보조 문구입니다. 닉네임을 설정하는 필드라면 "닉네임을 입력해 주세요"가 플레이스홀더로 적합할 것입니다. 컴포저블 블럭이기 때문에 텍스트 컴포저블을 활용해서 보조 문구를 표시합니다.
+
+​		
+
+### trailingIcon, leadingIcon
+
+```kotlin
+leadingIcon = {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_round_search),
+        contentDescription = null,
+        modifier = Modifier.size(dimensionResource(R.dimen.text_field_leading_icon_size)),
+        tint = AppServiceColors.textHintMain
+    )
+}
+trailingIcon = {
+    ServiceInputFieldClearIcon(
+        visibility = clearIconVisible,
+        onClick = onClickTrailingIcon
+    )
+},
+```
+
+꼬리(오른쪽 끝) 부분에 아이콘을 배치할 수 있는 슬롯입니다. 이곳에 입력한 텍스트를 초기화 할 수 있는 버튼을 추가합니다. 입력 초기화 버튼 아이콘은 입력 값 상태에 따라 가시성을 설정해야 하므로 아이콘 버튼 컴포저블을 래핑한 형태로 정의합니다.
+
+​		
+
+### colors
+
+```kotlin
+colors = TextFieldDefaults.colors(
+  unfocusedContainerColor = containerColor,
+  focusedContainerColor = containerColor,
+  unfocusedIndicatorColor = Color.Transparent,
+  focusedIndicatorColor = Color.Transparent,
+),
+```
+
+텍스트 필드의 여러 상태와 구성요소에 대한 색 지정이 가능합니다. 색상으로 지정할 수 있는 요소가 굉장히 많은데, 기능 요구사항에 따라 포커싱 여부에 따라 컨테이너와 인디케이터 색상만 지정해도 충분합니다.
+
+해당 파라미터의 타입은 `TextFieldColors` 이고 기본 값으로 `TextFieldDefaults.colors()` 이 사용됩니다. 내부에 `copy` 메서드가 존재하기 때문에 기본 색상 + 일부 색상 직접 지정 방식도 가능합니다.
+
+​		
+
+### keyboardOptions, keyboardActions
+
+```kotlin
+keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+keyboardActions = KeyboardActions(onDone = keyboardActions),
+```
+
+모바일 디바이스의 스크린 키보드의 버튼 종류 설정과 해당 버튼을 눌렀을 때 동작을 정의할 수 있습니다. 저는 액션 타입으로 `Done` 와 `Search` 을 사용할 것입니다.
+
+​		
+
+### value
+
+```kotlin
+TextFieldValue(text = inputText, selection = TextRange(inputText.length))
+```
+
+사용자가 입력한 텍스트 값을 의미합니다. `String` 이 아닌 `TextFieldValue` 타입이며 내부적으로 커서 위치 설정이 가능합니다. 예시 코드처럼 시작 커서 위치를 맨 뒤로 설정할 수 있습니다.
+
+​		
+
+### singleLine
+
+```kotlin
+singleLine = false,
+```
+
+아이디나 닉네임처럼 단일 라인으로 충분한 경우는 `false` 로 설정하지만, 첫 번째 요구사항처럼 여러 줄로 입력될 수 있는 경우는 `true` 로 설정합니다.
+
+​		
+
+### shape
+
+```kotlin
+shape = RoundedCornerShape(dimensionResource(R.dimen.radius_medium)),
+```
+
+텍스트 필드 컨테이너 모서리를 라운딩 처리합니다.
+
+​		
+
+
 
 
 
