@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-04-05T15:58:38+09:00</updated>
+  <updated>2025-05-09T17:07:37+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,56 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android Compose - TextField을 이용한 입력 텍스트 필드 구현</title>
+    <link href="http://localhost:4000/posts/ComposeTextField/" rel="alternate" type="text/html" title="Android Compose - TextField을 이용한 입력 텍스트 필드 구현" />
+    <published>2025-05-08T00:00:00+09:00</published>
+  
+    <updated>2025-05-08T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/ComposeTextField/</id>
+    <content src="http://localhost:4000/posts/ComposeTextField/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="Compose" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의Nik
+
+Intro
+
+최근 UI 제작 키트로 컴포즈를 이용한 프로젝트를 진행하고 있습니다. 검색할 수 있는 검색 바와 특정 텍스트를 입력하는 인풋 텍스트 필드가 주요 기능 요구사항중 하나였는데요, 컴포즈 기반의 프로젝트가 처음이다 보니 구현과 활용 방법을 정리할 필요성을 느껴 기록합니다.
+
+이 글은 Material Design에서 제공하는 TextField 컴포저블을 활용하여 서비스 요구사항에 맞는 컴포저블로 제작하는 과정을 설명합니다. 좀 더 나은 구현 방법을 찾아내거나 텍스트 필드 컴포저블 내부 구조에 변경사항이 발생한다면, 시리즈로 포스팅을 추가하거나 현재 포스팅에 내용을 덧붙이는 방식으로 보완해 나갈 예정입니다.
+
+​
+
+프로젝트 기능 요구사항
+
+
+
+첫 번째 사진은 커뮤니티...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -204,53 +254,6 @@ Compose UI State 포스팅 현황
 Intro
 
 안드로이드의 최신 UI 제작 킷인 컴포즈는 상태를 등록하면 자동으로 관찰 및 수정을 처리하는 특징을 가지고 있습니다. 덕분에 컴포즈를 사용하는 개발자는 단순히 상태를 전달하기만 하면 되고, 상태가 변경됐을 때 이를 적용하는 수고를 컴포즈 런타임이 대신합니다. 이를 가능하게 만드는 대표 객체중 하나가 MutableState 입니다. 해당 상태 객체에 값을 저장하고 UI 데이터로 초기...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Github Action 버전 마이그레이션 - Deprecation notice v3 of the artifact actions</title>
-    <link href="http://localhost:4000/posts/GithubActionIssue/" rel="alternate" type="text/html" title="Github Action 버전 마이그레이션 - Deprecation notice v3 of the artifact actions" />
-    <published>2025-02-06T00:00:00+09:00</published>
-  
-    <updated>2025-02-06T00:00:00+09:00</updated>
-  
-    <id>http://localhost:4000/posts/GithubActionIssue/</id>
-    <content src="http://localhost:4000/posts/GithubActionIssue/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="블로그" />
-    
-    <category term="Github 블로그 만들기" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      Github Action 오류 발생
-
-깃허브 블로그 글을 포스팅하기 위해 깃허브 액션을 사용하던 도중 해당 오류를 마주했습니다. 확인해 보니 action/upload-artifact 의 새 버전을 사용하라는 내용이었습니다.
-
-
-
-​
-
-Deprecation notice: v3 of the artifact actions
-
-
-  Starting January 30th, 2025, GitHub Actions customers will no longer be able to use v3 of actions/upload-artifact or actions/download-artifact. Customers should update workflows to begin using v4 of the artifact act...
     </summary>
   
 
