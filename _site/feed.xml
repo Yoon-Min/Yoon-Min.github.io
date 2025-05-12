@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-05-12T17:40:23+09:00</updated>
+  <updated>2025-05-12T17:41:34+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/ComposeTextField/" rel="alternate" type="text/html" title="Android Compose - TextField을 이용한 입력 텍스트 필드 구현" />
     <published>2025-05-12T00:00:00+09:00</published>
   
-    <updated>2025-05-09T21:34:24+09:00</updated>
+    <updated>2025-05-12T00:00:00+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeTextField/</id>
     <content src="http://localhost:4000/posts/ComposeTextField/" />
