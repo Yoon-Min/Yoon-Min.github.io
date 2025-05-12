@@ -1,7 +1,7 @@
 ---
 title: Android Compose - TextField을 이용한 입력 텍스트 필드 구현
 author: yoonmin
-date: 2025-05-08 00:00:00 +0900
+date: 2025-05-12 00:00:00 +0900
 categories: [Android, Compose]
 tags: [Android, Compose, UI, TextField]
 render_with_liquid: true
@@ -138,7 +138,7 @@ TextField(
 )
 ```
 
-그런데 첫 번째 기능 요구사항의 텍스트 필드는 글자 수 제한이 있습니다. 따라서 최대 길이가 넘어가면 입력 텍스트 상태를 업데이트하지 않도록 코드를 추가해야 합니다. 위 예시처럼 로직과 로직을 보관하는 장소는 개인이 판단하여 설계하면 될 것 같습니다.
+그런데 첫 번째 기능 요구사항의 텍스트 필드는 글자 수 제한이 있습니다. 따라서 최대 길이가 넘어가면 입력 텍스트 상태를 업데이트하지 않도록 코드를 추가해야 합니다. 위 코드는 어디까지나 예시로 작성된 코드입니다. 로직과 로직을 보관하는 장소는 개인이 판단하여 설계하면 될 것 같습니다.
 
 ​		
 
@@ -234,6 +234,164 @@ shape = RoundedCornerShape(dimensionResource(R.dimen.radius_medium)),
 텍스트 필드 컨테이너 모서리를 라운딩 처리합니다.
 
 ​		
+
+# TextField와 비즈니스 로직
+
+![2](/assets/img/post/branch9/4.png){: width="300" .normal}![3](/assets/img/post/branch9/5.png){: width="300" .normal}
+
+첫 번째 사진은 리뷰를 위한 음식점 마커를 등록하는 과정중 일부입니다. 검색 필드를 통해 실제 음식점 정보를 네이버 지역 검색 API로 불러옵니다. 두 번째 사진은 회원가입 과정중 닉네임 설정 단계입니다. 텍스트 필드를 통해 닉네임 유효성 검사와 서버 등록을 요청하는 것이 주 목표입니다.
+
+![2](/assets/img/post/branch9/6.png)
+
+두 사진 모두 직접 제작한 `TextField`을 사용한다는 것은 동일하지만, 텍스트 필드와 비즈니스 로직의 결합도 측면에서는 차이가 존재합니다. 음식점 마커 검색의 경우, 입력 값보다 검색 결과로 받는 음식점 데이터가 중요하고 입력 값은 네이버 API가 처리합니다. 그래서 입력 값 자체는 비즈니스 로직과 느슨한 관계를 가집니다.
+
+![2](/assets/img/post/branch9/7.png)
+
+반대로 닉네임 설정은 모든 입력 값마다 유효성 검사를 진행해야 하므로 비즈니스 로직과 강한 관계를 가집니다. 내부뿐만 아니라 서비스 서버 내 닉네임 중복 검사도 필요합니다. 이러한 차이점 때문에 상태 관리를 컴포저블 내부에서 할 것인지, 뷰 모델에서 관리를 할 것인지 선택해야 합니다.
+
+​		
+
+## 음식점 마커 등록에서 입력 값 관리 - MutableState
+
+첫 번째는 `MutableState` 을 상태 홀더로 사용하는 경우입니다. 상위 컴포저블에 상태 홀더 객체를 생성해서 하위 컴포저블에 최신 값을 전달하는 구조입니다. 
+
+```kotlin
+@Composable
+fun MarkerRegistrationScreen(
+    markerViewModel: MarkerViewModel = hiltViewModel(),
+    onClickNavigation: () -> Unit
+) {
+    val inputText = remember { mutableStateOf("") }
+		...
+}
+```
+
+음식점 등록 기능을 위한 컨테이너 역할의 스크린 컴포저블을 우선 생성합니다. 이 컴포저블이 상위 컴포저블이며 이곳에 입력 값을 담을 `MutableState` 객체를 생성합니다.
+
+```kotlin
+@Composable
+fun MarkerRegistrationScreen(
+    markerViewModel: MarkerViewModel = hiltViewModel(),
+    onClickNavigation: () -> Unit
+) {
+    val inputText = remember { mutableStateOf("") }
+  
+  
+  	...
+	
+    ServiceSearchBar(
+      hint = stringResource(R.string.text_input_hint_marker_registration),
+      inputText = inputText.value,
+      clearIconVisible = clearIconVisible.value,
+      onRequestQuery = { markerViewModel.searchRestaurants(it) },
+      onValueChange = {
+        inputText.value = it
+        clearIconVisible.value = it.isNotEmpty()
+      }
+    )
+  
+  	...
+}
+```
+
+만들어 둔 커스텀 텍스트 필드 컴포저블을 생성하여 필요한 인자를 전달합니다. 그리고 상위 컴포저블 내에서 필요한 값 외에도 동작도 정의합시다. 입력 이벤트 발생시 입력 상태 값을 최신화합니다.
+
+```kotlin
+@Composable
+fun ServiceSearchBar(
+    hint: String,
+    inputText: String,
+    clearIconVisible: Boolean,
+    onValueChange: (String) -> Unit
+    onRequestQuery: (String) -> Unit
+) {
+    TextField(
+        value = inputText,
+        onValueChange = { onValueChange(it) },
+      	...
+    )  	
+}
+```
+
+커스텀 텍스트 필드 내부에는 TextField가 2차로 값을 받아 화면에 상태 값을 출력합니다. 따라서 `MutableState` 를 상위에 정의하는 것만으로도 실시간 상태 반영이 가능한 컴포저블 구현이 가능합니다. 서비스와 연결된 비즈니스 로직과의 관계가 느슨하다면 선택할 수 있는 방법입니다.
+
+​		
+
+## 닉네임 설정에서 입력 값 관리 - ViewModel
+
+두 번째는 뷰 모델을 상태 홀더로 사용하는 경우입니다. 뷰 모델에 상태 홀더 객체를 생성하여 뷰 모델 내에서 비즈니스 로직을 처리합니다. UI 비즈니스 로직 혹은 서비스 비즈니스 로직이 많거나 복잡할 때 선택할 수 있는 방법입니다.
+
+```kotlin
+@HiltViewModel
+class AuthViewModel @Inject constructor() : ViewModel() {
+
+    private val _inputTextFieldUiState = MutableStateFlow(InputTextFieldUiState())
+    val inputTextFieldUiState: StateFlow<InputTextFieldUiState> get() = _inputTextFieldUiState
+    
+    ...
+}
+```
+
+사용할 수 있는 상태 홀더 객체는 여러 가지가 있는데, 저는 `Flow` 을 사용했습니다. 해당 플로우에 관련 상태 값들이 담긴 데이터 클래스를 전달합니다.
+
+```kotlin
+data class InputTextFieldUiState(
+    val inputText: String = "",
+    val isClearIconVisible: Boolean = false,
+)
+```
+
+텍스트 필드에서 상태 값은 입력 문자열 값과 초기화 버튼입니다. 그래서 이 둘을 묶은 데이터 클래스를 만들고 특정 상태가 변경될 때마다 데이터 클래스의 `copy` 메서드를 이용하여 업데이트합니다.
+
+```kotlin
+fun updateQuery(query: String) {
+    viewModelScope.launch {
+        _inputTextFieldUiState.update {
+            it.copy(
+                inputText = nickname.trim(),
+                isClearIconVisible = nickname.isNotBlank()
+            )
+        }
+    }
+}
+```
+
+플로우의 `update` 메서드를 이용하여 상태 값을 업데이트합니다. 
+
+```kotlin
+@Composable
+fun SignUpScreen(
+    authViewModel: AuthViewModel = hiltViewModel(),
+    onSignUpCancelRequested: () -> Unit,
+    onSuccessfulSignUp: () -> Unit
+) {
+		val inputTextState = authViewModel.inputTextFieldUiState.collectAsStateWithLifecycle()
+  
+ 		...
+  
+    ServiceInputField(
+      hint = stringResource(R.string.text_hint_nickname_sign_up),
+      inputText = inputTextState.value.inputText,
+      clearIconVisible = inputTextState.value.isClearIconVisible,
+      maxLength = 15,
+      label = stringResource(R.string.text_label_sign_up),
+      onValueChange = { authViewModel.updateNickname(it) },
+      onClickTrailingIcon = { authViewModel.updateNickname("") }
+    )
+  
+  	...
+}
+```
+
+뷰 모델에서 상태를 업데이트할 때마다 최신 값을 받도록 스크린 컴포저블에서 구독해야 합니다. 상위 컴포저블 내 `collect` 하면 구독이 시작되어 업데이트 때마다 값을 수신합니다. 그리고 값이 변경됐기 때문에 해당 값을 가지고 있는 하위 컴포저블도 리컴포지션을 진행합니다.
+
+​		
+
+# 정리
+
+지금까지 Material Design에서 제공하는 `TextField` 컴포저블을 활용한 커스텀 필드 제작과 상태 관리를 알아봤습니다. 컴포저블 자체에서 `remember` 를 사용하여 스테이트풀(stateful) 하게 만들거나 좀 더 복잡한 로직을 필요로 하면 뷰 모델을 상태 홀더로 이용할 수 있습니다.
+
+
 
 
 
