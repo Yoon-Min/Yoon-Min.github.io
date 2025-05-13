@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-05-13T14:37:40+09:00</updated>
+  <updated>2025-05-13T15:54:10+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,57 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Android Compose - Material Design을 이용한 Bottom Sheet 구현하기</title>
+    <link href="http://localhost:4000/posts/ComposeBottomSheet/" rel="alternate" type="text/html" title="Android Compose - Material Design을 이용한 Bottom Sheet 구현하기" />
+    <published>2025-05-13T00:00:00+09:00</published>
+  
+    <updated>2025-05-13T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/ComposeBottomSheet/</id>
+    <content src="http://localhost:4000/posts/ComposeBottomSheet/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="Android" />
+    
+    <category term="Compose" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Unsplash의rotekirsche20
+
+Intro
+
+이전 포스팅에서 Material Design에서 제공하는 TextField 활용 방법을 다뤘습니다. 이번에는 텍스트 필드가 아닌 Bottom Sheet 구현 과정을 다뤄보고자 합니다. Material Design에서 제공하는 바텀 시트는 두 가지가 있습니다.
+
+
+
+
+  스탠다드 버전(1)
+  
+    화면의 메인 UI 영역과 공존하며 두 영역 모두를 동시에 보고 상호 작용할 수 있습니다. 메인 UI 영역의 콘텐츠가 자주 스크롤되거나 팬될 때 화면에 기능이나 보조 콘텐츠가 표시되도록 하는 데 일반적으로 사용됩니다. 컴포즈에서는 BottomSheetScaffold로 제공됩니다.
+  
+  모달 버전(2)
+  
+    인라인 메뉴나 간단한 대화의 ...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -203,57 +254,6 @@ Intro
 지난 포스팅에서 스냅샷 개념을 이야기했습니다. 스냅샷을 간단하게 복습해 보면 특정 상태의 시점을 저장하여 독립적으로 해당 시점을 활용할 수 있는 객체입니다. 이러한 특징으로 깃(Git)과 유사하다는 언급도 했었는데요, 이번 글에서는 스냅샷 기반으로 동작하는 가변 상태 객체에 대해서 정리해 보겠습니다.
 
 시작하기 앞서 가볍게 MutableState 개념에 대해서 짚고 넘어가겠습니다. ...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android Compose UI State - Sanpshot 시스템</title>
-    <link href="http://localhost:4000/posts/ComposeSnapshot/" rel="alternate" type="text/html" title="Android Compose UI State - Sanpshot 시스템" />
-    <published>2025-03-02T00:00:00+09:00</published>
-  
-    <updated>2025-03-28T23:23:52+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ComposeSnapshot/</id>
-    <content src="http://localhost:4000/posts/ComposeSnapshot/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="Compose" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      사진: Unsplash의sarandy westfall
-
-​
-
-Compose UI State 포스팅 현황
-
-
-  Android Compose UI State - Sanpshot 시스템
-  Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?
-
-
-​
-
-Intro
-
-안드로이드의 최신 UI 제작 킷인 컴포즈는 상태를 등록하면 자동으로 관찰 및 수정을 처리하는 특징을 가지고 있습니다. 덕분에 컴포즈를 사용하는 개발자는 단순히 상태를 전달하기만 하면 되고, 상태가 변경됐을 때 이를 적용하는 수고를 컴포즈 런타임이 대신합니다. 이를 가능하게 만드는 대표 객체중 하나가 MutableState 입니다. 해당 상태 객체에 값을 저장하고 UI 데이터로 초기...
     </summary>
   
 
