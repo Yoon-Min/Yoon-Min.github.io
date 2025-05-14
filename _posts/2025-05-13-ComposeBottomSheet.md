@@ -39,11 +39,97 @@ render_with_liquid: true
 
 # BottomSheetScaffold
 
+```kotlin
+@Composable
+@ExperimentalMaterial3Api
+fun BottomSheetScaffold(
+    sheetContent: @Composable ColumnScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    scaffoldState: BottomSheetScaffoldState = rememberBottomSheetScaffoldState(),
+    sheetPeekHeight: Dp = BottomSheetDefaults.SheetPeekHeight,
+    sheetMaxWidth: Dp = BottomSheetDefaults.SheetMaxWidth,
+    sheetShape: Shape = BottomSheetDefaults.ExpandedShape,
+    sheetContainerColor: Color = BottomSheetDefaults.ContainerColor,
+    sheetContentColor: Color = contentColorFor(sheetContainerColor),
+    sheetTonalElevation: Dp = 0.dp,
+    sheetShadowElevation: Dp = BottomSheetDefaults.Elevation,
+    sheetDragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
+    sheetSwipeEnabled: Boolean = true,
+    topBar: @Composable (() -> Unit)? = null,
+    snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
+    containerColor: Color = MaterialTheme.colorScheme.surface,
+    contentColor: Color = contentColorFor(containerColor),
+    content: @Composable (PaddingValues) -> Unit
+) {
+    BottomSheetScaffoldLayout(
+        modifier = modifier,
+        topBar = topBar,
+        body = { content(PaddingValues(bottom = sheetPeekHeight)) },
+        snackbarHost = { snackbarHost(scaffoldState.snackbarHostState) },
+        sheetOffset = { scaffoldState.bottomSheetState.requireOffset() },
+        sheetState = scaffoldState.bottomSheetState,
+        containerColor = containerColor,
+        contentColor = contentColor,
+        bottomSheet = {
+            StandardBottomSheet(
+                state = scaffoldState.bottomSheetState,
+                peekHeight = sheetPeekHeight,
+                sheetMaxWidth = sheetMaxWidth,
+                sheetSwipeEnabled = sheetSwipeEnabled,
+                shape = sheetShape,
+                containerColor = sheetContainerColor,
+                contentColor = sheetContentColor,
+                tonalElevation = sheetTonalElevation,
+                shadowElevation = sheetShadowElevation,
+                dragHandle = sheetDragHandle,
+                content = sheetContent
+            )
+        }
+    )
+}
+```
 
+컴포즈에서 제공하는 스탠다드 버전 바텀 시트입니다. 위에서 설명했듯이 바텀 시트 영역을 담당하는 컴포저블과 시트 뒤의 배경 영역을 담당하는 컴포저블까지 두 개의 컴포저블 구현이 필요합니다. 배경 영역은 `content` , 바텀 시트 영역은 `sheetContent` 에 정의합니다.
 
+​		
 
+## 주요 파라미터
 
+### sheetContent
 
+![1](/assets/img/post/branch10/4.png)
+
+바텀 시트에 표시될 콘텐츠를 정의하는 컴포저블입니다. 위 사진처럼 지도와 마커가 배경을 차지하고 해당 영역과 상호작용(마커 필터링)하기 위한 컴포저블을 이곳에 정의합니다.
+
+​		
+
+### scaffoldState
+
+바텀 시트의 상태를 제어하는 객체입니다. 확장 및 닫힘 상태를 제어하거나 조회할 수 있습니다. 또한 확장이나 닫힘 상태로 바뀜에 따라 변화하는 위치 값도 수신 가능합니다. 만약 특정 상태나 조건에 따라 바텀 시트 상태를 제어하려면 외부에서 `rememberBottomSheetScaffoldState()` 를 만들어 관리하면 됩니다.
+
+​		
+
+### sheetPeekHeight
+
+바텀 시트가 닫힌 상태에서의 높이를 의미합니다. 모달 버전과 다르게 스탠다드 버전은 바텀 시트를 일부 노출시켜 사용자가 이를 끌어올려 확인할 수 있도록 기본 높이 값 지정을 지원합니다. 기능 요구사항에 따라 음식점 검색 옵션 텍스트 헤더가 보일만큼 기본 높이 값을 조정하면 됩니다.
+
+```kotlin
+sheetPeekHeight: Dp = BottomSheetDefaults.SheetPeekHeight
+// BottomSheetDefaults.SheetPeekHeight
+val SheetPeekHeight = 56.dp
+```
+
+개발자가 따로 높이 값을 지정하지 않으면 파라미터 기본 값에 따라 `56.dp` 로 초기 설정됩니다.
+
+​				
+
+### sheetShape
+
+바텀 시트 모양을 설정합니다. 바텀 시트 기본 형태는 `RoundCornerShape` 에 상단 `28.dp` 입니다. 디자인에 따라 기본 형태와 Dp 값을 설정하시면 되겠습니다.
+
+​		
+
+### sheetDragHandle
 
 
 
