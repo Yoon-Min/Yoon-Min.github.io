@@ -149,13 +149,147 @@ val SheetPeekHeight = 56.dp
 
 `Content` 및 `SheetContent` 영역의 컴포저블 제작은 완료됐다고 가정하고 다음 작업으로 넘어 가겠습니다. 이제 바텀 시트의 초기 높이 값을 지정해야 합니다. 기능 요구사항과 같이 음식점 검색 옵션 텍스트 헤더만 보이게 높이를 정확하게 설정해야 합니다. 
 
+따라서 먼저 텍스트 헤더의 높이 값을 구해 봅시다. 텍스트 헤더를 지닌 로우 컴포저블의 높이는 `Modifier` 의 `onGloballyPositioned` 메서드를 통해 얻을 수 있습니다. 컴포저블 레이아웃 `size` 에 접근하여 `height` 에 접근합니다.
+
+​		
+
+### onGloballyPositioned
+
+```kotlin
+Row(
+    Modifier.onGloballyPositioned { coordinates ->
+    	coordinates.size.height // Row 레이아웃의 height 값 (pixel)
+    }
+)
+```
+
+하지만 이 높이 값은 `Dp` 가 아닌 픽셀 값이기 때문에 그대로 사용하면 실제 높이 값과는 전혀 다른 값이 사용될 겁니다. `Dp` 로 변환하기 위해서는 픽셀 값을 모바일 디바이스가 가진 디스플레이 `Density` 값으로 나누어야 합니다. (운영체제가 동일한 안드로이드여도 기기마다 디스플레이 밀도가 다르기 때문)
+
+​		
+
+### Density
+
+```kotlin
+val density = LocalDensity.current.density
+
+@OptIn(InternalComposeApi::class)
+inline val current: T
+    @ReadOnlyComposable @Composable get() = currentComposer.consume(this)
+```
+
+디스플레이 밀도는 위와 같이 쉽게 구할 수 있습니다. 대신 `current` 는 컴포저블 특성을 가지기 때문에 밀도 값을 구할 때는 컴포저블 내에서 호출해야 합니다.
+
+```kotlin
+Row(
+    Modifier.onGloballyPositioned { coordinates ->
+    	coordinates.size.height / density
+    }
+)
+```
+
+구한 밀도 값을 위와 같이 레이아웃 높이 값에 나누면 실제 로우 컴포저블 레이아웃의 높이 `Dp` 값을 얻습니다.
+
+​		
+
+### DrageHandle
+
+```kotlin
+@Composable
+fun DragHandle(
+    modifier: Modifier = Modifier,
+    width: Dp = SheetBottomTokens.DockedDragHandleWidth,
+    height: Dp = SheetBottomTokens.DockedDragHandleHeight,
+    shape: Shape = MaterialTheme.shapes.extraLarge,
+    color: Color = SheetBottomTokens.DockedDragHandleColor.value,
+) {
+    val dragHandleDescription = getString(Strings.BottomSheetDragHandleDescription)
+    Surface(
+        modifier =
+            modifier.padding(vertical = DragHandleVerticalPadding).semantics {
+                contentDescription = dragHandleDescription
+            },
+        color = color,
+        shape = shape
+    ) {
+        Box(Modifier.size(width = width, height = height))
+    }
+}
+
+private val DragHandleVerticalPadding = 22.dp
+
+internal object SheetBottomTokens {
+    val DockedContainerColor = ColorSchemeKeyTokens.SurfaceContainerLow
+    val DockedContainerShape = ShapeKeyTokens.CornerExtraLargeTop
+    val DockedDragHandleColor = ColorSchemeKeyTokens.OnSurfaceVariant
+    val DockedDragHandleHeight = 4.0.dp
+    val DockedDragHandleWidth = 32.0.dp
+    val DockedMinimizedContainerShape = ShapeKeyTokens.CornerNone
+    val DockedModalContainerElevation = ElevationTokens.Level1
+    val DockedStandardContainerElevation = ElevationTokens.Level1
+    val FocusIndicatorColor = ColorSchemeKeyTokens.Secondary
+}
+```
+
+텍스트 헤더의 높이 값을 구했으니 다음은 드래그 핸들 컴포저블의 높이 값을 구해야 합니다. 이 값은 위에서 설명한 대로 `32 X 4` 크기의 드래그 핸들 박스에 `vertical` 패딩이 `22Dp` 로 기본 설정되어 있습니다. 내부 코드에서 확인 가능합니다. 따라서 드래그 핸들의 높이 값은 `22 + 4 + 22 = 48Dp` 입니다.
+
+​		
+
+### Bottom Navigation Padding
+
+![1](/assets/img/post/branch10/10.png){: width="300" .normal}![1](/assets/img/post/branch10/9.png){: width="300" .normal}
+
+하지만 문제가 아직 남아 있습니다. 앞에서 구한 값을 합쳐서 드래그 핸들과 텍스트 헤더까지 화면 영역에 노출시키는 것은 성공했으나 바텀 네비게이션 영역과 겹칩니다. 이를 통해 기존 설정 높이(드래그 핸들 높이 값 + 텍스트 헤더 높이 값)에 바텀 네비게이션 높이 값까지 추가해야 하는 것을 알았습니다.
+
 ![1](/assets/img/post/branch10/7.png){: width="300" .normal}![1](/assets/img/post/branch10/8.png){: width="300" .normal}
 
-하지만 사용자가 사용하는 디바이스 내 바텀 네비게이션 타입에 따라 필요한 높이 값이 다른 변수가 존재합니다. 동작 탐색 모드 기반 바텀 네비게이션은 높이가 매우 낮은 반면에 N버튼 탐색 모드는 높이가 매우 큽니다.
+사용자가 사용하는 디바이스 내 바텀 네비게이션 타입에 따라 필요한 높이 값이 다른 변수가 존재합니다. 동작 탐색 모드 기반 바텀 네비게이션은 높이가 매우 낮은 반면에 N버튼 탐색 모드는 높이가 매우 큽니다.
 
+```kotlin
+WindowInsets.Companion.navigationBars.asPaddingValues().calculateBottomPadding()
+```
 
+바텀 네비게이션의 높이는 패딩 값을 의미합니다. 따라서 위 코드를 통해 높이 값을 구할 수 있습니다. 디스플레이 밀도 값과 마찬가지로 `asPaddingValues()` 메서드도 컴포저블이기 때문에 컴포저블 내에서 네비게이션 패딩 값을 요청해야 합니다.
 
- 
+​		
 
+### 높이 조정 완료
 
+```kotlin
+BottomSheetScaffold(
+    sheetPeekHeight = /* (바텀 네비게이션 높이 + 타이틀 헤더 높이 + 드래그 핸들 높이).Dp */
+)
+```
+
+위에서 구한 세 가지 값을 바텀 시트 기본 높이로 설정합니다.
+
+![1](/assets/img/post/branch10/11.png){: width="300" .normal}![1](/assets/img/post/branch10/12.png){: width="300" .normal}
+
+바텀 시트의 높이 조정이 완료되었습니다! 이제 모바일 디바이스의 종류, 바텀 네비게이션 모드 상관없이 정확히 타이틀 헤더까지 사용자에게 노출시킬 수 있습니다.
+
+​		
+
+### 버튼 그룹 높이 조정
+
+```kotlin
+@Composable
+fun MapButtonGroup(
+		...
+) {
+    Box(
+        modifier = Modifier.padding(bottom = /* 위에서 설정한 바텀 시트 기본 높이 값 + 10.dp */)
+        ...
+    ) {
+    	...
+    }
+    ...
+}
+```
+
+ 바텀 시트의 높이를 완벽히 조정했으니, 이제 `content` 영역에 존재하는 버튼 그룹의 높이를 설정할 수 있습니다. 버튼 그룹의 위치 설정은 바텀 패딩 값을 설정해서 해결할 수 있습니다. 바텀 시트의 높이 값 + 간격 값을 설정하면 됩니다. 저는 바텀 시트와 버튼 그룹 사이의 간격을 `10.dp` 로 설정하겠습니다.
+
+![1](/assets/img/post/branch10/13.png){: width="300" .normal}![1](/assets/img/post/branch10/14.png){: width="300" .normal}
+
+​		
+
+# ModalBottomSheet
 
