@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-05-17T21:06:59+09:00</updated>
+  <updated>2025-05-17T21:09:36+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/ComposeBottomSheet/" rel="alternate" type="text/html" title="Android Compose - Material Design을 이용한 Bottom Sheet 구현하기" />
     <published>2025-05-17T00:00:00+09:00</published>
   
-    <updated>2025-05-17T00:00:00+09:00</updated>
+    <updated>2025-05-17T21:09:15+09:00</updated>
   
     <id>http://localhost:4000/posts/ComposeBottomSheet/</id>
     <content src="http://localhost:4000/posts/ComposeBottomSheet/" />
