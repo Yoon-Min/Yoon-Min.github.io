@@ -291,5 +291,251 @@ fun MapButtonGroup(
 
 ​		
 
+### 완성된 바텀 시트 동작 최종 확인하기
+
+![1](/assets/img/post/branch10/15.gif){: width="300" .normal}
+
+​		
+
 # ModalBottomSheet
+
+```kotlin
+@Composable
+@ExperimentalMaterial3Api
+fun ModalBottomSheet(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    sheetState: SheetState = rememberModalBottomSheetState(),
+    sheetMaxWidth: Dp = BottomSheetDefaults.SheetMaxWidth,
+    shape: Shape = BottomSheetDefaults.ExpandedShape,
+    containerColor: Color = BottomSheetDefaults.ContainerColor,
+    contentColor: Color = contentColorFor(containerColor),
+    tonalElevation: Dp = 0.dp,
+    scrimColor: Color = BottomSheetDefaults.ScrimColor,
+    dragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
+    contentWindowInsets: @Composable () -> WindowInsets = { BottomSheetDefaults.windowInsets },
+    properties: ModalBottomSheetProperties = ModalBottomSheetDefaults.properties,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    val animateToDismiss: () -> Unit = {
+        if (sheetState.anchoredDraggableState.confirmValueChange(Hidden)) {
+            scope
+                .launch { sheetState.hide() }
+                .invokeOnCompletion {
+                    if (!sheetState.isVisible) {
+                        onDismissRequest()
+                    }
+                }
+        }
+    }
+    val settleToDismiss: (velocity: Float) -> Unit = {
+        scope
+            .launch { sheetState.settle(it) }
+            .invokeOnCompletion { if (!sheetState.isVisible) onDismissRequest() }
+    }
+
+    val predictiveBackProgress = remember { Animatable(initialValue = 0f) }
+
+    ModalBottomSheetDialog(
+        properties = properties,
+        onDismissRequest = {
+            if (sheetState.currentValue == Expanded && sheetState.hasPartiallyExpandedState) {
+                // Smoothly animate away predictive back transformations since we are not fully
+                // dismissing. We don't need to do this in the else below because we want to
+                // preserve the predictive back transformations (scale) during the hide animation.
+                scope.launch { predictiveBackProgress.animateTo(0f) }
+                scope.launch { sheetState.partialExpand() }
+            } else { // Is expanded without collapsed state or is collapsed.
+                scope.launch { sheetState.hide() }.invokeOnCompletion { onDismissRequest() }
+            }
+        },
+        predictiveBackProgress = predictiveBackProgress,
+    ) {
+        Box(modifier = Modifier.fillMaxSize().imePadding().semantics { isTraversalGroup = true }) {
+            Scrim(
+                color = scrimColor,
+                onDismissRequest = animateToDismiss,
+                visible = sheetState.targetValue != Hidden,
+            )
+            ModalBottomSheetContent(
+                predictiveBackProgress,
+                scope,
+                animateToDismiss,
+                settleToDismiss,
+                modifier,
+                sheetState,
+                sheetMaxWidth,
+                shape,
+                containerColor,
+                contentColor,
+                tonalElevation,
+                dragHandle,
+                contentWindowInsets,
+                content
+            )
+        }
+    }
+    if (sheetState.hasExpandedState) {
+        LaunchedEffect(sheetState) { sheetState.show() }
+    }
+}
+```
+
+다음으로 모달 버전 바텀 시트입니다. 스탠다드 버전의 바텀 시트와는 다르게 배경 영역이 필요하지 않습니다. 그래서 배경 영역을 채울 수 있는 컴포저블 파라미터가 아닌 단순 배경 색상을 정할 수 있는 파라미터만 존재합니다. 그것이 `scrimColor` 입니다.
+
+​		
+
+## 주요 파라미터
+
+### onDismissRequest
+
+유저가 바텀시트 외부를 클릭했을 때 실행됩니다. 시트가 숨겨진 상태로 애니메이션된 후 호출됩니다. 보통 바텀 시트는 특정 조건이 충족되면 `show()` 혹은 `hide()` 됩니다. 기능 요구사항에 따르면 특정 지도 아이템의 오른쪽 상단 옵션 버튼에 의해 메뉴 바텀 시트가 보여야 합니다.
+
+따라서 옵션 버튼이 클릭됐을 때를 구분하는 논리형 상태 값을 하나 추가하여 `true` 라면 바텀 시트 컴포저블을 생성, `false` 라면 바텀 시트를 닫게 설계합니다. 설계 방식은 밑에서 자세히 풀어 보겠습니다.
+
+​		
+
+### sheetState
+
+스탠다드 버전 바텀 시트와 마찬가지로 모달 버전도 시트 상태 객체를 지니고 있습니다. 이 상태 값으로 바텀 시트를 조건에 따라 열고 닫을 수 있습니다.
+
+```kotlin
+@ExperimentalMaterial3Api
+enum class SheetValue {
+    /** The sheet is not visible. */
+    Hidden,
+
+    /** The sheet is visible at full height. */
+    Expanded,
+
+    /** The sheet is partially visible. */
+    PartiallyExpanded,
+}
+```
+
+바텀 시트 상태는 세 가지로 정의되어 있습니다. 각각 완전히 보이지 않는 상태, 열린 상태, 부분적으로 열린 상태입니다. 그래서 바텀 시트를 열고 닫을 때 위 세 가지 상태가 순환합니다.
+
+​		
+
+### scrimColor
+
+바텀 시트 배경 영역의 색상을 정하는 파라미터입니다. 다이얼로그의 배경이 어두운 것처럼 모달 바텀 시트도 배경 영역을 건들 수 없기 때문에 배경이 어둡습니다. 배경을 어둡게 처리해야 사용자가 배경 영역은 건들 수 없음을 인지하니까요.
+
+​		
+
+## 바텀 시트 열고 닫는 동작 구체화
+
+```kotlin
+@Composable
+fun HomeScreen(
+    mapViewModel: MapViewModel = hiltViewModel(),
+) {
+      Box(
+        modifier = Modifier
+            .background(AppServiceColors.white)
+            .fillMaxSize()
+    ) {
+        ...
+        
+        MapList(
+            mapList = mapFilterUiState.value.mapList,
+            onClickMenuOption = { map -> mapViewModel.initMenuBottomSheet(map) }
+				)
+        
+        ...
+    }
+}
+```
+
+최상위 컴포저블(스크린 컨테이너)에 지도 목록을 리스트로 보여줄 컴포저블을 호출합니다. 최상위 컴포저블 영역은 뷰 모델 참조 변수를 가지고 있기 때문에 이곳에 뷰 모델에 특정 작업을 요청하는 동작을 정의해서 하위 컴포저블에 전달합니다.
+
+지도 아이템 옵션 버튼을 클릭하면 해당 지도 아이템 정보가 담긴 메뉴 바텀 시트를 출력하는 트리거(상태 값)는 뷰 모델이 관리하고 있습니다.
+
+​		
+
+### MapList
+
+```		kotlin
+LazyColumn(
+    modifier = modifier,
+    verticalArrangement = Arrangement.spacedBy(12.dp),
+    contentPadding = PaddingValues(bottom = navigationPadding)
+) {
+    items(
+        items = mapList,
+        key = { it.id }
+    ) { map ->
+        MapItem(
+            modifier = Modifier.fillMaxWidth(),
+            item = map,
+            onClickOption = { onClickMenuOption(map) }
+        )
+    }
+}
+```
+
+`MapList` 컴포저블은 지도 목록을 `LazyColumn` 으로 표시하고 각 아이템마다 위와 같이 단일 지도 정보와 옵션 버튼 클릭 이벤트를 인자로 전달합니다. 
+
+​		
+
+### MapItem
+
+```kotlin
+MapItem(
+	mapItem: MapModel,
+	onClickOption: () -> Unit,
+	...
+)
+```
+
+실제 지도 목록의 아이템을 이 컴포저블에 정의합니다. 클릭할 수 있는 옵션 버튼 하나를 제외하고 모두 지도 아이템에 대한 정보를 표시하기 때문에 필수 파라미터는 위 두 개로 충분합니다. 최상위 컴포저블에서 정의한 옵션 클릭 이벤트를 옵션 아이콘의 `onClick` 인자로 전달합니다.
+
+​		
+
+### In ViewModel
+
+```kotlin
+fun initMenuBottomSheet(selectedMapItem: MapModel? = null) {
+    viewModelScope.launch {
+        _mapMenuUiState.update { it.copy(mapItem = selectedMapItem) }
+    }
+}
+```
+
+뷰 모델은 트리거 역할을 하는 논리형 상태 값을 초기화하여 이를 최상위 컴포저블에 알립니다. 
+
+```kotlin
+@Composable
+fun HomeScreen(
+    mapViewModel: MapViewModel = hiltViewModel(),
+) {
+  	val mapMenuUiState = mapViewModel.mapMenuUiState.collectAsStateWithLifecycle()
+  	
+  	...
+  
+    mapMenuUiState.value.mapItem?.let {
+        MapItemOptionBottomSheet(
+            ...
+        )
+    }
+  
+  	...
+}
+```
+
+컴포저블은 업데이트된 뷰 모델의 트리거(지도 아이템 정보) 값을 받습니다. 이제 `mapItem` 이 `null` 이 아니기 때문에 지도 메뉴 바텀 시트 역할을 하는 `MapItemOptionBottomSheet` 컴포저블이 생성됩니다.
+
+```kotlin
+MapItemOptionBottomSheet(
+    onDismissRequest = { mapViewModel.initMenuBottomSheet() }
+    ...
+)
+```
+
+바텀 시트를 닫을 때는 생성할 때와 마찬가지로 뷰 모델 내 트리거(상태 값)를 업데이트 해줘야 합니다. 닫을 때는 `null` 로 설정하여 사라지게 합니다.
+
+​		
+
+## 상태 전환 애니메이션
 
