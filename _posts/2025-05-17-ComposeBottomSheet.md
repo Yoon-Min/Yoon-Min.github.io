@@ -291,7 +291,7 @@ fun MapButtonGroup(
 
 ​		
 
-### 완성된 바텀 시트 동작 최종 확인하기
+## 완성된 바텀 시트 동작 최종 확인하기
 
 ![1](/assets/img/post/branch10/15.gif){: width="300" .normal}
 
@@ -537,5 +537,110 @@ MapItemOptionBottomSheet(
 
 ​		
 
-## 상태 전환 애니메이션
+### 바텀 시트가 없어질 때 문제점
+
+```kotlin
+// 바텀 시트를 생성할 때
+if (sheetState.hasExpandedState) {
+    LaunchedEffect(sheetState) { sheetState.show() }
+}
+
+// sheetState의 show() 내부 코드
+suspend fun show() {
+    val targetValue =
+        when {
+            hasPartiallyExpandedState -> PartiallyExpanded
+            else -> Expanded
+        }
+    animateTo(targetValue)
+}
+```
+
+Material Design에서 제공하는 바텀 시트를 사용하면 한 가지 디테일을 신경써야 합니다. 생성할 때는 아래에서 위로 올라오는 슬라이드 애니메이션이 연출됩니다. 그러나 바텀 시트를 **제거할 때 주의할 점**이 있습니다.
+
+모달 바텀 시트를 제거하는 방법은 **배경 영역을 터치하여 포커스를 바텀 시트로부터 뺏어서 닫게 만드는 방법**과 직접 **바텀 시트 내부에 버튼을 구현하여 닫게 만드는 방법**이 있습니다.
+
+```kotlin
+// 포커스가 배경으로 옮겨질 때
+val animateToDismiss: () -> Unit = {
+    if (sheetState.anchoredDraggableState.confirmValueChange(Hidden)) {
+        scope
+            .launch { sheetState.hide() }
+            .invokeOnCompletion {
+                if (!sheetState.isVisible) {
+                    onDismissRequest()
+                }
+            }
+    }
+}
+
+// sheetState의 hide() 내부 코드
+suspend fun hide() {
+    check(!skipHiddenState) {
+        "Attempted to animate to hidden when skipHiddenState was enabled. Set skipHiddenState" +
+            " to false to use this function."
+    }
+    animateTo(Hidden)
+}
+```
+
+전자는 내부적으로 이미 구현되어 있어서 확장때와 마찬가지로 슬라이드 애니메이션이 적용됩니다. 그래서 이 방법은 문제가 되지 않습니다.
+
+![1](/assets/img/post/branch10/16.gif){: width="300" .normal}
+
+그러나 후자는 애니메이션이 적용되지 않아서 위 이미지처럼 제거될 때 굉장히 부자연스럽습니다. 바텀 시트 내용물의 잔상이 보이는 것과 생성할 때와 제거할 때 동작의 통일성이 없는 것이 마음에 들지 않습니다.
+
+​		
+
+## 직접 애니메이션 적용하기
+
+이것을 해결하려면 직접 애니메이션을 추가해야 합니다. 다행이도 직접 애니메이션 관련 객체나 컴포저블을 가져올 필요는 없고 `SheetState` 객체에서 `hide` 를 직접 호출하면 됩니다. 하이드 메서드 자체에 애니메이션 코드가 있으니까요.
+
+```kotlin
+val animateToDismiss: () -> Unit = {
+    if (sheetState.anchoredDraggableState.confirmValueChange(Hidden)) {
+        scope
+            .launch { sheetState.hide() } // 1. 애니메이션 효과와 함께 바텀 시트를 숨김
+            .invokeOnCompletion { // 2. hide() 실행이 완료되면
+                if (!sheetState.isVisible) { // 3. 바텀 시트가 현재 숨겨진 상태인지 확인
+                    onDismissRequest() // 4. 직접 필요한 작업 진행
+                }
+            }
+    }
+}
+```
+
+그리고 내부 코드에 이미 힌트가 존재합니다. 위의 모달 바텀 시트 내부 코드를 보면 바텀 시트를 애니메이션 효과와 함께 하이드한 뒤, 필요한 작업을 수행합니다. 이런 식으로 바텀 시트 내 취소 버튼 클릭 이벤트 동작을 정의하면 되겠습니다.
+
+```kotlin
+suspend fun hide() {
+    check(!skipHiddenState) {
+        "Attempted to animate to hidden when skipHiddenState was enabled. Set skipHiddenState" +
+            " to false to use this function."
+    }
+    animateTo(Hidden)
+}
+```
+
+주의할 점은 `hide` 동작은 `suspend` 함수이기 때문에 코루틴 영역에서 실행되어야 합니다. 그래서 코루틴 영역을 불러올 수 있는 영역에서 해당 동작을 정의하시기 바랍니다.
+
+![1](/assets/img/post/branch10/17.gif){: width="300" .normal}
+
+이제 바텀 시트의 취소 버튼을 눌러서 닫아도 자연스럽게 닫힙니다. 움직임이 굉장히 자연스러워졌네요. 위처럼 특정 조건에서 바텀 시트를 직접 닫아야 하는 경우 참고하시면 좋을 것 같습니다.
+
+​		
+
+## 완성된 바텀 시트 동작 최종 확인하기
+
+![1](/assets/img/post/branch10/18.gif){: width="300" .normal}
+
+​		
+
+# 정리
+
+지금까지 Material Design에서 제공하는 두 가지 바텀 시트 컴포저블을 알아보고 응용해 봤습니다. 스탠다드 바텀 시트는 배경 영역과 바텀 시트 영역을 동시에 정의하고 서로 상호작용할 때 사용합니다. 반면에 모달 바텀 시트는 바텀 시트만 포커스를 고정합니다. 배경은 다이얼로그처럼 사용하지 않습니다.
+
+단순한 구조의 바텀 시트를 구현해야 한다면 이 두 가지 바텀 시트면 충분하다고 생각합니다. 내부 구조도 파악하기 쉽고 기본적인 커스텀도 어렵지 않게 할 수 있습니다.
+
+하지만 조금 복잡한 디자인 요구사항을 따라야 한다면 직접 바텀 시트를 구현하는 것이 좋을수도 있습니다. 기능 요구사항과 마테리얼 디자인이 제공하는 두 바텀 시트의 변경 가능한 요소를 잘 비교하여 판단하시면 될 것 같습니다.
 
