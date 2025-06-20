@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yoon-Min</title>
   <subtitle>모르는 게 많으니까 기록하는 공간</subtitle>
-  <updated>2025-05-17T21:09:36+09:00</updated>
+  <updated>2025-06-20T16:55:44+09:00</updated>
   <author>
     <name>SeungMinYoon</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,60 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>드로이드나이츠 2025 후기</title>
+    <link href="http://localhost:4000/posts/droidknights2025/" rel="alternate" type="text/html" title="드로이드나이츠 2025 후기" />
+    <published>2025-06-20T00:00:00+09:00</published>
+  
+    <updated>2025-06-20T00:00:00+09:00</updated>
+  
+    <id>http://localhost:4000/posts/droidknights2025/</id>
+    <content src="http://localhost:4000/posts/droidknights2025/" />
+    <author>
+      <name>yoonmin</name>
+    </author>
+
+  
+    
+    <category term="블로그" />
+    
+    <category term="회고록" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      사진: Droid Knights
+
+가장 가보고 싶었던 컨퍼런스, 드디어~
+
+안드로이드 개발을 시작하면서 가장 가보고 싶었던 컨퍼런스에 드디어 다녀왔다. 아침부터 저녁까지 세션이 진행되어서 몸은 피곤했지만 매우 유익한 시간이었다. 기대 이상으로 여러 좋은 세션들을 듣고 배울 수 있어서 매우 만족스러웠다. 이번 포스팅은 드로이드나이츠에서 들었던 세션들을 아주 간단하게 복기하는 시간을 가지고자 한다.
+
+​
+
+세션 테이블
+
+
+
+오전 타임
+
+나는 관심 있는 내용이 트랙2에 몰려 있어서 대부분 TRACK2 강연실에서 세션을 들었다. 오전 타임은 두 개의 세션만 진행되었는데 둘 다 매우 즐겁게 발표를 들었다.
+
+ReadMoreTextView: 텍스트 ‘더보기’
+
+텍스트 더보기 는 나도 최근에 도입을 고민했던 기능이...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -201,59 +255,6 @@ Intro
 Chirpy 테마에서 제시하는 이미지 첨부 방법
 
 제가 사용하고 있는 블로그 테마는 Chirpy입니다. 해당 테마는 이미지 첨부를 로컬 폴더에 저장해서 경로를 명시하는 방식으로 할 것을 추...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>Android Compose UI State - MutableState  상태 자동 업데이트</title>
-    <link href="http://localhost:4000/posts/ComposeStateDetection/" rel="alternate" type="text/html" title="Android Compose UI State - MutableState  상태 자동 업데이트" />
-    <published>2025-03-28T00:00:00+09:00</published>
-  
-    <updated>2025-03-28T23:23:52+09:00</updated>
-  
-    <id>http://localhost:4000/posts/ComposeStateDetection/</id>
-    <content src="http://localhost:4000/posts/ComposeStateDetection/" />
-    <author>
-      <name>yoonmin</name>
-    </author>
-
-  
-    
-    <category term="Android" />
-    
-    <category term="Compose" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      사진: Unsplash의Bryan Brittos
-
-​
-
-Compose UI State 포스팅 현황
-
-
-  Android Compose UI State - Sanpshot 시스템
-  Android Compose UI State - 어떻게 MutableState의 변경사항은 자동으로 처리될 수 있을까?  
-
-
-​
-
-Intro
-
-지난 포스팅에서 스냅샷 개념을 이야기했습니다. 스냅샷을 간단하게 복습해 보면 특정 상태의 시점을 저장하여 독립적으로 해당 시점을 활용할 수 있는 객체입니다. 이러한 특징으로 깃(Git)과 유사하다는 언급도 했었는데요, 이번 글에서는 스냅샷 기반으로 동작하는 가변 상태 객체에 대해서 정리해 보겠습니다.
-
-시작하기 앞서 가볍게 MutableState 개념에 대해서 짚고 넘어가겠습니다. ...
     </summary>
   
 
